@@ -1,0 +1,1 @@
+pscp -scp C:\Users\alexa\IdeaProjects\WRO2020\out\artifacts\WRO_jar\WRO.jar root@192.168.137.247:/home/lejos/programs

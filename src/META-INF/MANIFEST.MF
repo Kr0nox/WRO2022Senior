@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: RunWRO
+Class-Path: /home/root/lejos/lib/ev3classes.jar /home/root/lejos/libjna/usr/share/java/jna.jar
+
