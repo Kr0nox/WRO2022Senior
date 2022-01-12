@@ -1,7 +1,10 @@
+package team.brickfire;
+
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
+import team.brickfire.RobotParts.Robot;
 
 public class RunWRO {
 
