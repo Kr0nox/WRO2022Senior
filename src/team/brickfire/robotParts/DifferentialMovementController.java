@@ -75,7 +75,7 @@ public class DifferentialMovementController extends MovementController {
                 wheelLeft.getMotor().backward();
                 wheelRight.getMotor().forward();
             }
-        } while (Math.abs(vl[0] - vr[0]) < FINAL_ADJUSTMENT_FOR_LINE_SQUARING);
+        } while (Math.abs(vl[0] - vr[0]) < finalAdjustmentForSquaring);
     }
 
     /**
