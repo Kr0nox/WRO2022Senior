@@ -23,7 +23,7 @@ public abstract class MovementController {
     /**
      * Maximum difference between the reflected light of the two color sensors
      */
-    protected static final float FINAL_ADJUSTMENT_FOR_LINE_SQUARING = 0.1f;
+    protected final float FINAL_ADJUSTMENT_FOR_LINE_SQUARING = 0.1f;
 
     protected final Wheel wheelLeft;
     protected final Wheel wheelRight;
