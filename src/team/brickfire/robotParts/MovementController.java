@@ -1,11 +1,5 @@
 package team.brickfire.robotParts;
 
-import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import lejos.hardware.port.Port;
-import lejos.hardware.port.TachoMotorPort;
-import lejos.hardware.port.UARTPort;
-import lejos.robotics.Color;
-import lejos.robotics.RegulatedMotor;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
@@ -15,46 +9,23 @@ import lejos.robotics.navigation.MovePilot;
  * Movement happens through lejos MovePilot.
  * Implements or sets template for own methods for the different ways of moving that the MovePilot provides
  * and adds additional features
- * @version 1.0.1
+ * @version 1.1
  * @author Team BrickFire
  */
 public abstract class MovementController {
 
     /**
-     * Maximum difference between the reflected light of the two color sensors
-     */
-    protected final float finalAdjustmentForSquaring = 0.1f;
-
-    protected final RegulatedMotor motorLeft;
-    protected final RegulatedMotor motorRight;
-    /**
      * Controls all Movements
      */
     protected final MovePilot pilot;
 
-    protected final ColorSensor colorSensorLeft;
-    protected final ColorSensor colorSensorRight;
-
     /**
      * Creates an DifferentialMovementController with the given parameters
-     * @param wheelDiameter Diameter of the wheel
-     * @param offset Distance of the wheel from the middle of their axis
-     * @param portMotorLeft Port of the left driving motor
-     * @param portMotorRight Port of the right driving motor
-     * @param sensorLeft Port of the left orientation sensor
-     * @param sensorRight Port of the right orientation sensor
+     * @param wheels Wheels of the robot
      * @param chassisType The type of the WheeledChassis on which the MovePilot operates
      */
-    public MovementController(double wheelDiameter, double offset, Port portMotorLeft,
-                                          Port portMotorRight, Port sensorLeft, Port sensorRight, int chassisType) {
-        this.motorLeft = new EV3LargeRegulatedMotor((TachoMotorPort) portMotorLeft);
-        this.motorRight = new EV3LargeRegulatedMotor((TachoMotorPort) portMotorRight);
-        Wheel wheelLeft = WheeledChassis.modelWheel(this.motorLeft, wheelDiameter).offset(-offset);
-        Wheel wheelRight = WheeledChassis.modelWheel(this.motorRight, wheelDiameter).offset(offset);
-        this.pilot = new MovePilot(new WheeledChassis(new Wheel[] {wheelRight, wheelLeft}, chassisType));
-
-        this.colorSensorLeft = new ColorSensor((UARTPort) sensorLeft);
-        this.colorSensorRight = new ColorSensor((UARTPort) sensorRight);
+    public MovementController(Wheel[] wheels, int chassisType) {
+        this.pilot = new MovePilot(new WheeledChassis(wheels, chassisType));
     }
 
     /**
@@ -129,20 +100,7 @@ public abstract class MovementController {
      * @param speed The speed at which the robot should travel
      * @return 'r' if the right saw the line first, 'l' otherwise
      */
-    public char driveTillLine(boolean forward, double speed) {
-        setLinearSpeed(speed);
-        if (forward) {
-            pilot.forward();
-        } else {
-            pilot.backward();
-        }
-        while (colorSensorRight.getColorID() != Color.BLACK || colorSensorLeft.getColorID() != Color.BLACK);
-        if (colorSensorRight.isColor(Color.BLACK)) {
-            return 'r';
-        } else {
-            return 'l';
-        }
-    }
+    public abstract char driveTillLine(boolean forward, double speed);
 
     /**
      * The robot squares up with a line it drives towards with the given speed
@@ -215,4 +173,10 @@ public abstract class MovementController {
     private void setAngularSpeed(double speed) {
         pilot.setAngularSpeed(checkSpeed(speed));
     }
+
+    /**
+     * Checks whether the robot is still able to move
+     * @return Whether the motors are stalled
+     */
+    public abstract boolean isStalled();
 }
