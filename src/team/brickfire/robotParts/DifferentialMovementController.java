@@ -9,7 +9,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * Controls the movement via a MovePilot.
  * All Movement is differential.
  * Implements own methods for the different ways of moving that the MovePilot provides and adds additional features
- * @version 1.1
+ * @version 1.1.1
  * @author Team BrickFire
  */
 public class DifferentialMovementController extends MovementController {
@@ -28,17 +28,13 @@ public class DifferentialMovementController extends MovementController {
         super(wheelDiameter, offset, motorLeft, motorRight, sensorLeft, sensorRight, WheeledChassis.TYPE_DIFFERENTIAL);
     }
 
-    /**
-     * The robot squares up with a line it drives towards
-     * @param forward The direction in which the robot drives to reach the line
-     * @param speed The speed at which the robot moves
-     */
+    @Override
     public void alignLine(boolean forward, double speed) {
         char finishedFirst = driveTillLine(forward, speed);
-        wheelRight.getMotor().resetTachoCount();
-        wheelLeft.getMotor().resetTachoCount();
-        wheelRight.getMotor().setSpeed((int) speed * 2 / 3);
-        wheelLeft.getMotor().setSpeed((int) speed * 2 / 3);
+        motorLeft.resetTachoCount();
+        motorRight.resetTachoCount();
+        motorLeft.setSpeed((int) speed * 2 / 3);
+        motorRight.setSpeed((int) speed * 2 / 3);
         boolean finishedAll = false;
         while (!finishedAll) {
             if (finishedFirst == 'r' && colorSensorLeft.getColorID() == Color.BLACK) {
@@ -48,7 +44,8 @@ public class DifferentialMovementController extends MovementController {
             }
         }
         // Why this calculation?
-        double distCm = wheelLeft.getMotor().getTachoCount() * 0.0488 / 3.7;
+        int avgTachoCount = (motorLeft.getTachoCount() + motorRight.getTachoCount()) / 2;
+        double distCm = avgTachoCount * 0.0488 / 3.7;
         double degrees = Math.toDegrees(Math.atan(distCm) * (finishedFirst == 'r' ? 1 : -1));
         turn(degrees, speed / 3);
 
@@ -56,49 +53,41 @@ public class DifferentialMovementController extends MovementController {
     }
 
 
-    /**
-     * The robot turns, so both sensor see the same reflected light
-     * @param speed The speed at which robot adjusts
-     */
+    @Override
     public void squareWithLine(double speed) {
-        wheelLeft.getMotor().setSpeed((int) checkSpeed(speed));
-        wheelLeft.getMotor().setSpeed((int) checkSpeed(speed));
-        float[] vl = {1};
-        float[] vr = {1};
+        motorLeft.setSpeed((int) checkSpeed(speed));
+        motorRight.setSpeed((int) checkSpeed(speed));
+        float valueLeft;
+        float valueRight;
         do {
-            colorSensorLeft.getRedMode().fetchSample(vl, 0);
-            colorSensorRight.getRedMode().fetchSample(vr, 0);
-            if (vl[0] > vr[0]) {
-                wheelLeft.getMotor().forward();
-                wheelRight.getMotor().backward();
-            } else if (vl[0] < vr[0]) {
-                wheelLeft.getMotor().backward();
-                wheelRight.getMotor().forward();
+            valueLeft = colorSensorLeft.getReflectedLight();
+            valueRight = colorSensorRight.getReflectedLight();
+            if (valueLeft > valueRight) {
+                motorLeft.forward();
+                motorRight.backward();
+            } else if (valueLeft < valueRight) {
+                motorLeft.backward();
+                motorRight.forward();
             }
-        } while (Math.abs(vl[0] - vr[0]) < finalAdjustmentForSquaring);
+        } while (Math.abs(valueLeft - valueLeft) < finalAdjustmentForSquaring);
+        motorLeft.stop();
+        motorRight.stop();
     }
 
-    /**
-     * Aligns the robot against the wall
-     * @param forward Direction in which the wall is
-     */
+    @Override
     public void alignWall(boolean forward) {
         if (forward) {
             pilot.forward();
         } else {
             pilot.backward();
         }
-        if (wheelLeft.getMotor().isStalled() || wheelRight.getMotor().isStalled()) {
+        if (motorLeft.isStalled() || motorRight.isStalled()) {
             pilot.stop();
         }
     }
 
     // TODO: Line following
-    /**
-     * The Robot follows a black line
-     * @param distance The distance it should drive along the line in cm
-     * @param forward Direction the Robot should drive
-     */
+    @Override
     public void lineFollowing(double distance, boolean forward) {
         // Robot should recognize which sensor is on the line
         throw new NotImplementedException();
