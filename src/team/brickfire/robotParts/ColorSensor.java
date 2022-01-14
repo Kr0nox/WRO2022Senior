@@ -2,6 +2,7 @@ package team.brickfire.robotParts;
 
 import lejos.hardware.port.UARTPort;
 import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.UARTSensor;
 
 /**
  * Implementation of an EV3ColorSensor
@@ -14,8 +15,8 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
      * Creates an EV3 color sensor
      * @param port Port the sensor is plugged into
      */
-    public ColorSensor(UARTPort port) {
-        super(new EV3ColorSensor(port));
+    public ColorSensor(EV3ColorSensor port) {
+        super(port);
     }
 
     /**

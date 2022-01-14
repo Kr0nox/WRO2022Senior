@@ -2,8 +2,11 @@ package team.brickfire;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
+import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
+import lejos.hardware.port.TachoMotorPort;
+import lejos.hardware.sensor.EV3ColorSensor;
 import team.brickfire.actions.ActionsMain;
 import team.brickfire.robotParts.Robot;
 
@@ -12,18 +15,18 @@ import team.brickfire.robotParts.Robot;
  * @version 2.0
  * @author Team BrickFire
  */
-public final class RunWRO {
+public class RunWRO {
 
     // TODO: Test movement
 
     /**
      * The diameter of the wheels
      */
-    public static final double WHEEL_DIAMETER = 0;
+    public static final double WHEEL_DIAMETER = 6.24;
     /**
      * Distance between wheels and center of the drive axis
      */
-    public static final double OFFSET = 0;
+    public static final double OFFSET = 4.75;
 
     /**
      * This method gets called when the program starts
@@ -31,7 +34,8 @@ public final class RunWRO {
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
-        Robot robot = new Robot(WHEEL_DIAMETER, OFFSET, MotorPort.B, MotorPort.C, MotorPort.A, MotorPort.A,
+        Robot robot = new Robot(WHEEL_DIAMETER, OFFSET, MotorPort.B,
+                MotorPort.C, MotorPort.A, MotorPort.A,
                 SensorPort.S2, SensorPort.S3, SensorPort.S1, SensorPort.S4);
         LCD.drawString("Ready for start", 2, 2);
         Button.waitForAnyPress();
