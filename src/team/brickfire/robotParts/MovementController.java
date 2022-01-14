@@ -3,7 +3,6 @@ package team.brickfire.robotParts;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
-import org.opencv.core.Mat;
 
 /**
  * The base for different types of MovementControllers.

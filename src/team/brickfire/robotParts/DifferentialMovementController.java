@@ -33,7 +33,6 @@ public class DifferentialMovementController extends MovementController {
 
     /**
      * Creates an DifferentialMovementController with the given parameters
-     *
      * @param wheelDiameter  Diameter of the wheel
      * @param offset         Distance of the wheel from the middle of their axis
      * @param portMotorLeft  Port of the left driving motor
