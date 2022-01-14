@@ -38,11 +38,11 @@ public class DifferentialMovementController extends MovementController {
      * @param offset         Distance of the wheel from the middle of their axis
      * @param portMotorLeft  Port of the left driving motor
      * @param portMotorRight Port of the right driving motor
-     * @param sensorLeft     Port of the left orientation sensor
-     * @param sensorRight    Port of the right orientation sensor
+     * @param portSensorLeft     Port of the left orientation sensor
+     * @param portSensorRight    Port of the right orientation sensor
      */
-    public DifferentialMovementController(double wheelDiameter, double offset, Port portMotorLeft,
-                                          Port portMotorRight, Port sensorLeft, Port sensorRight) {
+    public DifferentialMovementController(double wheelDiameter, double offset, Port portMotorLeft, Port portMotorRight,
+                                          Port portSensorLeft, Port portSensorRight) {
         super(new Wheel[]{
                         WheeledChassis.modelWheel(new EV3LargeRegulatedMotor((TachoMotorPort) portMotorRight),
                                 wheelDiameter).offset(offset),
@@ -51,8 +51,8 @@ public class DifferentialMovementController extends MovementController {
                 WheeledChassis.TYPE_DIFFERENTIAL);
         this.motorLeft = new EV3LargeRegulatedMotor((TachoMotorPort) portMotorLeft);
         this.motorRight = new EV3LargeRegulatedMotor((TachoMotorPort) portMotorRight);
-        this.colorSensorLeft = new ColorSensor((UARTPort) sensorLeft);
-        this.colorSensorRight = new ColorSensor((UARTPort) sensorRight);
+        this.colorSensorLeft = new ColorSensor((UARTPort) portSensorLeft);
+        this.colorSensorRight = new ColorSensor((UARTPort) portSensorRight);
     }
 
     @Override

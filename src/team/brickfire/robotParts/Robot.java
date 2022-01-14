@@ -18,18 +18,18 @@ public class Robot extends DifferentialMovementController {
      * Creates a robot object with the given parameters
      * @param wheelDiameter Diameter of the wheel
      * @param offset Distance of the wheel from the middle of their axis
-     * @param motorLeft Port of the left driving motor
-     * @param motorRight Port of the right driving motor
-     * @param arm1 Port of the first functional motor
-     * @param arm2 Port of the second functional motor
-     * @param sensorLeft Port of the left orientation sensor
-     * @param sensorRight Port of the right orientation sensor
-     * @param s1 Port of the first functional sensor
-     * @param s2 Port of the second functional sensor
+     * @param portMotorLeft Port of the left driving motor
+     * @param portMotorRight Port of the right driving motor
+     * @param portArm1 Port of the first functional motor
+     * @param portArm2 Port of the second functional motor
+     * @param portSensorLeft Port of the left orientation sensor
+     * @param portSensorRight Port of the right orientation sensor
+     * @param portS1 Port of the first functional sensor
+     * @param portS2 Port of the second functional sensor
      */
-    public Robot(double wheelDiameter, double offset, Port motorLeft, Port motorRight, Port arm1,
-                 Port arm2, Port sensorLeft, Port sensorRight, Port s1, Port s2) {
-        super(wheelDiameter, offset, motorLeft, motorRight, sensorLeft, sensorRight);
+    public Robot(double wheelDiameter, double offset, Port portMotorLeft, Port portMotorRight, Port portArm1,
+                 Port portArm2, Port portSensorLeft, Port portSensorRight, Port portS1, Port portS2) {
+        super(wheelDiameter, offset, portMotorLeft, portMotorRight, portSensorLeft, portSensorRight);
         // Initialize extra sensors
         // Create objects for the two "arms"
     }
