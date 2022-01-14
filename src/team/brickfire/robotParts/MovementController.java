@@ -101,8 +101,7 @@ public abstract class MovementController {
      * @param degrees Distance the robot should travel on the arc
      */
     public void turnArc(double radius, double degrees) {
-        double distance = 2 * radius * Math.PI * (degrees / 360);
-        pilot.travelArc(radius, distance);
+        pilot.arc(radius, degrees);
     }
     /**
      * The robot turns on an arch around the given radius at the given speed (inaccurate)

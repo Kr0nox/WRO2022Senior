@@ -21,6 +21,6 @@ public class ActionsMain extends BaseAction {
      * Executes all the tasks
      */
     public void execute() {
-
+        robot.travel(25, 500);
     }
 }

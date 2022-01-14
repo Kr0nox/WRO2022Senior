@@ -1,6 +1,10 @@
 package team.brickfire.robotParts;
 
+import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.*;
+import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.UARTSensor;
+import lejos.robotics.RegulatedMotor;
 
 /**
  * Robot class contains Movement. In this case it's differential, since it is the most useful for this case
@@ -29,7 +33,9 @@ public class Robot extends DifferentialMovementController {
      */
     public Robot(double wheelDiameter, double offset, Port portMotorLeft, Port portMotorRight, Port portArm1,
                  Port portArm2, Port portSensorLeft, Port portSensorRight, Port portS1, Port portS2) {
-        super(wheelDiameter, offset, portMotorLeft, portMotorRight, portSensorLeft, portSensorRight);
+        super(wheelDiameter, offset, new EV3LargeRegulatedMotor(portMotorLeft),
+                new EV3LargeRegulatedMotor(portMotorRight), new EV3ColorSensor(portSensorLeft),
+                new EV3ColorSensor(portSensorRight));
         // Initialize extra sensors
         // Create objects for the two "arms"
     }

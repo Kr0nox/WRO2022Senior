@@ -4,6 +4,8 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.Port;
 import lejos.hardware.port.TachoMotorPort;
 import lejos.hardware.port.UARTPort;
+import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.UARTSensor;
 import lejos.robotics.Color;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.chassis.Wheel;
@@ -35,23 +37,24 @@ public class DifferentialMovementController extends MovementController {
      * Creates an DifferentialMovementController with the given parameters
      * @param wheelDiameter  Diameter of the wheel
      * @param offset         Distance of the wheel from the middle of their axis
-     * @param portMotorLeft  Port of the left driving motor
-     * @param portMotorRight Port of the right driving motor
+     * @param motorLeft  Port of the left driving motor
+     * @param motorRight Port of the right driving motor
      * @param portSensorLeft     Port of the left orientation sensor
      * @param portSensorRight    Port of the right orientation sensor
      */
-    public DifferentialMovementController(double wheelDiameter, double offset, Port portMotorLeft, Port portMotorRight,
-                                          Port portSensorLeft, Port portSensorRight) {
+    public DifferentialMovementController(double wheelDiameter, double offset, RegulatedMotor motorLeft,
+                                          RegulatedMotor motorRight,
+                                          EV3ColorSensor portSensorLeft, EV3ColorSensor portSensorRight) {
         super(new Wheel[]{
-                        WheeledChassis.modelWheel(new EV3LargeRegulatedMotor((TachoMotorPort) portMotorRight),
+                        WheeledChassis.modelWheel(motorRight,
                                 wheelDiameter).offset(offset),
-                        WheeledChassis.modelWheel(new EV3LargeRegulatedMotor((TachoMotorPort) portMotorLeft),
+                        WheeledChassis.modelWheel(motorLeft,
                                 wheelDiameter).offset(-offset)},
                 WheeledChassis.TYPE_DIFFERENTIAL);
-        this.motorLeft = new EV3LargeRegulatedMotor((TachoMotorPort) portMotorLeft);
-        this.motorRight = new EV3LargeRegulatedMotor((TachoMotorPort) portMotorRight);
-        this.colorSensorLeft = new ColorSensor((UARTPort) portSensorLeft);
-        this.colorSensorRight = new ColorSensor((UARTPort) portSensorRight);
+        this.motorLeft = motorLeft;
+        this.motorRight = motorRight;
+        this.colorSensorLeft = new ColorSensor(portSensorLeft);
+        this.colorSensorRight = new ColorSensor(portSensorRight);
     }
 
     @Override
