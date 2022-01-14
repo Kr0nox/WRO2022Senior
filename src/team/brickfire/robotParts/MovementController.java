@@ -3,6 +3,7 @@ package team.brickfire.robotParts;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
+import org.opencv.core.Mat;
 
 /**
  * The base for different types of MovementControllers.
@@ -79,7 +80,7 @@ public abstract class MovementController {
      * @param radius Radius of the arc
      * @param distance Distance the robot should travel on the arc
      */
-    public void arc(double radius, double distance) {
+    public void travelArc(double radius, double distance) {
         pilot.travelArc(radius, distance);
     }
     /**
@@ -89,9 +90,31 @@ public abstract class MovementController {
      * @param distance Distance the robot should travel on the arc
      * @param speed The speed at which the robot travels
      */
-    public void arc(double radius, double distance, double speed) {
+    public void travelArc(double radius, double distance, double speed) {
         setLinearSpeed(speed);
-        arc(radius, distance);
+        travelArc(radius, distance);
+    }
+
+    /**
+     * The robot turns on an arch around the given radius
+     * Positive radius = arc to the left
+     * @param radius Radius of the arc
+     * @param degrees Distance the robot should travel on the arc
+     */
+    public void turnArc(double radius, double degrees) {
+        double distance = 2 * radius * Math.PI * (degrees / 360);
+        pilot.travelArc(radius, distance);
+    }
+    /**
+     * The robot turns on an arch around the given radius at the given speed (inaccurate)
+     * Positive radius = arc to the left
+     * @param radius Radius of the arc
+     * @param degrees Distance the robot should travel on the arc
+     * @param speed The speed at which the robot travels
+     */
+    public void turnArc(double radius, double degrees, double speed) {
+        setLinearSpeed(speed);
+        turnArc(radius, degrees);
     }
 
     /**
