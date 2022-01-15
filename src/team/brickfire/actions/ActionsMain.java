@@ -9,18 +9,29 @@ import team.brickfire.robotParts.Robot;
  */
 public class ActionsMain extends BaseAction {
 
+    private final ActionsGame actionGame;
+    private final ActionsLaundry actionLaundry;
+    private final ActionsRoom actionRoom;
+    private final ActionsWater actionWater;
+    private final Circuit circuit;
+
     /**
      * Creates an ActionsMain Object
      * @param robot The robot
      */
     public ActionsMain(Robot robot) {
         super(robot);
+        this.actionGame = new ActionsGame(robot);
+        this.actionLaundry = new ActionsLaundry(robot);
+        this.actionRoom = new ActionsRoom(robot);
+        this.actionWater = new ActionsWater(robot);
+        this.circuit = new Circuit(robot);
     }
 
     /**
      * Executes all the tasks
      */
     public void execute() {
-        robot.travel(25, 500);
+
     }
 }

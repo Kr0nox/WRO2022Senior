@@ -2,11 +2,8 @@ package team.brickfire;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
-import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
-import lejos.hardware.port.TachoMotorPort;
-import lejos.hardware.sensor.EV3ColorSensor;
 import team.brickfire.actions.ActionsMain;
 import team.brickfire.robotParts.Robot;
 
