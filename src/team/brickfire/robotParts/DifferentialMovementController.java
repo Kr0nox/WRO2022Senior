@@ -1,11 +1,6 @@
 package team.brickfire.robotParts;
 
-import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import lejos.hardware.port.Port;
-import lejos.hardware.port.TachoMotorPort;
-import lejos.hardware.port.UARTPort;
 import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.UARTSensor;
 import lejos.robotics.Color;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.chassis.Wheel;

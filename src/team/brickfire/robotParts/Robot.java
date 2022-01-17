@@ -3,8 +3,6 @@ package team.brickfire.robotParts;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.*;
 import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.UARTSensor;
-import lejos.robotics.RegulatedMotor;
 
 /**
  * Robot class contains Movement. In this case it's differential, since it is the most useful for this case

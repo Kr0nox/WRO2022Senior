@@ -1,8 +1,6 @@
 package team.brickfire.robotParts;
 
-import lejos.hardware.port.UARTPort;
 import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.UARTSensor;
 
 /**
  * Implementation of an EV3ColorSensor

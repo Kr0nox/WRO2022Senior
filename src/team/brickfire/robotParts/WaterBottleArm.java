@@ -8,7 +8,7 @@ public class WaterBottleArm extends Arm<WaterBottleArmStates> {
     private int amountLoadedWaterBottles;
 
     public WaterBottleArm(RegulatedMotor motor) {
-        super(motor);
+        super(motor, 300);
     }
     public void rotateTo(WaterBottleArmStates state) {
         WaterBottleArmStates moveTo = state;
