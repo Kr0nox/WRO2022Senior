@@ -1,4 +1,4 @@
-package team.brickfire.actions;
+package team.brickfire.actions.dataTypes;
 
 public enum CircuitPosition {
     NORTH(0, 1),
@@ -14,8 +14,8 @@ public enum CircuitPosition {
     public static final CircuitPosition[] POSITION_ORDER
             = new CircuitPosition[]{NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST};
 
-    private int xPosition;
-    private int yPosition;
+    private final int xPosition;
+    private final int yPosition;
 
 
     CircuitPosition(int xPosition, int yPosition) {

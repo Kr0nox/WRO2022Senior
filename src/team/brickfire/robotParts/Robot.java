@@ -4,6 +4,9 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.*;
 import lejos.hardware.sensor.EV3ColorSensor;
+import team.brickfire.robotParts.arms.ArmLaundryBlock;
+import team.brickfire.robotParts.arms.ArmWaterBottle;
+import team.brickfire.robotParts.sensors.ColorSensor;
 
 /**
  * Robot class contains Movement. In this case it's differential, since it is the most useful for this case

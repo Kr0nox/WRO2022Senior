@@ -1,4 +1,4 @@
-package team.brickfire.actions;
+package team.brickfire.actions.dataTypes;
 
 public enum Orientation {
     NORTH(0, 1),
@@ -7,8 +7,8 @@ public enum Orientation {
     WEST(-1, 0),
     NONE(0, 0);
 
-    private int xPosition;
-    private int yPosition;
+    private final int xPosition;
+    private final int yPosition;
 
     Orientation(int xPosition, int yPosition) {
         this.xPosition = xPosition;

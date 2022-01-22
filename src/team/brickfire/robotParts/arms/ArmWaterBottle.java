@@ -1,6 +1,7 @@
-package team.brickfire.robotParts;
+package team.brickfire.robotParts.arms;
 
 import lejos.robotics.RegulatedMotor;
+import team.brickfire.robotParts.arms.dataTypes.StatesArmWaterBottle;
 
 public class ArmWaterBottle extends Arm<StatesArmWaterBottle> {
     private static final int MAX_WATER_BOTTLES = 2;
@@ -28,5 +29,9 @@ public class ArmWaterBottle extends Arm<StatesArmWaterBottle> {
         if (amountLoadedWaterBottles > 0) {
             amountLoadedWaterBottles--;
         }
+    }
+
+    public int getAmountLoadedWaterBottles() {
+        return amountLoadedWaterBottles;
     }
 }

@@ -1,4 +1,4 @@
-package team.brickfire.robotParts;
+package team.brickfire.robotParts.sensors;
 
 import lejos.hardware.sensor.EV3ColorSensor;
 

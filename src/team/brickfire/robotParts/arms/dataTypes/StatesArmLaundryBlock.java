@@ -1,4 +1,4 @@
-package team.brickfire.robotParts;
+package team.brickfire.robotParts.arms.dataTypes;
 
 public enum StatesArmLaundryBlock {
     START (0),
@@ -8,7 +8,7 @@ public enum StatesArmLaundryBlock {
     UP_BLOCK (0),
     DOWN_BLOCK (0);
 
-    private int degrees;
+    private final int degrees;
 
     StatesArmLaundryBlock(int degrees) {
         this.degrees = degrees;

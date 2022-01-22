@@ -166,10 +166,20 @@ public abstract class MovementController {
 
     /**
      * The Robot follows a black line
-     * @param distance The distance it should drive along the line in cm
+     * @param speed The speed it should drive
+     * @param forward Direction the Robot should drive
+     * @param minRotations Minimum rotations to do before breaking
+     */
+    public abstract void lineFollowing(double speed, boolean forward, double minRotations);
+
+    /**
+     * The Robot follows a black line
+     * @param speed The speed it should drive
      * @param forward Direction the Robot should drive
      */
-    public abstract void lineFollowing(double distance, boolean forward);
+    public void lineFollowing(double speed, boolean forward) {
+        lineFollowing(speed, forward, 0);
+    }
 
     /**
      * Returns the absolute value of the speed

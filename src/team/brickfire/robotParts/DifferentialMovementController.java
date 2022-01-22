@@ -5,7 +5,7 @@ import lejos.robotics.Color;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import team.brickfire.robotParts.sensors.ColorSensor;
 
 /**
  * Controls the movement via a MovePilot.
@@ -32,16 +32,17 @@ public class DifferentialMovementController extends MovementController {
     /**
      * Maximum difference between the reflected light of the two color sensors when squaring with line
      */
-    private final float finalAdjustmentForSquaring = 0.1f;
+    private static final float finalAdjustmentForSquaring = 0.1f;
 
     /**
      * Creates an DifferentialMovementController with the given parameters
-     * @param wheelDiameter  Diameter of the wheel
-     * @param offset         Distance of the wheel from the middle of their axis
-     * @param motorLeft  Port of the left driving motor
-     * @param motorRight Port of the right driving motor
-     * @param portSensorLeft     Port of the left orientation sensor
-     * @param portSensorRight    Port of the right orientation sensor
+     *
+     * @param wheelDiameter   Diameter of the wheel
+     * @param offset          Distance of the wheel from the middle of their axis
+     * @param motorLeft       Port of the left driving motor
+     * @param motorRight      Port of the right driving motor
+     * @param portSensorLeft  Port of the left orientation sensor
+     * @param portSensorRight Port of the right orientation sensor
      */
     public DifferentialMovementController(double wheelDiameter, double offset, RegulatedMotor motorLeft,
                                           RegulatedMotor motorRight,
@@ -136,22 +137,11 @@ public class DifferentialMovementController extends MovementController {
 
     // TODO: Line following
     @Override
-    public void lineFollowing(double distance, boolean forward) {
-        // Robot should recognize which sensor is on the line
-
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public boolean isStalled() {
-        return motorLeft.isStalled() || motorRight.isStalled();
-    }
-
-    public void lineFollowingTo(double speed, boolean forward) {
+    public void lineFollowing(double speed, boolean forward, double minRotations) {
         int baseSpeed = (int) checkSpeed(speed);
-        float error = 0;
+        float error;
         float lastError = 0;
-        float derivative = 0;
+        float derivative;
         float integral = 0;
 
         motorLeft.setSpeed(baseSpeed);
@@ -167,10 +157,11 @@ public class DifferentialMovementController extends MovementController {
 
         float lightLeft = 0;
         float lightRight = 0;
-        float correctionValue = 0;
+        float correctionValue;
 
-        while ((lightRight = colorSensorRight.getReflectedLight()) > THRESHOLD_LINE_FOLLOWING
-                && (lightLeft = colorSensorLeft.getReflectedLight()) > THRESHOLD_LINE_FOLLOWING) {
+        while (Math.abs(motorRight.getTachoCount() + motorLeft.getTachoCount()) / 720.0 > minRotations || (!isStalled()
+            && (lightRight = colorSensorRight.getReflectedLight()) > THRESHOLD_LINE_FOLLOWING
+                && (lightLeft = colorSensorLeft.getReflectedLight()) > THRESHOLD_LINE_FOLLOWING)) {
             error = lightLeft - lightRight;
             integral += error;
             derivative = error - lastError;
@@ -183,5 +174,10 @@ public class DifferentialMovementController extends MovementController {
         }
         motorLeft.stop();
         motorRight.stop();
+    }
+
+    @Override
+    public boolean isStalled() {
+        return motorLeft.isStalled() || motorRight.isStalled();
     }
 }

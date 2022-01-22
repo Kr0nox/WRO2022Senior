@@ -1,5 +1,7 @@
 package team.brickfire.actions;
 
+import team.brickfire.actions.dataTypes.CircuitPosition;
+import team.brickfire.actions.dataTypes.Orientation;
 import team.brickfire.robotParts.Robot;
 
 public class Circuit extends BaseAction {
