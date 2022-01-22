@@ -2,18 +2,18 @@ package team.brickfire.robotParts;
 
 import lejos.robotics.RegulatedMotor;
 
-public class WaterBottleArm extends Arm<WaterBottleArmStates> {
+public class ArmWaterBottle extends Arm<StatesArmWaterBottle> {
     private static final int MAX_WATER_BOTTLES = 2;
 
     private int amountLoadedWaterBottles;
 
-    public WaterBottleArm(RegulatedMotor motor) {
+    public ArmWaterBottle(RegulatedMotor motor) {
         super(motor, 300);
     }
-    public void rotateTo(WaterBottleArmStates state) {
-        WaterBottleArmStates moveTo = state;
-        if (amountLoadedWaterBottles > 0 && state == WaterBottleArmStates.UP_EMPTY) {
-            moveTo = WaterBottleArmStates.UP_FULL;
+    public void rotateTo(StatesArmWaterBottle state) {
+        StatesArmWaterBottle moveTo = state;
+        if (amountLoadedWaterBottles > 0 && state == StatesArmWaterBottle.UP_EMPTY) {
+            moveTo = StatesArmWaterBottle.UP_FULL;
         }
         motor.rotateTo(moveTo.getDegrees());
     }

@@ -1,6 +1,7 @@
 package team.brickfire.robotParts;
 
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
+import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.*;
 import lejos.hardware.sensor.EV3ColorSensor;
 
@@ -13,8 +14,13 @@ import lejos.hardware.sensor.EV3ColorSensor;
 public class Robot extends DifferentialMovementController {
 
     // Add extra two sensors (maybe classes, depending on whether they need to save data)
-
+    private final ColorSensor blockColorSensor;
+    private final ColorSensor laundryBasketColorSensor;
     // Add extra Motors (probably as own objects)
+    private final ArmLaundryBlock armLaundryBlock;
+    private final ArmWaterBottle armWaterBottle;
+
+
 
     /**
      * Creates a robot object with the given parameters
@@ -34,8 +40,42 @@ public class Robot extends DifferentialMovementController {
         super(wheelDiameter, offset, new EV3LargeRegulatedMotor(portMotorLeft),
                 new EV3LargeRegulatedMotor(portMotorRight), new EV3ColorSensor(portSensorLeft),
                 new EV3ColorSensor(portSensorRight));
-        // Initialize extra sensors
+        blockColorSensor = new ColorSensor(new EV3ColorSensor(portS1));
+        laundryBasketColorSensor = new ColorSensor(new EV3ColorSensor(portS2));
         // Create objects for the two "arms"
+        armLaundryBlock = new ArmLaundryBlock(new EV3MediumRegulatedMotor(portArm2));
+        armWaterBottle = new ArmWaterBottle(new EV3MediumRegulatedMotor(portArm1));
     }
 
+    /**
+     * returns ColorSensor for scanning blocks
+     * @return blockColorSensor
+     */
+    public ColorSensor blockColorSensor() {
+        return blockColorSensor;
+    }
+
+    /**
+     * returns ColorSensor for scanning laundry
+     * @return laundryBasketColorSensor
+     */
+    public ColorSensor laundryBasketColorSensor() {
+        return laundryBasketColorSensor;
+    }
+
+    /**
+     * returns arm for picking up laundry
+     * @return armLaundryBlock
+     */
+    public ArmLaundryBlock armLaundryBlock() {
+        return armLaundryBlock;
+    }
+
+    /**
+     * returns arm for picking up water bottles
+     * @return armWaterBottle
+     */
+    public ArmWaterBottle armWaterBottle() {
+        return armWaterBottle;
+    }
 }

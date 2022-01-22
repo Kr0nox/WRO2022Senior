@@ -17,6 +17,12 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class DifferentialMovementController extends MovementController {
 
+    private static final float CORRECTION_LINE_FOLLOWING_ERROR = 1;
+    private static final float CORRECTION_LINE_FOLLOWING_INTEGRAL = 1;
+    private static final float CORRECTION_LINE_FOLLOWING_DERIVATIVE = 1;
+    private static final float THRESHOLD_LINE_FOLLOWING = 0;
+    private static final float PERCENTAGE_CORRECTION_LINE_FOLLOWING = 0.1f;
+
     private final RegulatedMotor motorLeft;
     private final RegulatedMotor motorRight;
 
@@ -132,6 +138,7 @@ public class DifferentialMovementController extends MovementController {
     @Override
     public void lineFollowing(double distance, boolean forward) {
         // Robot should recognize which sensor is on the line
+
         throw new NotImplementedException();
     }
 
@@ -140,4 +147,41 @@ public class DifferentialMovementController extends MovementController {
         return motorLeft.isStalled() || motorRight.isStalled();
     }
 
+    public void lineFollowingTo(double speed, boolean forward) {
+        int baseSpeed = (int) checkSpeed(speed);
+        float error = 0;
+        float lastError = 0;
+        float derivative = 0;
+        float integral = 0;
+
+        motorLeft.setSpeed(baseSpeed);
+        motorRight.setSpeed(baseSpeed);
+
+        if (forward) {
+            motorLeft.forward();
+            motorRight.forward();
+        } else {
+            motorLeft.backward();
+            motorRight.backward();
+        }
+
+        float lightLeft = 0;
+        float lightRight = 0;
+        float correctionValue = 0;
+
+        while ((lightRight = colorSensorRight.getReflectedLight()) > THRESHOLD_LINE_FOLLOWING
+                && (lightLeft = colorSensorLeft.getReflectedLight()) > THRESHOLD_LINE_FOLLOWING) {
+            error = lightLeft - lightRight;
+            integral += error;
+            derivative = error - lastError;
+            lastError = error;
+            correctionValue = (error * CORRECTION_LINE_FOLLOWING_ERROR)
+                    + (integral * CORRECTION_LINE_FOLLOWING_INTEGRAL)
+                    + (derivative * CORRECTION_LINE_FOLLOWING_DERIVATIVE);
+            motorLeft.setSpeed((int) (baseSpeed - correctionValue * PERCENTAGE_CORRECTION_LINE_FOLLOWING * baseSpeed));
+            motorRight.setSpeed((int) (baseSpeed + correctionValue * PERCENTAGE_CORRECTION_LINE_FOLLOWING * baseSpeed));
+        }
+        motorLeft.stop();
+        motorRight.stop();
+    }
 }

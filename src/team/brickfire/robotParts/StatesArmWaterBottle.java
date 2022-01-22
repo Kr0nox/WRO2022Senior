@@ -1,6 +1,6 @@
 package team.brickfire.robotParts;
 
-public enum WaterBottleArmStates {
+public enum StatesArmWaterBottle {
     // TODO: Figure out degrees
     START (0),
     TABLE (0),
@@ -9,7 +9,7 @@ public enum WaterBottleArmStates {
 
     private int degrees;
 
-    WaterBottleArmStates(int degrees) {
+    StatesArmWaterBottle(int degrees) {
         this.degrees = degrees;
     }
 

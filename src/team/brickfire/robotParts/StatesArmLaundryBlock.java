@@ -1,6 +1,6 @@
 package team.brickfire.robotParts;
 
-public enum LaundryBlockArmStates {
+public enum StatesArmLaundryBlock {
     START (0),
     TABLE (0),
     UP_BALL (0),
@@ -10,7 +10,7 @@ public enum LaundryBlockArmStates {
 
     private int degrees;
 
-    LaundryBlockArmStates(int degrees) {
+    StatesArmLaundryBlock(int degrees) {
         this.degrees = degrees;
     }
 

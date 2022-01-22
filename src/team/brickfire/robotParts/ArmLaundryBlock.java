@@ -3,20 +3,20 @@ package team.brickfire.robotParts;
 import lejos.robotics.RegulatedMotor;
 import team.brickfire.challengeParts.LaundryBlock;
 
-public class LaundryBlockArm extends Arm<LaundryBlockArmStates> {
+public class ArmLaundryBlock extends Arm<StatesArmLaundryBlock> {
 
     private static final int MAX_LOADED_BLOCKS = 2;
 
     private final LaundryBlock[] loadedBlocks;
 
-    public LaundryBlockArm(RegulatedMotor motor) {
+    public ArmLaundryBlock(RegulatedMotor motor) {
         super(motor, 300);
         loadedBlocks = new LaundryBlock[MAX_LOADED_BLOCKS];
     }
 
     @Override
-    public void rotateTo(LaundryBlockArmStates state) {
-        LaundryBlockArmStates moveTo = state;
+    public void rotateTo(StatesArmLaundryBlock state) {
+        StatesArmLaundryBlock moveTo = state;
         motor.rotateTo(moveTo.getDegrees());
     }
 
@@ -30,7 +30,7 @@ public class LaundryBlockArm extends Arm<LaundryBlockArmStates> {
     }
 
     public LaundryBlock getLastLoadedBlock() {
-        for (int i = loadedBlocks.length - 1; i <= 0 ; i--) {
+        for (int i = loadedBlocks.length - 1; i <= 0; i--) {
             if (loadedBlocks[i] != null) {
                 return loadedBlocks[i];
             }
@@ -39,8 +39,8 @@ public class LaundryBlockArm extends Arm<LaundryBlockArmStates> {
     }
 
     public void removeLaundryBlock() {
-        for(int i = loadedBlocks.length - 1; i <= 0; i-- ) {
-            if(loadedBlocks[i] != null) {
+        for (int i = loadedBlocks.length - 1; i <= 0; i-- ) {
+            if (loadedBlocks[i] != null) {
                 loadedBlocks[i] = null;
                 break;
             }
