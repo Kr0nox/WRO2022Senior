@@ -12,4 +12,15 @@ public class ActionsWater extends BaseAction {
         super(robot);
     }
 
+    public void pickUp() {
+
+    }
+
+    public void deliver(boolean forward) {
+
+    }
+
+    public void skip(boolean forward) {
+
+    }
 }

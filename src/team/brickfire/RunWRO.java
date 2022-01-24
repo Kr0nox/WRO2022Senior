@@ -19,11 +19,11 @@ public class RunWRO {
     /**
      * The diameter of the wheels
      */
-    public static final double WHEEL_DIAMETER = 6.24;
+    public static final double WHEEL_DIAMETER = 62.4;
     /**
      * Distance between wheels and center of the drive axis
      */
-    public static final double OFFSET = 4.75;
+    public static final double OFFSET = 49;
 
     /**
      * This method gets called when the program starts

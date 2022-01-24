@@ -16,4 +16,12 @@ public class ActionsLaundry extends BaseAction {
         super(robot);
         laundryBaskets = new LaundryBasket[3];
     }
+
+    public void collectBlock(boolean forward) {
+
+    }
+
+    public void dropOff() {
+
+    }
 }

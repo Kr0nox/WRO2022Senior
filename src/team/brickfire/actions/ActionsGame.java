@@ -15,4 +15,12 @@ public class ActionsGame extends BaseAction {
     public ActionsGame(Robot robot) {
         super(robot);
     }
+
+    public void play(boolean forward) {
+
+    }
+
+    public void skip(boolean forward) {
+
+    }
 }
