@@ -1,22 +1,78 @@
 package team.brickfire.actions;
 
+import lejos.robotics.Color;
 import team.brickfire.robotParts.Robot;
 
-public class ActionsSide extends BaseAction {
+// package-private
+class ActionsSide extends BaseAction {
 
-    public ActionsSide(Robot robot) {
+    private final ActionsLaundry laundry;
+
+    public ActionsSide(Robot robot, ActionsLaundry laundry) {
         super(robot);
+        this.laundry = laundry;
     }
 
     public void doSide() {
-        robot.lineFollowing();
+        // TODO: Drive to room starting point
+        /* robot.lineFollowing();
         robot.travel();
-        robot.turn();
-        ActionsRoom room = new ActionsRoom(robot);
-        room.doRoom();
-        robot.turn();
-        ActionsRoom room1 = new ActionsRoom(robot);
-        room1.doRoom();
-        robot.lineFollowing();
+        robot.turn();*/
+        new ActionsRoom(true).doRoom();
+        // ToDO: switch rooms
+        // robot.turn();
+        new ActionsRoom(false).doRoom();
+        // TODO: drive back to circuit
+        // robot.lineFollowing();
+    }
+
+
+    private class ActionsRoom {
+
+        private static final int GAME_ROOM_COLOR = Color.GREEN;
+        private boolean isGameRoom;
+        private final boolean isForward;
+
+        private ActionsRoom(boolean forward) {
+            this.isForward = forward;
+        }
+
+        private void doRoom() {
+
+            scanRoomBlock();
+
+            laundry.collectBlock(isForward);
+            ActionsGame game = new ActionsGame();
+            ActionsWater water = new ActionsWater(robot);
+
+            if (isGameRoom) {
+                game.play();
+                water.skip(isForward);
+            } else {
+                game.skip();
+                water.deliver(isForward);
+            }
+
+            //TODO: drive to corner
+        }
+
+        private void scanRoomBlock() {
+            // TODO: Drive to block
+            // robot.travel();
+            // move arm
+            isGameRoom = robot.blockColorSensor().getColorID() == GAME_ROOM_COLOR;
+        }
+
+
+        private class ActionsGame {
+
+            public void play() {
+
+            }
+
+            public void skip() {
+
+            }
+        }
     }
 }

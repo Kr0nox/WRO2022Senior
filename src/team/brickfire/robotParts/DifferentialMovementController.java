@@ -17,6 +17,11 @@ import team.brickfire.robotParts.sensors.ColorSensor;
  */
 public class DifferentialMovementController extends MovementController {
 
+    /**
+     * Maximum difference between the reflected light of the two color sensors when squaring with line
+     */
+    private static final float FINAL_ADJUSTMENT_FOR_SQUARING = 0.1f;
+
     private static final float CORRECTION_LINE_FOLLOWING_ERROR = 1;
     private static final float CORRECTION_LINE_FOLLOWING_INTEGRAL = 1;
     private static final float CORRECTION_LINE_FOLLOWING_DERIVATIVE = 1;
@@ -29,10 +34,7 @@ public class DifferentialMovementController extends MovementController {
     private final ColorSensor colorSensorLeft;
     private final ColorSensor colorSensorRight;
 
-    /**
-     * Maximum difference between the reflected light of the two color sensors when squaring with line
-     */
-    private static final float finalAdjustmentForSquaring = 0.1f;
+
 
     /**
      * Creates an DifferentialMovementController with the given parameters
@@ -98,7 +100,7 @@ public class DifferentialMovementController extends MovementController {
                 motorLeft.backward();
                 motorRight.forward();
             }
-        } while (Math.abs(valueLeft - valueRight) < finalAdjustmentForSquaring);
+        } while (Math.abs(valueLeft - valueRight) < FINAL_ADJUSTMENT_FOR_SQUARING);
         motorLeft.stop();
         motorRight.stop();
     }
@@ -135,7 +137,18 @@ public class DifferentialMovementController extends MovementController {
         }
     }
 
-    // TODO: Line following
+    public void lineFollowing(boolean forward, double minRotations) {
+        lineFollowing(pilot.getLinearSpeed(), forward, minRotations);
+    }
+
+    public void lineFollowing(boolean forward) {
+        lineFollowing(forward, 0);
+    }
+
+    public void lineFollowing(double speed, boolean forward) {
+        lineFollowing(speed, forward, 0);
+    }
+
     @Override
     public void lineFollowing(double speed, boolean forward, double minRotations) {
         int baseSpeed = (int) checkSpeed(speed);

@@ -1,6 +1,7 @@
 package team.brickfire.actions;
 
 import team.brickfire.robotParts.Robot;
+import team.brickfire.robotParts.sensors.Sensor;
 
 /**
  * The "main" part of your actions or challenges. All coordination of the robot happens in here
@@ -9,11 +10,8 @@ import team.brickfire.robotParts.Robot;
  */
 public class ActionsMain extends BaseAction {
 
-    private final ActionsGame actionGame;
-    private final ActionsLaundry actionLaundry;
-    private final ActionsRoom actionRoom;
-    private final ActionsWater actionWater;
     private final Circuit circuit;
+    private final ActionsLaundry laundry;
 
     /**
      * Creates an ActionsMain Object
@@ -21,17 +19,37 @@ public class ActionsMain extends BaseAction {
      */
     public ActionsMain(Robot robot) {
         super(robot);
-        this.actionGame = new ActionsGame(robot);
-        this.actionLaundry = new ActionsLaundry(robot);
-        this.actionRoom = new ActionsRoom(robot);
-        this.actionWater = new ActionsWater(robot);
         this.circuit = new Circuit(robot);
+        this.laundry = new ActionsLaundry(robot);
     }
 
     /**
      * Executes all the tasks
      */
     public void execute() {
+        collectWater();
+        firstSide();
+        secondSide();
+        driveHome();
+    }
+
+    // Pink
+    private void collectWater() {
+
+    }
+
+    // Blue
+    private void firstSide() {
+
+    }
+
+    // Green
+    private void secondSide() {
+
+    }
+
+    // Red
+    private void driveHome() {
 
     }
 }

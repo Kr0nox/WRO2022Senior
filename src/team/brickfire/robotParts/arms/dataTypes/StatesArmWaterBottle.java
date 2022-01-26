@@ -1,7 +1,7 @@
 package team.brickfire.robotParts.arms.dataTypes;
 
 public enum StatesArmWaterBottle {
-    // TODO: Figure out degrees
+
     START (0),
     TABLE (0),
     UP_FULL (0),

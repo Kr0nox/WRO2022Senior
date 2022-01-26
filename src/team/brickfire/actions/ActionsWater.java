@@ -2,7 +2,8 @@ package team.brickfire.actions;
 
 import team.brickfire.robotParts.Robot;
 
-public class ActionsWater extends BaseAction {
+// package-private
+class ActionsWater extends BaseAction {
 
     /**
      * Creates an ActionsWater Object
