@@ -34,8 +34,8 @@ public class RunWRO {
         Robot robot = new Robot(WHEEL_DIAMETER, OFFSET, MotorPort.B,
                 MotorPort.C, MotorPort.A, MotorPort.A,
                 SensorPort.S2, SensorPort.S3, SensorPort.S1, SensorPort.S4);
-        LCD.drawString("Ready for start", 2, 2);
+        LCD.drawString("Press middle button to start", 2, 2);
         Button.waitForAnyPress();
-        new ActionsMain(robot).execute();
+        // new ActionsMain(robot).execute();
     }
 }
