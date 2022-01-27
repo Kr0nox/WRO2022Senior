@@ -14,8 +14,6 @@ import team.brickfire.robotParts.Robot;
  */
 public class RunWRO {
 
-    // TODO: Test movement
-
     /**
      * The diameter of the wheels
      */
@@ -37,5 +35,6 @@ public class RunWRO {
         LCD.drawString("Press middle button to start", 2, 2);
         Button.waitForAnyPress();
         // new ActionsMain(robot).execute();
+        // TODO: Test movement here
     }
 }
