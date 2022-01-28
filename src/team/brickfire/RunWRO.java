@@ -6,6 +6,8 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import team.brickfire.actions.ActionsMain;
 import team.brickfire.robotParts.Robot;
+import team.brickfire.robotParts.arms.ArmLaundryBlock;
+import team.brickfire.robotParts.arms.dataTypes.StatesArmLaundryBlock;
 
 /**
  * Utility class that starts the program and handles the order in which things happen
@@ -29,12 +31,16 @@ public class RunWRO {
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
+        System.out.println("main reached");
+
         Robot robot = new Robot(WHEEL_DIAMETER, OFFSET, MotorPort.B,
                 MotorPort.C, MotorPort.A, MotorPort.A,
                 SensorPort.S2, SensorPort.S3, SensorPort.S1, SensorPort.S4);
+        System.out.println("robot reached");
         LCD.drawString("Press middle button to start", 2, 2);
         Button.waitForAnyPress();
         // new ActionsMain(robot).execute();
         // TODO: Test movement here
+        robot.turn(45);
     }
 }

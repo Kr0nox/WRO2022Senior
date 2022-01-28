@@ -17,11 +17,11 @@ import team.brickfire.robotParts.sensors.ColorSensor;
 public class Robot extends DifferentialMovementController {
 
     // Add extra two sensors (maybe classes, depending on whether they need to save data)
-    private final ColorSensor blockColorSensor;
-    private final ColorSensor laundryBasketColorSensor;
+    private ColorSensor blockColorSensor;
+    private ColorSensor laundryBasketColorSensor;
     // Add extra Motors (probably as own objects)
-    private final ArmLaundryBlock armLaundryBlock;
-    private final ArmWaterBottle armWaterBottle;
+    private ArmLaundryBlock armLaundryBlock;
+    private ArmWaterBottle armWaterBottle;
 
 
 
@@ -43,11 +43,12 @@ public class Robot extends DifferentialMovementController {
         super(wheelDiameter, offset, new EV3LargeRegulatedMotor(portMotorLeft),
                 new EV3LargeRegulatedMotor(portMotorRight), new EV3ColorSensor(portSensorLeft),
                 new EV3ColorSensor(portSensorRight));
-        blockColorSensor = new ColorSensor(new EV3ColorSensor(portS1));
-        laundryBasketColorSensor = new ColorSensor(new EV3ColorSensor(portS2));
+        System.out.println("super robot reached");
+        //blockColorSensor = new ColorSensor(new EV3ColorSensor(portS1));
+        //laundryBasketColorSensor = new ColorSensor(new EV3ColorSensor(portS2));
         // Create objects for the two "arms"
-        armLaundryBlock = new ArmLaundryBlock(new EV3MediumRegulatedMotor(portArm2));
-        armWaterBottle = new ArmWaterBottle(new EV3MediumRegulatedMotor(portArm1));
+        //armLaundryBlock = new ArmLaundryBlock(new EV3MediumRegulatedMotor(portArm2));
+        //armWaterBottle = new ArmWaterBottle(new EV3MediumRegulatedMotor(portArm1));
     }
 
     /**

@@ -25,7 +25,9 @@ public abstract class MovementController {
      * @param chassisType The type of the WheeledChassis on which the MovePilot operates
      */
     public MovementController(Wheel[] wheels, int chassisType) {
+        System.out.println("MovementController reached");
         this.pilot = new MovePilot(new WheeledChassis(wheels, chassisType));
+        System.out.println("MovementController finished");
     }
 
     /**

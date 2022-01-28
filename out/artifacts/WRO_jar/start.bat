@@ -1,1 +1,0 @@
-pscp -scp WRO.jar root@XXX.XXX.XXX.XXX:/home/lejos/programs

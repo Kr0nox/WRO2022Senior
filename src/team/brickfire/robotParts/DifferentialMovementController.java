@@ -55,6 +55,7 @@ public class DifferentialMovementController extends MovementController {
                         WheeledChassis.modelWheel(motorLeft,
                                 wheelDiameter).offset(-offset)},
                 WheeledChassis.TYPE_DIFFERENTIAL);
+        System.out.println("Differential super reached");
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.colorSensorLeft = new ColorSensor(portSensorLeft);
