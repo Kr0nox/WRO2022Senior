@@ -28,11 +28,12 @@ public class DifferentialMovementController extends MovementController {
     private static final float THRESHOLD_LINE_FOLLOWING = 0;
     private static final float PERCENTAGE_CORRECTION_LINE_FOLLOWING = 0.1f;
 
-    private final RegulatedMotor motorLeft;
-    private final RegulatedMotor motorRight;
+    // TODO: make private again
+    protected final RegulatedMotor motorLeft;
+    protected final RegulatedMotor motorRight;
 
-    private final ColorSensor colorSensorLeft;
-    private final ColorSensor colorSensorRight;
+    protected final ColorSensor colorSensorLeft;
+    protected final ColorSensor colorSensorRight;
 
 
 
@@ -173,9 +174,9 @@ public class DifferentialMovementController extends MovementController {
         float lightRight = 0;
         float correctionValue;
 
-        while (Math.abs(motorRight.getTachoCount() + motorLeft.getTachoCount()) / 720.0 > minRotations || (!isStalled()
-            && (lightRight = colorSensorRight.getReflectedLight()) > THRESHOLD_LINE_FOLLOWING
-                && (lightLeft = colorSensorLeft.getReflectedLight()) > THRESHOLD_LINE_FOLLOWING)) {
+        while (true) {
+            lightLeft = colorSensorLeft.getReflectedLight();
+            lightRight = colorSensorRight.getReflectedLight();
             error = lightLeft - lightRight;
             integral += error;
             derivative = error - lastError;
@@ -186,8 +187,8 @@ public class DifferentialMovementController extends MovementController {
             motorLeft.setSpeed((int) (baseSpeed - correctionValue * PERCENTAGE_CORRECTION_LINE_FOLLOWING * baseSpeed));
             motorRight.setSpeed((int) (baseSpeed + correctionValue * PERCENTAGE_CORRECTION_LINE_FOLLOWING * baseSpeed));
         }
-        motorLeft.stop();
-        motorRight.stop();
+        //motorLeft.stop();
+        //motorRight.stop();
     }
 
     @Override

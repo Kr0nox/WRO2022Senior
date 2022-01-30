@@ -2,8 +2,10 @@ package team.brickfire.robotParts;
 
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
+import lejos.hardware.motor.Motor;
 import lejos.hardware.port.*;
 import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.robotics.RegulatedMotor;
 import team.brickfire.robotParts.arms.ArmLaundryBlock;
 import team.brickfire.robotParts.arms.ArmWaterBottle;
 import team.brickfire.robotParts.sensors.ColorSensor;
@@ -82,4 +84,22 @@ public class Robot extends DifferentialMovementController {
     public ArmWaterBottle armWaterBottle() {
         return armWaterBottle;
     }
+
+    // TODO: Delete later
+    public RegulatedMotor getLeftMotor() {
+        return this.motorLeft;
+    }
+
+    public RegulatedMotor getRightMotor() {
+        return this.motorRight;
+    }
+
+    public ColorSensor getLeftColorSensor() {
+        return this.colorSensorLeft;
+    }
+
+    public ColorSensor getRightColorSensor() {
+        return this.colorSensorRight;
+    }
+
 }
