@@ -22,11 +22,11 @@ public class DifferentialMovementController extends MovementController {
      */
     private static final float FINAL_ADJUSTMENT_FOR_SQUARING = 0.1f;
 
-    private static final float CORRECTION_LINE_FOLLOWING_ERROR = 1;
-    private static final float CORRECTION_LINE_FOLLOWING_INTEGRAL = 1;
-    private static final float CORRECTION_LINE_FOLLOWING_DERIVATIVE = 1;
+    private static final float CORRECTION_LINE_FOLLOWING_ERROR = 20;
+    private static final float CORRECTION_LINE_FOLLOWING_INTEGRAL = 0.5f;
+    private static final float CORRECTION_LINE_FOLLOWING_DERIVATIVE = 0;
     private static final float THRESHOLD_LINE_FOLLOWING = 0;
-    private static final float PERCENTAGE_CORRECTION_LINE_FOLLOWING = 0.1f;
+    private static final float PERCENTAGE_CORRECTION_LINE_FOLLOWING = 0.01f;
 
     // TODO: make private again
     protected final RegulatedMotor motorLeft;
@@ -56,7 +56,6 @@ public class DifferentialMovementController extends MovementController {
                         WheeledChassis.modelWheel(motorLeft,
                                 wheelDiameter).offset(-offset)},
                 WheeledChassis.TYPE_DIFFERENTIAL);
-        System.out.println("Differential super reached");
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.colorSensorLeft = new ColorSensor(portSensorLeft);
@@ -103,8 +102,11 @@ public class DifferentialMovementController extends MovementController {
                 motorRight.forward();
             }
         } while (Math.abs(valueLeft - valueRight) < FINAL_ADJUSTMENT_FOR_SQUARING);
-        motorLeft.stop();
-        motorRight.stop();
+
+        //System.out.println("while completed");
+
+        //motorLeft.stop();
+        //motorRight.stop();
     }
 
     @Override
@@ -153,6 +155,8 @@ public class DifferentialMovementController extends MovementController {
 
     @Override
     public void lineFollowing(double speed, boolean forward, double minRotations) {
+        System.out.println("lineFollowing started");
+
         int baseSpeed = (int) checkSpeed(speed);
         float error;
         float lastError = 0;
@@ -162,6 +166,8 @@ public class DifferentialMovementController extends MovementController {
         motorLeft.setSpeed(baseSpeed);
         motorRight.setSpeed(baseSpeed);
 
+        System.out.println("setSpeed done");
+
         if (forward) {
             motorLeft.forward();
             motorRight.forward();
@@ -169,6 +175,8 @@ public class DifferentialMovementController extends MovementController {
             motorLeft.backward();
             motorRight.backward();
         }
+
+        System.out.println("if...else... done");
 
         float lightLeft = 0;
         float lightRight = 0;
@@ -184,6 +192,10 @@ public class DifferentialMovementController extends MovementController {
             correctionValue = (error * CORRECTION_LINE_FOLLOWING_ERROR)
                     + (integral * CORRECTION_LINE_FOLLOWING_INTEGRAL)
                     + (derivative * CORRECTION_LINE_FOLLOWING_DERIVATIVE);
+
+            System.out.println(lightLeft + ";" + lightRight + ";" + correctionValue + ";"
+                    + (int) (baseSpeed - correctionValue * PERCENTAGE_CORRECTION_LINE_FOLLOWING * baseSpeed));
+
             motorLeft.setSpeed((int) (baseSpeed - correctionValue * PERCENTAGE_CORRECTION_LINE_FOLLOWING * baseSpeed));
             motorRight.setSpeed((int) (baseSpeed + correctionValue * PERCENTAGE_CORRECTION_LINE_FOLLOWING * baseSpeed));
         }

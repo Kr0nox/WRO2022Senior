@@ -25,9 +25,7 @@ public abstract class MovementController {
      * @param chassisType The type of the WheeledChassis on which the MovePilot operates
      */
     public MovementController(Wheel[] wheels, int chassisType) {
-        System.out.println("MovementController reached");
         this.pilot = new MovePilot(new WheeledChassis(wheels, chassisType));
-        System.out.println("MovementController finished");
     }
 
     /**
@@ -198,13 +196,15 @@ public abstract class MovementController {
      */
     public void setLinearSpeed(double speed) {
         pilot.setLinearSpeed(checkSpeed(speed));
+        pilot.setLinearAcceleration(0.5 * speed);
     }
     /**
      * Sets the speed at which the robot turns (in turn)
      * @param speed The speed for turning
      */
-    private void setAngularSpeed(double speed) {
+    protected void setAngularSpeed(double speed) {
         pilot.setAngularSpeed(checkSpeed(speed));
+        pilot.setAngularAcceleration(speed);
     }
 
     /**

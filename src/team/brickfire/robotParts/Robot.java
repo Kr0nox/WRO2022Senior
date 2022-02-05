@@ -1,5 +1,6 @@
 package team.brickfire.robotParts;
 
+import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.motor.Motor;
@@ -45,12 +46,14 @@ public class Robot extends DifferentialMovementController {
         super(wheelDiameter, offset, new EV3LargeRegulatedMotor(portMotorLeft),
                 new EV3LargeRegulatedMotor(portMotorRight), new EV3ColorSensor(portSensorLeft),
                 new EV3ColorSensor(portSensorRight));
-        System.out.println("super robot reached");
         //blockColorSensor = new ColorSensor(new EV3ColorSensor(portS1));
         //laundryBasketColorSensor = new ColorSensor(new EV3ColorSensor(portS2));
         // Create objects for the two "arms"
         //armLaundryBlock = new ArmLaundryBlock(new EV3MediumRegulatedMotor(portArm2));
         //armWaterBottle = new ArmWaterBottle(new EV3MediumRegulatedMotor(portArm1));
+        LCD.clearDisplay();
+        setAngularSpeed(250);
+        setLinearSpeed(350);
     }
 
     /**
