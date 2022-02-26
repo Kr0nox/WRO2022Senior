@@ -178,8 +178,8 @@ public class DifferentialMovementController extends MovementController {
 
         System.out.println("if...else... done");
 
-        float lightLeft = 0;
-        float lightRight = 0;
+        float lightLeft;
+        float lightRight;
         float correctionValue;
 
         while (true) {

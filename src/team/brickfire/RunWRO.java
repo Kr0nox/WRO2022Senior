@@ -5,6 +5,7 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import team.brickfire.actions.ActionsMain;
+import team.brickfire.robotParts.DifferentialMovementController;
 import team.brickfire.robotParts.Robot;
 import team.brickfire.robotParts.arms.ArmLaundryBlock;
 import team.brickfire.robotParts.arms.dataTypes.StatesArmLaundryBlock;
@@ -38,13 +39,6 @@ public class RunWRO {
                 SensorPort.S2, SensorPort.S3, SensorPort.S1, SensorPort.S4);
 
         LCD.drawString("ready", 0, 0);
-        Button.waitForAnyPress();
-        robot.turn(90);
-        Button.waitForAnyPress();
-        robot.turn(180);
-        Button.waitForAnyPress();
-        robot.turn(360);
-        Button.waitForAnyPress();
-        robot.turn(-90);
+        robot.lineFollowing(true);
     }
 }
