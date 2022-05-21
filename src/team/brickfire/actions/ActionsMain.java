@@ -1,5 +1,7 @@
 package team.brickfire.actions;
 
+import team.brickfire.actions.dataTypes.CircuitPosition;
+import team.brickfire.actions.dataTypes.Orientation;
 import team.brickfire.robotParts.Robot;
 import team.brickfire.robotParts.sensors.Sensor;
 
@@ -19,7 +21,7 @@ public class ActionsMain extends BaseAction {
      */
     public ActionsMain(Robot robot) {
         super(robot);
-        this.circuit = new Circuit(robot);
+        this.circuit = new Circuit(robot, CircuitPosition.MIDDLE, Orientation.NONE);
         this.laundry = new ActionsLaundry(robot);
     }
 
@@ -35,7 +37,9 @@ public class ActionsMain extends BaseAction {
 
     // Pink
     private void collectWater() {
-
+        ActionsWater water = new ActionsWater(robot);
+        water.driveToBottles();
+        water.collectBottles();
     }
 
     // Blue

@@ -60,7 +60,7 @@ class ActionsSide extends BaseAction {
             // TODO: Drive to block
             // robot.travel();
             // move arm
-            isGameRoom = robot.blockColorSensor().getColorID() == GAME_ROOM_COLOR;
+           // isGameRoom = robot.blockColorSensor().getColorID() == GAME_ROOM_COLOR;
         }
 
 

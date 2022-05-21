@@ -26,6 +26,7 @@ public abstract class MovementController {
      */
     public MovementController(Wheel[] wheels, int chassisType) {
         this.pilot = new MovePilot(new WheeledChassis(wheels, chassisType));
+        System.out.println(pilot.getMaxLinearSpeed());
     }
 
     /**
@@ -167,19 +168,8 @@ public abstract class MovementController {
     /**
      * The Robot follows a black line
      * @param speed The speed it should drive
-     * @param forward Direction the Robot should drive
-     * @param minRotations Minimum rotations to do before breaking
      */
-    public abstract void lineFollowing(double speed, boolean forward, double minRotations);
-
-    /**
-     * The Robot follows a black line
-     * @param speed The speed it should drive
-     * @param forward Direction the Robot should drive
-     */
-    public void lineFollowing(double speed, boolean forward) {
-        lineFollowing(speed, forward, 0);
-    }
+    public abstract void lineFollowing(double speed);
 
     /**
      * Returns the absolute value of the speed
@@ -196,7 +186,7 @@ public abstract class MovementController {
      */
     public void setLinearSpeed(double speed) {
         pilot.setLinearSpeed(checkSpeed(speed));
-        pilot.setLinearAcceleration(0.5 * speed);
+        pilot.setLinearAcceleration(0.7 * speed);
     }
     /**
      * Sets the speed at which the robot turns (in turn)
@@ -204,7 +194,7 @@ public abstract class MovementController {
      */
     protected void setAngularSpeed(double speed) {
         pilot.setAngularSpeed(checkSpeed(speed));
-        pilot.setAngularAcceleration(speed);
+        pilot.setAngularAcceleration(0.5 * speed);
     }
 
     /**

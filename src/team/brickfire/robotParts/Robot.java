@@ -3,12 +3,9 @@ package team.brickfire.robotParts;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
-import lejos.hardware.motor.Motor;
 import lejos.hardware.port.*;
 import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.robotics.RegulatedMotor;
-import team.brickfire.robotParts.arms.ArmLaundryBlock;
-import team.brickfire.robotParts.arms.ArmWaterBottle;
+import team.brickfire.robotParts.arms.Arm;
 import team.brickfire.robotParts.sensors.ColorSensor;
 
 /**
@@ -20,11 +17,10 @@ import team.brickfire.robotParts.sensors.ColorSensor;
 public class Robot extends DifferentialMovementController {
 
     // Add extra two sensors (maybe classes, depending on whether they need to save data)
-    private ColorSensor blockColorSensor;
-    private ColorSensor laundryBasketColorSensor;
+    //private final ColorSensor scanner;
     // Add extra Motors (probably as own objects)
-    private ArmLaundryBlock armLaundryBlock;
-    private ArmWaterBottle armWaterBottle;
+    private final Arm arm;
+    private final ColorSensor scanSensor;
 
 
 
@@ -34,75 +30,29 @@ public class Robot extends DifferentialMovementController {
      * @param offset Distance of the wheel from the middle of their axis
      * @param portMotorLeft Port of the left driving motor
      * @param portMotorRight Port of the right driving motor
-     * @param portArm1 Port of the first functional motor
-     * @param portArm2 Port of the second functional motor
      * @param portSensorLeft Port of the left orientation sensor
      * @param portSensorRight Port of the right orientation sensor
-     * @param portS1 Port of the first functional sensor
-     * @param portS2 Port of the second functional sensor
      */
-    public Robot(double wheelDiameter, double offset, Port portMotorLeft, Port portMotorRight, Port portArm1,
-                 Port portArm2, Port portSensorLeft, Port portSensorRight, Port portS1, Port portS2) {
+    public Robot(double wheelDiameter, double offset, Port portMotorLeft, Port portMotorRight,Port portSensorLeft, Port portSensorRight) {
         super(wheelDiameter, offset, new EV3LargeRegulatedMotor(portMotorLeft),
                 new EV3LargeRegulatedMotor(portMotorRight), new EV3ColorSensor(portSensorLeft),
-                new EV3ColorSensor(portSensorRight));
-        //blockColorSensor = new ColorSensor(new EV3ColorSensor(portS1));
-        //laundryBasketColorSensor = new ColorSensor(new EV3ColorSensor(portS2));
-        // Create objects for the two "arms"
-        //armLaundryBlock = new ArmLaundryBlock(new EV3MediumRegulatedMotor(portArm2));
-        //armWaterBottle = new ArmWaterBottle(new EV3MediumRegulatedMotor(portArm1));
+                new EV3ColorSensor(portSensorRight), new EV3ColorSensor(SensorPort.S1));
         LCD.clearDisplay();
         setAngularSpeed(250);
         setLinearSpeed(350);
-    }
+        this.arm = new Arm(new EV3MediumRegulatedMotor(MotorPort.D), new EV3MediumRegulatedMotor(MotorPort.A));
+        //this.scanner = new ColorSensor(new EV3ColorSensor(SensorPort.S4));
 
-    /**
-     * returns ColorSensor for scanning blocks
-     * @return blockColorSensor
-     */
-    public ColorSensor blockColorSensor() {
-        return blockColorSensor;
+        scanSensor = new ColorSensor(new EV3ColorSensor(SensorPort.S4));
     }
 
     /**
      * returns ColorSensor for scanning laundry
      * @return laundryBasketColorSensor
      */
-    public ColorSensor laundryBasketColorSensor() {
-        return laundryBasketColorSensor;
-    }
+    public ColorSensor scanner() {return scanSensor;}
 
-    /**
-     * returns arm for picking up laundry
-     * @return armLaundryBlock
-     */
-    public ArmLaundryBlock armLaundryBlock() {
-        return armLaundryBlock;
+    public Arm arm() {
+        return arm;
     }
-
-    /**
-     * returns arm for picking up water bottles
-     * @return armWaterBottle
-     */
-    public ArmWaterBottle armWaterBottle() {
-        return armWaterBottle;
-    }
-
-    // TODO: Delete later
-    public RegulatedMotor getLeftMotor() {
-        return this.motorLeft;
-    }
-
-    public RegulatedMotor getRightMotor() {
-        return this.motorRight;
-    }
-
-    public ColorSensor getLeftColorSensor() {
-        return this.colorSensorLeft;
-    }
-
-    public ColorSensor getRightColorSensor() {
-        return this.colorSensorRight;
-    }
-
 }

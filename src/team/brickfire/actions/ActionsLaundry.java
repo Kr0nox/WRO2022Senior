@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // package-private
-class ActionsLaundry extends BaseAction {
+public class ActionsLaundry extends BaseAction {
 
     private final Map<LaundryBasket, BasketPosition> laundryBaskets;
     private static final LaundryBasket[] POSSIBLE_BASKETS = new LaundryBasket[]{new LaundryBasket(Color.BLACK),
@@ -27,57 +27,15 @@ class ActionsLaundry extends BaseAction {
     }
 
     public void collectBlock(boolean forward) {
-        // drive to block
-        /* if (there is a block) {
-            robot.armLaundryBlock().addLaundryBlock(new LaundryBlock(robot.blockColorSensor().getColorID()));
-            // Pick up block
-            if (robot.armLaundryBlock().getLaundryBlockNumber() >= 1) {
-            } else {
-            }
-        } */
+        robot.arm().moveArmTo(50);
+        robot.arm().closeClawTo(90);
+        robot.travel(-4.2);
+        robot.scanner().getColorID();
+        robot.travel(-0.8);
+        robot.arm().closeClawTo(40);
+        robot.arm().moveArmTo(35);
+        robot.arm().closeClawTo(-80);
+        robot.travel(-5);
     }
 
-    public void dropOff() {
-        position = BasketPosition.CIRCUIT_SOUTH;
-        if (laundryBaskets.isEmpty()) {
-            scanBaskets();
-        }
-        // Deliver them
-        while (robot.armLaundryBlock().getLaundryBlockNumber() > 0) {
-            driveToBasket(getNextBasket());
-            // arm movement
-            robot.armLaundryBlock().removeLaundryBlock();
-        }
-        driveToBasket(BasketPosition.CIRCUIT_SOUTH);
-    }
-
-    private void driveToBasket(BasketPosition destination) {
-        robot.travel(destination.getDistance() - position.getDistance());
-        position = destination;
-    }
-
-    private BasketPosition getNextBasket() {
-        LaundryBasket correspondingBasket = new LaundryBasket(robot.armLaundryBlock().getLastLoadedBlock().getColor());
-        if (laundryBaskets.containsKey(correspondingBasket)) {
-            return laundryBaskets.get(correspondingBasket);
-        }
-
-        return position.getDropOff();
-    }
-
-    // TODO: finish this
-    private void scanBaskets() {
-        for (BasketPosition b : new BasketPosition[]{BasketPosition.SCAN_CENTER, BasketPosition.SCAN_EAST}) {
-            driveToBasket(b);
-            laundryBaskets.put(new LaundryBasket(robot.laundryBasketColorSensor().getColorID()), b.getDropOff());
-        }
-
-        // Calculate last Color
-        for (LaundryBasket b : POSSIBLE_BASKETS) {
-            if (!laundryBaskets.containsKey(b)) {
-                laundryBaskets.put(b, BasketPosition.SCAN_WEST.getDropOff());
-                break;
-            }
-        }
-    }
 }

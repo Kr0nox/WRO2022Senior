@@ -1,10 +1,13 @@
 package team.brickfire.robotParts;
 
+import lejos.hardware.Button;
+import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
+import lejos.utility.Delay;
 import team.brickfire.robotParts.sensors.ColorSensor;
 
 /**
@@ -22,11 +25,9 @@ public class DifferentialMovementController extends MovementController {
      */
     private static final float FINAL_ADJUSTMENT_FOR_SQUARING = 0.1f;
 
-    private static final float CORRECTION_LINE_FOLLOWING_ERROR = 20;
-    private static final float CORRECTION_LINE_FOLLOWING_INTEGRAL = 0.5f;
-    private static final float CORRECTION_LINE_FOLLOWING_DERIVATIVE = 0;
-    private static final float THRESHOLD_LINE_FOLLOWING = 0;
-    private static final float PERCENTAGE_CORRECTION_LINE_FOLLOWING = 0.01f;
+    private static final float CORRECTION_LINE_FOLLOWING = -0.3f;
+    private static final float LINE_FOLLOWING_BREAK_REFLECT = 0.35f;
+    private static final int LINE_FOLLOWING_MIN = 365;
 
     // TODO: make private again
     protected final RegulatedMotor motorLeft;
@@ -34,7 +35,7 @@ public class DifferentialMovementController extends MovementController {
 
     protected final ColorSensor colorSensorLeft;
     protected final ColorSensor colorSensorRight;
-
+    private final ColorSensor colorSensorFloorColor;
 
 
     /**
@@ -49,7 +50,7 @@ public class DifferentialMovementController extends MovementController {
      */
     public DifferentialMovementController(double wheelDiameter, double offset, RegulatedMotor motorLeft,
                                           RegulatedMotor motorRight,
-                                          EV3ColorSensor portSensorLeft, EV3ColorSensor portSensorRight) {
+                                          EV3ColorSensor portSensorLeft, EV3ColorSensor portSensorRight, EV3ColorSensor s) {
         super(new Wheel[]{
                         WheeledChassis.modelWheel(motorRight,
                                 wheelDiameter).offset(offset),
@@ -60,6 +61,7 @@ public class DifferentialMovementController extends MovementController {
         this.motorRight = motorRight;
         this.colorSensorLeft = new ColorSensor(portSensorLeft);
         this.colorSensorRight = new ColorSensor(portSensorRight);
+        this.colorSensorFloorColor = new ColorSensor(s);
     }
 
     @Override
@@ -141,70 +143,47 @@ public class DifferentialMovementController extends MovementController {
         }
     }
 
-    public void lineFollowing(boolean forward, double minRotations) {
-        lineFollowing(pilot.getLinearSpeed(), forward, minRotations);
-    }
-
-    public void lineFollowing(boolean forward) {
-        lineFollowing(forward, 0);
-    }
-
-    public void lineFollowing(double speed, boolean forward) {
-        lineFollowing(speed, forward, 0);
-    }
-
     @Override
-    public void lineFollowing(double speed, boolean forward, double minRotations) {
-        System.out.println("lineFollowing started");
+    public void lineFollowing(double speed) {
+        lineFollowing(speed, true);
+    }
+
+
+    public void lineFollowing(double speed, boolean stop) {
 
         int baseSpeed = (int) checkSpeed(speed);
-        float error;
-        float lastError = 0;
-        float derivative;
-        float integral = 0;
 
         motorLeft.setSpeed(baseSpeed);
         motorRight.setSpeed(baseSpeed);
 
-        System.out.println("setSpeed done");
-
-        if (forward) {
-            motorLeft.forward();
-            motorRight.forward();
-        } else {
-            motorLeft.backward();
-            motorRight.backward();
-        }
-
-        System.out.println("if...else... done");
 
         float lightLeft;
         float lightRight;
         float correctionValue;
 
-        while (true) {
+        motorLeft.resetTachoCount();
+        motorRight.resetTachoCount();
+        pilot.forward();
+
+        while (colorSensorFloorColor.getReflectedLight() < LINE_FOLLOWING_BREAK_REFLECT
+            || Math.abs(motorLeft.getTachoCount() + motorRight.getTachoCount()) / 2 < LINE_FOLLOWING_MIN) {
             lightLeft = colorSensorLeft.getReflectedLight();
             lightRight = colorSensorRight.getReflectedLight();
-            error = lightLeft - lightRight;
-            integral += error;
-            derivative = error - lastError;
-            lastError = error;
-            correctionValue = (error * CORRECTION_LINE_FOLLOWING_ERROR)
-                    + (integral * CORRECTION_LINE_FOLLOWING_INTEGRAL)
-                    + (derivative * CORRECTION_LINE_FOLLOWING_DERIVATIVE);
-
-            System.out.println(lightLeft + ";" + lightRight + ";" + correctionValue + ";"
-                    + (int) (baseSpeed - correctionValue * PERCENTAGE_CORRECTION_LINE_FOLLOWING * baseSpeed));
-
-            motorLeft.setSpeed((int) (baseSpeed - correctionValue * PERCENTAGE_CORRECTION_LINE_FOLLOWING * baseSpeed));
-            motorRight.setSpeed((int) (baseSpeed + correctionValue * PERCENTAGE_CORRECTION_LINE_FOLLOWING * baseSpeed));
+            correctionValue = (lightLeft - lightRight) * -0.2f * baseSpeed;
+            //System.out.println(colorSensorFloorColor.getReflectedLight() +"|"+Math.abs(motorLeft.getTachoCount() + motorRight.getTachoCount()) / 2);
+            motorLeft.setSpeed((int) (baseSpeed - correctionValue));
+            motorRight.setSpeed((int) (baseSpeed + correctionValue));
         }
-        //motorLeft.stop();
-        //motorRight.stop();
+        if (stop) {
+            pilot.stop();
+        }
     }
+
+
 
     @Override
     public boolean isStalled() {
         return motorLeft.isStalled() || motorRight.isStalled();
     }
+
 }

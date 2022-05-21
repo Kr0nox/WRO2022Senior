@@ -9,7 +9,7 @@ public enum CircuitPosition {
     SOUTHWEST(-1, -1),
     WEST(-1, 0),
     NORTHWEST(-1, 1),
-    NONE(0, 0);
+    MIDDLE(0, 0);
 
     public static final CircuitPosition[] POSITION_ORDER
             = new CircuitPosition[]{NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST};

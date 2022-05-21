@@ -2,16 +2,36 @@ package team.brickfire.robotParts.arms;
 
 import lejos.robotics.RegulatedMotor;
 
-public abstract class Arm<S> {
+public class Arm {
 
-    protected final RegulatedMotor motor;
+    private final RegulatedMotor armMotor;
+    private final RegulatedMotor clawMotor;
 
-    public Arm(RegulatedMotor motor, int speed) {
-        this.motor = motor;
-        this.motor.setSpeed(speed);
+    public Arm(RegulatedMotor armMotor, RegulatedMotor clawMotor) {
+        this.armMotor = armMotor;
+        this.clawMotor = clawMotor;
     }
 
-    public abstract void rotateTo(S state);
+    public void move(ArmPosition goal) {
+        move(goal.getMovements());
+    }
 
+    public void move(Movement movement) {
+        movement.execute(this);
+    }
+
+    public void move(Movement[] movements) {
+        for (Movement m : movements) {
+            move(m);
+        }
+    }
+
+    public void moveArmTo(int position) {
+        armMotor.rotateTo(position);
+    }
+
+    public void closeClawTo(int position) {
+        clawMotor.rotateTo(position);
+    }
 
 }

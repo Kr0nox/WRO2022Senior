@@ -16,19 +16,11 @@ public enum Orientation {
     }
 
     public static Orientation getOrientation(int x, int y) {
-        if (x == 0 && y == 1) {
-            return NORTH;
+        for (Orientation o : Orientation.values()) {
+            if (o.xPosition == x && o.yPosition == y) {
+                return o;
+            }
         }
-        if (x == 1 && y == 0) {
-            return EAST;
-        }
-        if (x == 0 && y == -1) {
-            return SOUTH;
-        }
-        if (x == -1 && y == 0) {
-            return WEST;
-        }
-
         return NONE;
     }
 

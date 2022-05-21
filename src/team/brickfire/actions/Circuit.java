@@ -15,33 +15,31 @@ public class Circuit extends BaseAction {
      * Creates an Circuit Object
      * @param robot The robot
      */
-    public Circuit(Robot robot) {
+    public Circuit(Robot robot, CircuitPosition startPosition, Orientation startOrientation) {
         super(robot);
-        currentPosition = CircuitPosition.NONE;
-        currentOrientation = Orientation.NONE;
+        currentPosition = startPosition;
+        currentOrientation = startOrientation;
     }
 
-    private int getPositionIndex(CircuitPosition position) {
-        for (int i = 0; i < CircuitPosition.POSITION_ORDER.length; i++) {
-            if (CircuitPosition.POSITION_ORDER[i] == position) {
-                return i;
-            }
+    public void driveTo(CircuitPosition goal) {
+        if (currentPosition.getX() == goal.getX()) {
+            turnTo(Orientation.getOrientation(0, currentOrientation.getY() - goal.getY() > 0 ? 1 : -1));
         }
-        return -1;
     }
 
+    public void driveTo(CircuitPosition goalPosition, Orientation goalOrientation) {
+        driveTo(currentOrientation, goalPosition, goalOrientation);
 
-    public void driveTo(CircuitPosition destination) {
-        if (destination == currentPosition) {
-            return;
-        }
-        int currentIndex = getPositionIndex(currentPosition);
-        int direction = CircuitPosition.POSITION_ORDER[
-                (currentIndex + currentPosition.distance(destination) % CircuitPosition.POSITION_ORDER.length)]
-                == destination ? 1 : -1;
-        driveToAdjacent(CircuitPosition.POSITION_ORDER[(currentIndex + direction)
-                % CircuitPosition.POSITION_ORDER.length]);
-        driveTo(destination);
+    }
+
+    public void driveTo(Orientation startOrientation, CircuitPosition goalPosition) {
+        currentOrientation = startOrientation;
+        driveTo(goalPosition);
+    }
+
+    public void driveTo(Orientation startOrientation, CircuitPosition goalPosition, Orientation goalOrientation) {
+        driveTo(startOrientation, goalPosition);
+        turnTo(goalOrientation);
     }
 
     public void turnTo(Orientation goalOrientation) {
@@ -49,7 +47,7 @@ public class Circuit extends BaseAction {
             return;
         }
         if (currentOrientation.getX() == goalOrientation.getX()
-                && currentOrientation.getY() == currentOrientation.getY()) {
+                || currentOrientation.getY() == goalOrientation.getY()) {
             robot.turn(180, ROTATION_SPEED);
         } else {
             int direction = currentOrientation.getX() * -goalOrientation.getY()
@@ -59,30 +57,5 @@ public class Circuit extends BaseAction {
         currentOrientation = goalOrientation;
     }
 
-    public void driveToAdjacent(CircuitPosition destination) {
-        if (!destination.isAdjacent(currentPosition)) {
-            return;
-        }
-        turnTo(Orientation.getOrientation(destination.getX() - currentPosition.getX(),
-                destination.getY() - currentPosition.getY()));
-        // TODO: drivng
-        currentPosition = destination;
-    }
-
-    public CircuitPosition getCurrentPosition() {
-        return currentPosition;
-    }
-
-    public void setCurrentPosition(CircuitPosition currentPosition) {
-        this.currentPosition = currentPosition;
-    }
-
-    public Orientation getCurrentOrientation() {
-        return currentOrientation;
-    }
-
-    public void setCurrentOrientation(Orientation currentOrientation) {
-        this.currentOrientation = currentOrientation;
-    }
-
+    private void driveOneForward() {}
 }
