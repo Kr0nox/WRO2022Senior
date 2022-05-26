@@ -43,8 +43,10 @@ public class RunWRO {
         LCD.drawString("Ready", 2, 2);
         Sound.beep();
         Button.ENTER.waitForPress();
+
         ActionsRoom test = new ActionsRoom(robot);
         test.scanBlock(true);
         new ActionsLaundry(robot).collectBlock(true);
+        test.playGame(true);
     }
 }

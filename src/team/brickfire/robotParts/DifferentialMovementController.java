@@ -186,4 +186,14 @@ public class DifferentialMovementController extends MovementController {
         return motorLeft.isStalled() || motorRight.isStalled();
     }
 
+
+    public RegulatedMotor motorLeft() {
+        return motorRight;
+    }
+
+    public RegulatedMotor motorRight() {
+        return motorLeft;
+    }
+
+
 }

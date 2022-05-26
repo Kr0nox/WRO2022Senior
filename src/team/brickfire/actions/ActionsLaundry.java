@@ -27,15 +27,15 @@ public class ActionsLaundry extends BaseAction {
     }
 
     public void collectBlock(boolean forward) {
-        robot.arm().moveArmTo(50);
-        robot.arm().closeClawTo(90);
-        robot.travel(-4.2);
+        robot.arm().closeClawTo(-90);
+        robot.arm().moveArmTo(145);
+        robot.travel(-8);
         robot.scanner().getColorID();
-        robot.travel(-0.8);
-        robot.arm().closeClawTo(40);
-        robot.arm().moveArmTo(35);
-        robot.arm().closeClawTo(-80);
-        robot.travel(-5);
+        robot.travel(-2);
+        robot.arm().closeClawTo(-20);
+        robot.arm().moveArmTo(-110);
+        robot.arm().closeClawTo(-90);
+        robot.travel(-10);
     }
 
 }
