@@ -32,9 +32,16 @@ public class ActionsRoom extends BaseAction {
 
     public void playGame (boolean forward) {
         robot.arm().moveArmTo(-200);
-        robot.travel(-9);
+        robot.travel(-8);
         robot.motorLeft().rotate(-100);
         robot.arm().closeClawTo(0);
+        robot.arm().moveArmTo(0);
+        robot.motorLeft().rotate(-260);
+        robot.travel(-4.5);
+        robot.arm().moveArmTo(-500);
+        robot.motorRight().rotate(-35);
+        robot.travel(-8.5);
+        robot.arm().closeClawTo(-260);
     }
 }
 

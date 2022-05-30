@@ -34,7 +34,7 @@ public class ActionsLaundry extends BaseAction {
         robot.travel(-2);
         robot.arm().closeClawTo(-20);
         robot.arm().moveArmTo(-110);
-        robot.arm().closeClawTo(-90);
+        robot.arm().closeClawTo(-150);
         robot.travel(-10);
     }
 
