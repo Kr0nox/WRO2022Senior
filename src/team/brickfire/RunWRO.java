@@ -47,6 +47,6 @@ public class RunWRO {
         ActionsRoom test = new ActionsRoom(robot);
         test.scanBlock(true);
         new ActionsLaundry(robot).collectBlock(true);
-        test.playGame(true);
+        new ActionsWater(robot).deliver(true);
     }
 }

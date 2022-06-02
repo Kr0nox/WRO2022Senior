@@ -36,7 +36,12 @@ public class ActionsWater extends BaseAction {
     }
 
     public void deliver(boolean forward) {
-
+        robot.turn(100);
+        robot.travel(-17);
+        robot.travel(6.5);
+        robot.arm().moveArmTo(110);
+        robot.arm().closeClawTo(0);
+        robot.arm().moveArmTo(-310);
     }
 
     public void skip(boolean forward) {
