@@ -24,24 +24,28 @@ public class ActionsRoom extends BaseAction {
     }
 
     public void scanBlock (boolean forward) {
-        isRoomGame = robot.scanner().isColor(Color.GREEN);
-        robot.arm().moveArmTo(175);
-        robot.travel(-2.8);
-        robot.arm().moveArmTo(-150);
+        if (forward == true) {
+            isRoomGame = robot.scanner().isColor(Color.GREEN);
+            robot.arm().moveArmTo(175);
+            robot.travel(-2.8);
+            robot.arm().moveArmTo(-150);
+        } else {}
     }
 
     public void playGame (boolean forward) {
-        robot.arm().moveArmTo(-200);
-        robot.travel(-8);
-        robot.motorLeft().rotate(-100);
-        robot.arm().closeClawTo(30);
-        robot.arm().moveArmTo(0);
-        robot.motorLeft().rotate(-260);
-        robot.travel(-4.5);
-        robot.arm().moveArmTo(-350);
-        robot.motorRight().rotate(-35);
-        robot.travel(-7.5);
-        robot.arm().closeClawTo(-260);
+        if (forward == true) {
+            robot.arm().moveArmTo(-200);
+            robot.travel(-8);
+            robot.motorLeft().rotate(-100);
+            robot.arm().closeClawTo(-30);
+            robot.arm().moveArmTo(0);
+            robot.motorLeft().rotate(-260);
+            robot.travel(-4.5);
+            robot.motorRight().rotate(-35);
+            robot.arm().moveArmTo(-350);
+            robot.travel(-7.8);
+            robot.arm().closeClawTo(-260);
+        } else {}
     }
 }
 
