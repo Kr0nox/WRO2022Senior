@@ -41,9 +41,10 @@ public class ActionsRoom extends BaseAction {
             robot.arm().moveArmTo(0);
             robot.motorLeft().rotate(-260);
             robot.travel(-4.5);
-            robot.motorRight().rotate(-35);
+            robot.motorRight().rotate(-25);
             robot.arm().moveArmTo(-350);
-            robot.travel(-7.8);
+            robot.travel(-7.85);
+            robot.motorLeft().rotate(-40);
             robot.arm().closeClawTo(-260);
         } else {}
     }

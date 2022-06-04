@@ -28,11 +28,11 @@ public class ActionsLaundry extends BaseAction {
 
     public void collectBlock(boolean forward) {
         if (forward == true) {
-            robot.travel(-7.95);
+            robot.travel(-7.8);
             robot.arm().closeClawTo(-200);
             robot.arm().moveArmTo(135);
             robot.scanner().getColorID();
-            robot.travel(-2);
+            robot.travel(-2.15);
             robot.arm().closeClawTo(-20);
             robot.arm().moveArmTo(-110);
             robot.arm().closeClawTo(-150);
