@@ -42,6 +42,7 @@ public class ActionsRoom extends BaseAction {
         }
     }
 
+
     public void playGame (boolean forward) {
         if (forward == true) {
             robot.arm().moveArmTo(-200);

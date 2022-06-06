@@ -50,7 +50,7 @@ public enum CircuitPosition {
         return yPosition;
     }
 
-    public CircuitPosition getAdjazent(Orientation o) {
+    public CircuitPosition getAdjacent(Orientation o) {
         return getPosition(this.xPosition + o.getX(), this.yPosition + o.getY());
     }
 

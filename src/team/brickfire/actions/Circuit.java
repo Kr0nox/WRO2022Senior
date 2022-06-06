@@ -6,12 +6,12 @@ import team.brickfire.robotParts.Robot;
 
 public class Circuit extends BaseAction {
 
-    private static final double ROTATION_SPEED = 500;
+    private static final double ROTATION_SPEED = 200;
 
     private CircuitPosition currentPosition;
     private Orientation currentOrientation;
 
-    private static final int SPEED = 100;
+    private static final int SPEED = 200;
 
     /**
      * Creates an Circuit Object
@@ -67,7 +67,7 @@ public class Circuit extends BaseAction {
         } else {
             int direction = currentOrientation.getX() * -goalOrientation.getY()
                     + currentPosition.getY() * goalOrientation.getX();
-            robot.turn(direction * 90, ROTATION_SPEED);
+            robot.turn(direction * -90, ROTATION_SPEED);
         }
         currentOrientation = goalOrientation;
     }
@@ -75,7 +75,7 @@ public class Circuit extends BaseAction {
     private void driveOneForward() {
         // Driving
         robot.lineFollowing(SPEED);
-        currentPosition = currentPosition.getAdjazent(currentOrientation);
+        currentPosition = currentPosition.getAdjacent(currentOrientation);
 
         // Adjust
         if (currentPosition.isCorner()) {
@@ -85,5 +85,11 @@ public class Circuit extends BaseAction {
         }
     }
 
+        public void setPosition(CircuitPosition P) {
+            currentPosition = P;
+        }
 
+        public void setOrientation(Orientation O) {
+            currentOrientation = O;
+        }
 }

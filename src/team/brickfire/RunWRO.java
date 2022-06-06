@@ -42,9 +42,25 @@ public class RunWRO {
         ActionsMain main = new ActionsMain(robot);
         LCD.drawString("Ready", 2, 2);
         Sound.beep();
-        Button.ENTER.waitForPress();
 
-        ActionsRoom test = new ActionsRoom(robot);
-        test.doRoomTask(true);
+        Button.ENTER.waitForPress();
+        new Circuit(robot, CircuitPosition.NORTHEAST, Orientation.EAST).turnTo(Orientation.EAST);
+
+        Button.ENTER.waitForPress();
+        new Circuit(robot, CircuitPosition.NORTHEAST, Orientation.EAST).turnTo(Orientation.SOUTH);
+
+        Button.ENTER.waitForPress();
+        new Circuit(robot, CircuitPosition.NORTHEAST, Orientation.EAST).turnTo(Orientation.NORTH);
+
+        Button.ENTER.waitForPress();
+        new Circuit(robot, CircuitPosition.NORTHEAST, Orientation.EAST).turnTo(Orientation.WEST);
+
+        Button.ENTER.waitForPress();
+        new Circuit(robot, CircuitPosition.NORTHEAST, Orientation.NORTH).turnTo(Orientation.SOUTH);
+
+        Button.ENTER.waitForPress();
+        new Circuit(robot, CircuitPosition.NORTHEAST, Orientation.NORTH).turnTo(Orientation.WEST);
+        //ActionsRoom test = new ActionsRoom(robot);
+        //test.doRoomTask(true);
     }
 }
