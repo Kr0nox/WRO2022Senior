@@ -32,6 +32,16 @@ public class ActionsRoom extends BaseAction {
         } else {}
     }
 
+    public void doRoomTask (boolean forward) {
+        scanBlock(forward);
+        new ActionsLaundry(robot).collectBlock(forward);
+        if (isRoomGame == true) {
+            playGame(forward);
+        } else {
+            new ActionsWater(robot).deliver(forward);
+        }
+    }
+
     public void playGame (boolean forward) {
         if (forward == true) {
             robot.arm().moveArmTo(-200);

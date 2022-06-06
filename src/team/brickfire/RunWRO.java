@@ -7,10 +7,10 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.utility.Delay;
-import team.brickfire.actions.ActionsLaundry;
-import team.brickfire.actions.ActionsMain;
-import team.brickfire.actions.ActionsRoom;
-import team.brickfire.actions.ActionsWater;
+import team.brickfire.actions.*;
+import team.brickfire.actions.dataTypes.CircuitPosition;
+import team.brickfire.actions.dataTypes.Orientation;
+import team.brickfire.robotParts.DifferentialMovementController;
 import team.brickfire.robotParts.Robot;
 import team.brickfire.robotParts.arms.ArmPosition;
 
@@ -45,9 +45,6 @@ public class RunWRO {
         Button.ENTER.waitForPress();
 
         ActionsRoom test = new ActionsRoom(robot);
-        test.scanBlock(true);
-        new ActionsLaundry(robot).collectBlock(true);
-        new ActionsWater(robot).deliver(true);
-        //test.playGame(true);
+        test.doRoomTask(true);
     }
 }
