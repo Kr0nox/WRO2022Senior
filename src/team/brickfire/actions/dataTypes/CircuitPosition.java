@@ -1,5 +1,7 @@
 package team.brickfire.actions.dataTypes;
 
+import team.brickfire.actions.Circuit;
+
 public enum CircuitPosition {
     NORTH(0, 1),
     NORTHEAST(1, 1),
@@ -23,26 +25,21 @@ public enum CircuitPosition {
         this.yPosition = yPosition;
     }
 
-    public boolean isOpposite(CircuitPosition compare) {
-        return xPosition + compare.xPosition + yPosition + compare.yPosition == 0;
-    }
-
     public boolean isAdjacent(CircuitPosition compare) {
         return (this.xPosition == compare.xPosition && Math.abs(this.yPosition + compare.yPosition) == 1
                 || this.yPosition == compare.yPosition && Math.abs(this.xPosition + compare.xPosition) == 1);
     }
 
-    public int distance(CircuitPosition compare) {
-        if (this == compare) {
-            return 0;
-        }
-        if (isAdjacent(compare)) {
-            return 1;
-        }
-        if (isOpposite(compare)) {
-            return 4;
-        }
-        return Math.abs(this.xPosition + compare.xPosition + this.yPosition + compare.yPosition);
+    public boolean isCorner() {
+        return xPosition != 0 && yPosition != 0;
+    }
+
+    public boolean isEdge() {
+        return xPosition != 0 ^ yPosition != 0;
+    }
+
+    public boolean isCenter() {
+        return xPosition == 0 && yPosition == 0;
     }
 
     public int getX() {
@@ -51,5 +48,18 @@ public enum CircuitPosition {
 
     public int getY() {
         return yPosition;
+    }
+
+    public CircuitPosition getAdjazent(Orientation o) {
+        return getPosition(this.xPosition + o.getX(), this.yPosition + o.getY());
+    }
+
+    private CircuitPosition getPosition(int x, int y) {
+        for (CircuitPosition p : CircuitPosition.values()) {
+            if (p.xPosition == x && p.yPosition == y) {
+                return p;
+            }
+        }
+        return MIDDLE;
     }
 }

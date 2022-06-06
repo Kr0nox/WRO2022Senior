@@ -11,6 +11,8 @@ public class Circuit extends BaseAction {
     private CircuitPosition currentPosition;
     private Orientation currentOrientation;
 
+    private static final int SPEED = 100;
+
     /**
      * Creates an Circuit Object
      * @param robot The robot
@@ -22,9 +24,22 @@ public class Circuit extends BaseAction {
     }
 
     public void driveTo(CircuitPosition goal) {
-        if (currentPosition.getX() == goal.getX()) {
-            turnTo(Orientation.getOrientation(0, currentOrientation.getY() - goal.getY() > 0 ? 1 : -1));
+        if (currentPosition == goal) {
+            return;
         }
+        if (currentPosition.getX() == goal.getX()) {
+            turnTo(Orientation.getOrientation(0, Integer.compare(currentPosition.getY(), goal.getY())));
+        } else if (currentPosition.getY() == goal.getY()) {
+            turnTo(Orientation.getOrientation(Integer.compare(currentPosition.getX(), goal.getX()), 0));
+        } else {
+            if (goal.getX() == 0) {
+                turnTo(Orientation.getOrientation(0, Integer.compare(currentPosition.getY(), goal.getY())));
+            } else {
+                turnTo(Orientation.getOrientation(Integer.compare(currentPosition.getX(), goal.getX()), 0));
+            }
+        }
+        driveOneForward();
+        driveTo(goal);
     }
 
     public void driveTo(CircuitPosition goalPosition, Orientation goalOrientation) {
@@ -57,5 +72,18 @@ public class Circuit extends BaseAction {
         currentOrientation = goalOrientation;
     }
 
-    private void driveOneForward() {}
+    private void driveOneForward() {
+        // Driving
+        robot.lineFollowing(SPEED);
+        currentPosition = currentPosition.getAdjazent(currentOrientation);
+
+        // Adjust
+        if (currentPosition.isCorner()) {
+
+        } else {
+
+        }
+    }
+
+
 }
