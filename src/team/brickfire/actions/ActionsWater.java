@@ -44,9 +44,9 @@ public class ActionsWater extends BaseAction {
             robot.travel(-6);
             robot.travel(6);
             robot.arm().moveArmTo(-250);
-            robot.arm().closeClawTo(-180);
+            robot.arm().closeClawTo(180);
             robot.arm().moveArmTo(110);
-            robot.arm().closeClawTo(50);
+            robot.arm().closeClawTo(-50);
             robot.arm().moveArmTo(-310);
             robot.travel(-4);
             robot.motorRight().rotate(-100);
