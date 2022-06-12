@@ -37,20 +37,14 @@ public class ActionsWater extends BaseAction {
 
     public void deliver(boolean forward) {
         if (forward == true) {
-            robot.motorLeft().rotate(-480);
-            robot.arm().moveArmTo(-250);
-            robot.arm().closeClawTo(0);
-            robot.arm().moveArmTo(-150);
-            robot.travel(-6);
-            robot.travel(6);
-            robot.arm().moveArmTo(-250);
-            robot.arm().closeClawTo(180);
-            robot.arm().moveArmTo(110);
-            robot.arm().closeClawTo(-50);
-            robot.arm().moveArmTo(-310);
-            robot.travel(-4);
-            robot.motorRight().rotate(-100);
-            robot.travel(-2.5);
+            robot.motorLeft().rotate(-500);
+            robot.travel(-10);
+            robot.arm().moveArmTo(70);
+            robot.travel(7);
+            robot.arm().closeClawTo(15);
+            robot.arm().moveArmTo(-210);
+            robot.travel(-10);
+            robot.arm().closeClawTo(80);
         } else {}
     }
 
