@@ -4,6 +4,8 @@ import lejos.robotics.RegulatedMotor;
 
 public class Arm {
 
+    private int baseSpeed = 150;
+
     private final RegulatedMotor armMotor;
     private final RegulatedMotor clawMotor;
 
@@ -34,4 +36,21 @@ public class Arm {
         clawMotor.rotateTo(position);
     }
 
+    public void setClawSpeed(int speed) {
+        baseSpeed = clawMotor.getSpeed();
+        clawMotor.setSpeed(speed);
+    }
+
+    public void resetClawSpeed() {
+        clawMotor.setSpeed(baseSpeed);
+    }
+
+    public void setArmSpeed(int speed) {
+        baseSpeed = armMotor.getSpeed();
+        armMotor.setSpeed(speed);
+    }
+
+    public void resetArmSpeed() {
+        armMotor.setSpeed(baseSpeed);
+    }
 }
