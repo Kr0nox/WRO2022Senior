@@ -29,7 +29,7 @@ public class ActionsLaundry extends BaseAction {
     public void collectBlock(boolean forward) {
         if (forward == true) {
             robot.arm().moveArmTo(0);
-            robot.travel(-2.8);
+            robot.travel(-2.4);
             robot.arm().closeClawTo(105);
             robot.arm().moveArmTo(130);
             robot.travel(-4.6);
@@ -39,7 +39,15 @@ public class ActionsLaundry extends BaseAction {
             robot.arm().moveArmTo(-110);
             robot.arm().closeClawTo(100);
             robot.travel(-10);
-        } else {}
+        } else {
+            robot.arm().moveArmTo(0);
+            robot.travel(-2.8);
+            robot.arm().closeClawTo(105);
+            robot.arm().moveArmTo(-155);
+            robot.travel(-4.6);
+            robot.scanner().getColorID();
+            robot.travel(-12.15);
+        }
     }
 
 }

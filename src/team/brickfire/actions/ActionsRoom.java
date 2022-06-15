@@ -27,9 +27,14 @@ public class ActionsRoom extends BaseAction {
         if (forward == true) {
             isRoomGame = robot.scanner().isColor(Color.GREEN);
             robot.arm().moveArmTo(210);
-            robot.travel(-3.6);
+            robot.travel(-4);
             robot.arm().moveArmTo(-150);
-        } else {}
+        } else {
+            isRoomGame = robot.scanner().isColor(Color.GREEN);
+            robot.arm().moveArmTo(-210);
+            robot.travel(-3.6);
+            robot.arm().moveArmTo(150);
+        }
     }
 
     public void doRoomTask (boolean forward) {
@@ -58,7 +63,21 @@ public class ActionsRoom extends BaseAction {
             robot.travel(-7.1);
             robot.motorLeft().rotate(-90);
             robot.arm().closeClawTo(170);
-        } else {}
+        } else {
+            robot.arm().moveArmTo(155);
+            robot.travel(-3.15);
+            robot.motorRight().rotate(-58);
+            robot.travel(-3.4);
+            robot.arm().closeClawTo(30);
+            robot.arm().moveArmTo(0);
+            robot.motorRight().rotate(-275);
+            robot.travel(-4.5);
+            robot.motorLeft().rotate(-25);
+            robot.arm().moveArmTo(350);
+            robot.travel(-7.1);
+            robot.motorRight().rotate(-90);
+            robot.arm().closeClawTo(170);
+        }
     }
 }
 
