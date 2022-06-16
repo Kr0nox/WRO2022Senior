@@ -31,7 +31,7 @@ public class ActionsLaundry extends BaseAction {
             robot.arm().moveArmTo(0);
             robot.travel(-2.4);
             robot.arm().closeClawTo(105);
-            robot.arm().moveArmTo(130);
+            robot.arm().moveArmTo(90);
             robot.travel(-4.6);
             robot.scanner().getColorID();
             robot.travel(-2.15);
@@ -43,11 +43,10 @@ public class ActionsLaundry extends BaseAction {
             robot.arm().moveArmTo(0);
             robot.travel(-2.8);
             robot.arm().closeClawTo(105);
-            robot.arm().moveArmTo(-155);
+            robot.arm().moveArmTo(-90);
             robot.travel(-4.6);
             robot.scanner().getColorID();
             robot.travel(-12.15);
         }
     }
-
 }
