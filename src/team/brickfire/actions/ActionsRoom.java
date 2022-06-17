@@ -1,13 +1,7 @@
 package team.brickfire.actions;
 
 import lejos.robotics.Color;
-import team.brickfire.actions.dataTypes.BasketPosition;
-import team.brickfire.challengeParts.LaundryBasket;
 import team.brickfire.robotParts.Robot;
-import team.brickfire.robotParts.arms.ArmMovement;
-
-import java.util.HashMap;
-import java.util.Map;
 
 // package-private
 public class ActionsRoom extends BaseAction {
@@ -37,13 +31,13 @@ public class ActionsRoom extends BaseAction {
         }
     }
 
-    public void doRoomTask (boolean forward) {
+    public void doRoom (boolean forward) {
         scanBlock(forward);
         new ActionsLaundry(robot).collectBlock(forward);
         if (isRoomGame == true) {
             playGame(forward);
         } else {
-            new ActionsWater(robot).deliver(forward);
+            new ActionsWater(robot).deliverWater(forward);
         }
     }
 

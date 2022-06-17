@@ -50,7 +50,7 @@ class ActionsSide extends BaseAction {
                 water.skip(isForward);
             } else {
                 game.skip();
-                water.deliver(isForward);
+                water.deliverWater(isForward);
             }
 
             //TODO: drive to corner

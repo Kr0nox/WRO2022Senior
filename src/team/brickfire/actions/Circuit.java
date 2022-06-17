@@ -11,7 +11,9 @@ public class Circuit extends BaseAction {
     private CircuitPosition currentPosition;
     private Orientation currentOrientation;
 
-    private static final int SPEED = 200;
+    private static final int SPEED = 320;
+
+    private boolean onLine = true;
 
     /**
      * Creates an Circuit Object
@@ -23,24 +25,33 @@ public class Circuit extends BaseAction {
         currentOrientation = startOrientation;
     }
 
-    public void driveTo(CircuitPosition goal) {
+    public void driveTo(CircuitPosition goal, boolean startOnLine) {
         if (currentPosition == goal) {
+            if (!onLine) {
+                getOnLine();
+            }
             return;
         }
         if (currentPosition.getX() == goal.getX()) {
-            turnTo(Orientation.getOrientation(0, Integer.compare(currentPosition.getY(), goal.getY())));
+            turnTo(Orientation.getOrientation(0, Integer.compare(goal.getY(), currentPosition.getY())));
         } else if (currentPosition.getY() == goal.getY()) {
-            turnTo(Orientation.getOrientation(Integer.compare(currentPosition.getX(), goal.getX()), 0));
+            turnTo(Orientation.getOrientation(Integer.compare(goal.getX(), currentPosition.getX()), 0));
         } else {
             if (goal.getX() == 0) {
-                turnTo(Orientation.getOrientation(0, Integer.compare(currentPosition.getY(), goal.getY())));
+                turnTo(Orientation.getOrientation(0, Integer.compare(goal.getY(), currentPosition.getY())));
             } else {
-                turnTo(Orientation.getOrientation(Integer.compare(currentPosition.getX(), goal.getX()), 0));
+                turnTo(Orientation.getOrientation(Integer.compare(goal.getX(), currentPosition.getX()), 0));
             }
         }
         driveOneForward();
-        driveTo(goal);
+        driveTo(goal, onLine);
     }
+
+    public void driveTo(CircuitPosition goal) {
+        driveTo(goal, true);
+    }
+
+
 
     public void driveTo(CircuitPosition goalPosition, Orientation goalOrientation) {
         driveTo(currentOrientation, goalPosition, goalOrientation);
@@ -61,6 +72,9 @@ public class Circuit extends BaseAction {
         if (currentOrientation == goalOrientation) {
             return;
         }
+        if (!onLine) {
+            getOnLine();
+        }
         if (currentOrientation.getX() == goalOrientation.getX()
                 || currentOrientation.getY() == goalOrientation.getY()) {
             robot.turn(180, ROTATION_SPEED);
@@ -76,13 +90,9 @@ public class Circuit extends BaseAction {
         // Driving
         robot.lineFollowing(SPEED);
         currentPosition = currentPosition.getAdjacent(currentOrientation);
+        System.out.println(currentPosition.name());
+        onLine = false;
 
-        // Adjust
-        if (currentPosition.isCorner()) {
-
-        } else {
-
-        }
     }
 
         public void setPosition(CircuitPosition P) {
@@ -91,5 +101,10 @@ public class Circuit extends BaseAction {
 
         public void setOrientation(Orientation O) {
             currentOrientation = O;
+        }
+
+        private void getOnLine() {
+            robot.travel(-5.5);
+            onLine = true;
         }
 }

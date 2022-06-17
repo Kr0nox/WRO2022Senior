@@ -1,9 +1,7 @@
 package team.brickfire.actions;
 
-import lejos.utility.Delay;
 import team.brickfire.robotParts.Robot;
 import team.brickfire.robotParts.arms.ArmPosition;
-import team.brickfire.robotParts.arms.ClawMovement;
 
 // package-private
 public class ActionsWater extends BaseAction {
@@ -36,19 +34,16 @@ public class ActionsWater extends BaseAction {
         robot.arm().move(ArmPosition.MAIN);
     }
 
-    public void deliver(boolean forward) {
+    public void deliverWater(boolean forward) {
         if (forward == true) {
             robot.motorLeft().rotate(-460);
-            robot.travel(-3);
-            robot.arm().moveArmTo(82);
-            robot.travel(6.6);
-            robot.arm().setClawSpeed(250);
-            robot.arm().closeClawTo(4);
-            robot.arm().resetClawSpeed();
+            robot.travel(-2);
+            robot.arm().moveArmTo(65);
+            robot.travel(8.2);
+            robot.arm().closeClawTo(8);
             robot.travel(-3.2);
-            robot.arm().setArmSpeed(350);
-            robot.arm().moveArmTo(-400);
-            robot.travel(-6);
+            robot.arm().moveArmTo(-210);
+            robot.travel(-12);
             robot.arm().closeClawTo(80);
         } else {}
     }

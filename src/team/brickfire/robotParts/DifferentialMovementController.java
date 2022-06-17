@@ -1,6 +1,7 @@
 package team.brickfire.robotParts;
 
 import lejos.hardware.Button;
+import lejos.hardware.Sound;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
@@ -150,7 +151,7 @@ public class DifferentialMovementController extends MovementController {
 
 
     public void lineFollowing(double speed, boolean stop) {
-
+        Sound.beep();
         int baseSpeed = (int) checkSpeed(speed);
 
         motorLeft.setSpeed(baseSpeed);

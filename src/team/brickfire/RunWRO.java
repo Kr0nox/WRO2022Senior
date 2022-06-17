@@ -42,8 +42,14 @@ public class RunWRO {
         ActionsMain main = new ActionsMain(robot);
         LCD.drawString("Ready", 2, 2);
         Sound.beep();
+        Button.waitForAnyPress();
 
-        ActionsRoom test = new ActionsRoom(robot);
-        test.doRoomTask(true);
+        //ActionsRoom test = new ActionsRoom(robot);
+        //test.doRoom(true);
+
+        //Circuit c = new Circuit(robot, CircuitPosition.EAST, Orientation.WEST);
+        //c.driveTo(CircuitPosition.WEST);
+
+        new ActionsLaundry(robot).deliverLaundry();
     }
 }

@@ -38,8 +38,8 @@ public class Robot extends DifferentialMovementController {
                 new EV3LargeRegulatedMotor(portMotorRight), new EV3ColorSensor(portSensorLeft),
                 new EV3ColorSensor(portSensorRight), new EV3ColorSensor(SensorPort.S1));
         LCD.clearDisplay();
-        setAngularSpeed(200);
-        setLinearSpeed(50);
+        setAngularSpeed(400);
+        setLinearSpeed(100);
         this.arm = new Arm(new EV3MediumRegulatedMotor(MotorPort.D), new EV3MediumRegulatedMotor(MotorPort.A));
         //this.scanner = new ColorSensor(new EV3ColorSensor(SensorPort.S4));
 
