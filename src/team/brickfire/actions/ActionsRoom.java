@@ -1,6 +1,7 @@
 package team.brickfire.actions;
 
 import lejos.robotics.Color;
+import lejos.utility.Delay;
 import team.brickfire.robotParts.Robot;
 
 // package-private
@@ -19,13 +20,11 @@ public class ActionsRoom extends BaseAction {
 
     public void scanBlock (boolean mirrored) {
         if (mirrored == true) {
-            //Drive to roomBlock
+            //drive to roomBlock and scan
+            robot.travel(-23);
             isRoomGame = robot.scanner().isColor(Color.GREEN);
-            robot.travel(-4);
+            Delay.msDelay(1000);
         } else {
-            //Drive to roomBlock
-            isRoomGame = robot.scanner().isColor(Color.GREEN);
-            robot.travel(-3.6);
         }
     }
 
@@ -41,12 +40,13 @@ public class ActionsRoom extends BaseAction {
 
 
     public void playGame (boolean mirrored) {
-            robot.travel(-17);
-            //Pick up Ball
-            robot.travel(4.5);
-            robot.turn(mirrored?90:-90);
-            robot.travel(-12);
-            //put ball on table
+            robot.travel(-16);
+            robot.armLift().moveLow();
+            robot.armLift().moveHigh();
+            robot.travel(6);
+            robot.turn(mirrored?-70:70);
+            robot.travel(-25);
+            robot.travel(5);
     }
 }
 

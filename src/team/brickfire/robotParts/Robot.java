@@ -5,6 +5,8 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.*;
 import lejos.hardware.sensor.EV3ColorSensor;
+import team.brickfire.robotParts.arms.ArmBlockCarrier;
+import team.brickfire.robotParts.arms.ArmLift;
 import team.brickfire.robotParts.sensors.ColorSensor;
 
 /**
@@ -22,6 +24,10 @@ public class Robot extends DifferentialMovementController {
 
 
 
+    private final ArmBlockCarrier armBlockCarrier;
+    private final ArmLift armLift;
+
+
     /**
      * Creates a robot object with the given parameters
      * @param wheelDiameter Diameter of the wheel
@@ -37,10 +43,12 @@ public class Robot extends DifferentialMovementController {
                 new EV3ColorSensor(portSensorRight), new EV3ColorSensor(SensorPort.S1));
         LCD.clearDisplay();
         setAngularSpeed(400);
-        setLinearSpeed(100);
+        setLinearSpeed(110);
         //this.scanner = new ColorSensor(new EV3ColorSensor(SensorPort.S4));
 
         scanSensor = new ColorSensor(new EV3ColorSensor(SensorPort.S4));
+        armBlockCarrier = new ArmBlockCarrier();
+        armLift = new ArmLift();
     }
 
     /**
@@ -49,4 +57,11 @@ public class Robot extends DifferentialMovementController {
      */
     public ColorSensor scanner() {return scanSensor;}
 
+    public ArmBlockCarrier armBlockCarrier() {
+        return armBlockCarrier;
+    }
+
+    public ArmLift armLift() {
+        return armLift;
+    }
 }

@@ -186,7 +186,7 @@ public abstract class MovementController {
      */
     public void setLinearSpeed(double speed) {
         pilot.setLinearSpeed(checkSpeed(speed));
-        pilot.setLinearAcceleration(0.7 * speed);
+        pilot.setLinearAcceleration(0.5 * speed);
     }
     /**
      * Sets the speed at which the robot turns (in turn)

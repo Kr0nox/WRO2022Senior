@@ -1,6 +1,7 @@
 package team.brickfire.actions;
 
 import lejos.robotics.Color;
+import lejos.utility.Delay;
 import team.brickfire.actions.dataTypes.BasketPosition;
 import team.brickfire.challengeParts.LaundryBasket;
 import team.brickfire.robotParts.Robot;
@@ -31,13 +32,11 @@ public class ActionsLaundry extends BaseAction {
 
     public void collectBlock(boolean mirrored) {
         if (mirrored == true) {
-            robot.travel(-7);
+            robot.travel(-13);
             robot.scanner().getColorID();
-            robot.travel(-12.15);
+            Delay.msDelay(1000);
+            //pick up laundry block
         } else {
-            robot.travel(-7);
-            robot.scanner().getColorID();
-            robot.travel(-12.15);
         }
     }
 
