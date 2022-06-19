@@ -7,7 +7,7 @@ public class ArmBlockCarrier extends Arm {
 
 
     public ArmBlockCarrier() {
-        super (new EV3MediumRegulatedMotor(MotorPort.D));
+        super (new EV3MediumRegulatedMotor(MotorPort.A));
     }
 
     @Override

@@ -6,6 +6,6 @@ import lejos.hardware.port.Port;
 
 public class ArmLift extends Arm {
     public ArmLift() {
-        super (new EV3MediumRegulatedMotor(MotorPort.A));
+        super (new EV3MediumRegulatedMotor(MotorPort.D));
     }
 }
