@@ -5,7 +5,6 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.*;
 import lejos.hardware.sensor.EV3ColorSensor;
-import team.brickfire.robotParts.arms.Arm;
 import team.brickfire.robotParts.sensors.ColorSensor;
 
 /**
@@ -19,7 +18,6 @@ public class Robot extends DifferentialMovementController {
     // Add extra two sensors (maybe classes, depending on whether they need to save data)
     //private final ColorSensor scanner;
     // Add extra Motors (probably as own objects)
-    private final Arm arm;
     private final ColorSensor scanSensor;
 
 
@@ -40,7 +38,6 @@ public class Robot extends DifferentialMovementController {
         LCD.clearDisplay();
         setAngularSpeed(400);
         setLinearSpeed(100);
-        this.arm = new Arm(new EV3MediumRegulatedMotor(MotorPort.D), new EV3MediumRegulatedMotor(MotorPort.A));
         //this.scanner = new ColorSensor(new EV3ColorSensor(SensorPort.S4));
 
         scanSensor = new ColorSensor(new EV3ColorSensor(SensorPort.S4));
@@ -52,7 +49,4 @@ public class Robot extends DifferentialMovementController {
      */
     public ColorSensor scanner() {return scanSensor;}
 
-    public Arm arm() {
-        return arm;
-    }
 }

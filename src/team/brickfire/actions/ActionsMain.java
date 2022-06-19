@@ -38,7 +38,6 @@ public class ActionsMain extends BaseAction {
     // Pink
     private void collectWater() {
         ActionsWater water = new ActionsWater(robot);
-        water.driveToBottles();
         water.collectBottles();
     }
 

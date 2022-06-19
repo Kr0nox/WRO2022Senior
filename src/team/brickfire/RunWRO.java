@@ -1,18 +1,12 @@
 package team.brickfire;
 
-import lejos.hardware.Brick;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
-import lejos.utility.Delay;
 import team.brickfire.actions.*;
-import team.brickfire.actions.dataTypes.CircuitPosition;
-import team.brickfire.actions.dataTypes.Orientation;
-import team.brickfire.robotParts.DifferentialMovementController;
 import team.brickfire.robotParts.Robot;
-import team.brickfire.robotParts.arms.ArmPosition;
 
 /**
  * Utility class that starts the program and handles the order in which things happen
@@ -28,7 +22,7 @@ public class RunWRO {
     /**
      * Distance between wheels and center of the drive axis
      */
-    public static final double OFFSET = 6.8;
+    public static final double OFFSET = 8;
 
     /**
      * This method gets called when the program starts
@@ -44,12 +38,6 @@ public class RunWRO {
         Sound.beep();
         Button.waitForAnyPress();
 
-        //ActionsRoom test = new ActionsRoom(robot);
-        //test.doRoom(true);
 
-        //Circuit c = new Circuit(robot, CircuitPosition.EAST, Orientation.WEST);
-        //c.driveTo(CircuitPosition.WEST);
-
-        new ActionsLaundry(robot).deliverLaundry();
     }
 }
