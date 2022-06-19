@@ -8,4 +8,12 @@ public class ArmLift extends Arm {
     public ArmLift() {
         super (new EV3MediumRegulatedMotor(MotorPort.D));
     }
+
+    public void moveHigh() {
+        motor.rotateTo(0);
+    }
+
+    public void moveLow() {
+        motor.rotateTo(1);
+    }
 }

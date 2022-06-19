@@ -8,8 +8,4 @@ public abstract class Arm {
     protected Arm(BaseRegulatedMotor motor) {
         this.motor = motor;
     }
-
-    public void moveTo(ArmPosition position) {
-        motor.rotateTo(position.getPosition());
-    }
 }

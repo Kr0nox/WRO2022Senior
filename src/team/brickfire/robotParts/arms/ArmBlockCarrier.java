@@ -10,8 +10,11 @@ public class ArmBlockCarrier extends Arm {
         super (new EV3MediumRegulatedMotor(MotorPort.A));
     }
 
-    @Override
-    public void moveTo(ArmPosition position) {
-        motor.rotate(position.getPosition());
+    public void pickUp() {
+        motor.rotate(0);
+    }
+
+    public void drop() {
+        motor.rotate(0);
     }
 }
