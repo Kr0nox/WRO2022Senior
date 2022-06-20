@@ -7,6 +7,7 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.utility.Delay;
 import team.brickfire.actions.*;
+import team.brickfire.robotParts.ColorPool;
 import team.brickfire.robotParts.Robot;
 
 /**
@@ -33,12 +34,14 @@ public class RunWRO {
     public static void main(String[] args) {
 
         Robot robot = new Robot(WHEEL_DIAMETER, OFFSET, MotorPort.B,
-                MotorPort.C, SensorPort.S2, SensorPort.S3);
+                MotorPort.C, SensorPort.S1, SensorPort.S4);
         ActionsMain main = new ActionsMain(robot);
 
         LCD.drawString("Ready", 2, 2);
         Sound.beep();
         Button.waitForAnyPress();
+
+        //robot.alignLine(true, 10);
 
         main.execute();
 

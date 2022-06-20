@@ -1,11 +1,12 @@
 package team.brickfire.actions;
 
+import lejos.hardware.lcd.LCD;
 import team.brickfire.robotParts.Robot;
 
 // package-private
 public class ActionsWater extends BaseAction {
 
-    private boolean bothBottles;
+    private int bottleCount;
 
     /**
      * Creates an ActionsWater Object
@@ -13,6 +14,7 @@ public class ActionsWater extends BaseAction {
      */
     public ActionsWater(Robot robot) {
         super(robot);
+        bottleCount = 1;
     }
 
     public void collectBottles() {
@@ -22,16 +24,27 @@ public class ActionsWater extends BaseAction {
         robot.travel(-3);
         robot.turn(90);
         robot.travel(8);
-
-        bothBottles = true;
     }
 
     public void deliverWater(boolean mirrored) {
-        robot.travel(bothBottles ? 1 : 2);
-        robot.turn(mirrored ? -90 : 90);
+        LCD.clearDisplay();
+        System.out.println(bottleCount);
 
-        robot.travel(12);
-        //lower water bottle
+        // 2 & M | 1 & !M
+        robot.travel(bottleCount == 2 && mirrored || bottleCount == 1 && !mirrored ? -1 : -9.5);
+        robot.turn(mirrored ? 90 : -90);
+
+        robot.travel(24.5);
+        robot.armConstruct().moveTable();
+
+        bottleCount--;
+    }
+
+    public void leaveRoomWater(boolean mirrored) {
+        robot.travel(-26);
+        robot.armConstruct().moveHigh(true);
+        robot.turn(mirrored ? 90 : -90);
+        robot.travel(bottleCount == 1 ? -15 : -24);
     }
 
 }

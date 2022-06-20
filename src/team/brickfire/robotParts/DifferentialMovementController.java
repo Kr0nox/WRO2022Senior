@@ -64,21 +64,23 @@ public class DifferentialMovementController extends MovementController {
         char finishedFirst = driveTillLine(forward, speed);
         motorLeft.resetTachoCount();
         motorRight.resetTachoCount();
-        motorLeft.setSpeed((int) speed * 2 / 3);
-        motorRight.setSpeed((int) speed * 2 / 3);
+        motorLeft.setSpeed((int) speed * 10);
+        motorRight.setSpeed((int) speed * 10);
         while (!isStalled()) {
             if ((finishedFirst == 'r' && colorSensorLeft.isColor(Color.BLACK))
                     || (finishedFirst == 'l' && colorSensorRight.isColor(Color.BLACK))) {
                 break;
             }
         }
-        // Why this calculation?
         int avgTachoCount = (motorLeft.getTachoCount() + motorRight.getTachoCount()) / 2;
-        double distCm = avgTachoCount * 0.0488 / 3.7;
-        double degrees = Math.toDegrees(Math.atan(distCm) * (finishedFirst == 'r' ? 1 : -1));
-        turn(degrees, speed / 3);
+        double distCm = (avgTachoCount * 3.14 * 6.24 ) / 360;
+        double degrees = Math.toDegrees(Math.atan(distCm / 16) * (finishedFirst == 'r' ? 1 : -1));
 
-        squareWithLine(speed / 3);
+        System.out.println(avgTachoCount + " | " + distCm + " | " + degrees);
+        turn(degrees, speed * 20);
+        //travel(-3.5);
+
+        //squareWithLine(speed * 10);
     }
 
 
@@ -91,10 +93,10 @@ public class DifferentialMovementController extends MovementController {
         do {
             valueLeft = colorSensorLeft.getReflectedLight();
             valueRight = colorSensorRight.getReflectedLight();
-            if (valueLeft > valueRight) {
+            if (valueLeft < valueRight) {
                 motorLeft.forward();
                 motorRight.backward();
-            } else if (valueLeft < valueRight) {
+            } else if (valueLeft > valueRight) {
                 motorLeft.backward();
                 motorRight.forward();
             }

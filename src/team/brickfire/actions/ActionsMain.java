@@ -31,8 +31,10 @@ public class ActionsMain extends BaseAction {
      * Executes all the tasks
      */
     public void execute() {
-        ActionsRoom test = new ActionsRoom(robot, laundry, water);
-        test.doRoom(true);
+        /*ActionsRoom test = new ActionsRoom(robot, laundry, water);
+        test.doRoom(false);*/
+
+        new ActionsSide(robot, laundry, water).doSide();
 
         /*
         collectWater();

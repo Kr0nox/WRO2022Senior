@@ -42,7 +42,8 @@ public class Robot extends DifferentialMovementController {
         LCD.clearDisplay();
         setAngularSpeed(400);
         setLinearSpeed(110);
-
+        //scanLeft = null;
+        //scanRight = null;
         scanLeft = new ColorSensor(new EV3ColorSensor(SensorPort.S2));
         scanRight = new ColorSensor(new EV3ColorSensor(SensorPort.S3));
         armConstruct = new ArmConstruct();
@@ -53,22 +54,14 @@ public class Robot extends DifferentialMovementController {
      * @return laundryBasketColorSensor
      */
     public int getColor(ColorPool c) {
-        if (scanLeft.getColorID() == 0 && scanRight.getColorID() == 0) {
-            return -1;
+        if (c.contains(scanLeft.getColorID())) {
+            return scanLeft.getColorID();
         }
-        if (scanRight.getColorID() == 0) {
-            int col = scanLeft.getColorID();
-            return c.contains(col) ? col : -1;
-        }
-        if (scanLeft.getColorID() == 0) {
-            int col = scanRight.getColorID();
-            return c.contains(col) ? col : -1;
-        }
-        if (scanRight.getColorID() == scanLeft.getColorID()) {
-            int col = scanLeft.getColorID();
-            return c.contains(col) ? col : -1;
+        if (c.contains(scanRight.getColorID())) {
+            return scanLeft.getColorID();
         }
         return -1;
+
     }
 
     public ArmConstruct armConstruct() {

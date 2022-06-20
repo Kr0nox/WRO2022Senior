@@ -7,10 +7,15 @@ import lejos.hardware.port.Port;
 public class ArmLift extends Arm {
     public ArmLift() {
         super (new EV3MediumRegulatedMotor(MotorPort.D));
+        motor.setSpeed(1100);
+    }
+
+    public void moveHigh(boolean immediateReturn) {
+        motor.rotateTo(0 , immediateReturn);
     }
 
     public void moveHigh() {
-        motor.rotateTo(0);
+        moveHigh(false);
     }
 
     public void moveLow() {
@@ -23,5 +28,9 @@ public class ArmLift extends Arm {
 
     protected void movePickUp() {
         motor.rotateTo(0);
+    }
+
+    public void moveTable() {
+        motor.rotateTo(160);
     }
 }

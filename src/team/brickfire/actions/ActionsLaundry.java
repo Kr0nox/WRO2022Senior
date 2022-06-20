@@ -27,7 +27,7 @@ public class ActionsLaundry extends BaseAction {
     }
 
     public void collectBlock() {
-        robot.travel(-13);
+        robot.travel(-8.5);
         blocks.push(scanColor());
         Delay.msDelay(1000);
         //pick up laundry block

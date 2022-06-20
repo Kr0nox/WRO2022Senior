@@ -17,19 +17,26 @@ class ActionsSide extends BaseAction {
 
     public void doSide() {
         // TODO: Drive to room starting point
-        /* robot.lineFollowing();
-        robot.travel();
-        robot.turn();*/
-        new ActionsRoom(true).doRoom();
-        // ToDO: switch rooms
-        // robot.turn();
-        new ActionsRoom(false).doRoom();
-        // TODO: drive back to circuit
-        // robot.lineFollowing();
+        robot.alignLine(true, 25);
+        robot.setLinearSpeed(110);
+        robot.travel(-9);
+        robot.turn(-90);
+
+        robot.travel(4.5);
+        robot.alignLine(false, 30);
+
+        new ActionsRoom(robot, laundry, water).doRoom(true);
+
+        robot.alignLine(false,35);
+
+        new ActionsRoom(robot, laundry, water).doRoom(false);
+
+        robot.travel(-11.5);
+        robot.turn(-90);
     }
 
 
-    private class ActionsRoom {
+    /*private class ActionsRoom {
 
         private static final int GAME_ROOM_COLOR = Color.GREEN;
         private boolean isGameRoom;
@@ -75,5 +82,5 @@ class ActionsSide extends BaseAction {
 
             }
         }
-    }
+    }*/
 }
