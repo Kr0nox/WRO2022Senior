@@ -100,10 +100,9 @@ public class DifferentialMovementController extends MovementController {
             }
         } while (Math.abs(valueLeft - valueRight) < FINAL_ADJUSTMENT_FOR_SQUARING);
 
-        //System.out.println("while completed");
 
-        //motorLeft.stop();
-        //motorRight.stop();
+        motorLeft.stop();
+        motorRight.stop();
     }
 
     @Override

@@ -26,7 +26,6 @@ public abstract class MovementController {
      */
     public MovementController(Wheel[] wheels, int chassisType) {
         this.pilot = new MovePilot(new WheeledChassis(wheels, chassisType));
-        System.out.println(pilot.getMaxLinearSpeed());
     }
 
     /**

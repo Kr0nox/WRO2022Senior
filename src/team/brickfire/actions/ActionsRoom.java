@@ -36,11 +36,11 @@ public class ActionsRoom extends BaseAction {
 
     public void doRoom (boolean mirrored) {
         scanBlock();
-        new ActionsLaundry(robot).collectBlock(mirrored);
+        laundry.collectBlock();
         if (isRoomGame) {
             playGame(mirrored);
         } else {
-            new ActionsWater(robot).deliverWater(mirrored);
+            water.deliverWater(mirrored);
         }
     }
 

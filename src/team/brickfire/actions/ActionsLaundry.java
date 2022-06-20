@@ -26,13 +26,16 @@ public class ActionsLaundry extends BaseAction {
         baskets = new int[3];
     }
 
-    public void collectBlock(boolean mirrored) {
+    public void collectBlock() {
         robot.travel(-13);
         blocks.push(scanColor());
         Delay.msDelay(1000);
         //pick up laundry block
     }
 
+    /**
+     * Put Laundry blocks into their baskets
+     */
     public void deliverLaundry() {
         robot.travel(-5);
         // special turn

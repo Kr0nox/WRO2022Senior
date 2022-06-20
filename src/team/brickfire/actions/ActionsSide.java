@@ -43,13 +43,12 @@ class ActionsSide extends BaseAction {
 
             scanRoomBlock();
 
-            laundry.collectBlock(isForward);
+            //laundry.collectBlock(isForward);
             ActionsGame game = new ActionsGame();
             ActionsWater water = new ActionsWater(robot);
 
             if (isGameRoom) {
                 game.play();
-                water.skip(isForward);
             } else {
                 game.skip();
                 water.deliverWater(isForward);
