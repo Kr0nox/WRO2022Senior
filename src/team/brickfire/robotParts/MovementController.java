@@ -166,12 +166,6 @@ public abstract class MovementController {
     public abstract void squareWithLine(double speed);
 
     /**
-     * The Robot follows a black line
-     * @param speed The speed it should drive
-     */
-    public abstract void lineFollowing(double speed);
-
-    /**
      * Returns the absolute value of the speed
      * @param speed The given speed
      * @return Positive speed value

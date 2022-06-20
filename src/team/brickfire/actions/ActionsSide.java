@@ -7,10 +7,12 @@ import team.brickfire.robotParts.Robot;
 class ActionsSide extends BaseAction {
 
     private final ActionsLaundry laundry;
+    private final ActionsWater water;
 
-    public ActionsSide(Robot robot, ActionsLaundry laundry) {
+    public ActionsSide(Robot robot, ActionsLaundry laundry, ActionsWater water) {
         super(robot);
         this.laundry = laundry;
+        this.water = water;
     }
 
     public void doSide() {

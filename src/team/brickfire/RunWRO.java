@@ -35,15 +35,14 @@ public class RunWRO {
         Robot robot = new Robot(WHEEL_DIAMETER, OFFSET, MotorPort.B,
                 MotorPort.C, SensorPort.S2, SensorPort.S3);
         ActionsMain main = new ActionsMain(robot);
+
         LCD.drawString("Ready", 2, 2);
         Sound.beep();
         Button.waitForAnyPress();
 
-        ActionsRoom test = new ActionsRoom(robot);
-        test.doRoom(true);
-
+        main.execute();
 
         Delay.msDelay(5000);
-        robot.armLift().moveHigh();
+        robot.armConstruct().moveHigh();
     }
 }

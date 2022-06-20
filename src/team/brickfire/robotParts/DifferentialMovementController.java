@@ -26,17 +26,12 @@ public class DifferentialMovementController extends MovementController {
      */
     private static final float FINAL_ADJUSTMENT_FOR_SQUARING = 0.1f;
 
-    private static final float CORRECTION_LINE_FOLLOWING = -0.3f;
-    private static final float LINE_FOLLOWING_BREAK_REFLECT = 0.35f;
-    private static final int LINE_FOLLOWING_MIN = 365;
-
     // TODO: make private again
     protected final RegulatedMotor motorLeft;
     protected final RegulatedMotor motorRight;
 
     protected final ColorSensor colorSensorLeft;
     protected final ColorSensor colorSensorRight;
-    private final ColorSensor colorSensorFloorColor;
 
 
     /**
@@ -51,7 +46,7 @@ public class DifferentialMovementController extends MovementController {
      */
     public DifferentialMovementController(double wheelDiameter, double offset, RegulatedMotor motorLeft,
                                           RegulatedMotor motorRight,
-                                          EV3ColorSensor portSensorLeft, EV3ColorSensor portSensorRight, EV3ColorSensor s) {
+                                          EV3ColorSensor portSensorLeft, EV3ColorSensor portSensorRight) {
         super(new Wheel[]{
                         WheeledChassis.modelWheel(motorRight,
                                 wheelDiameter).offset(offset),
@@ -62,7 +57,6 @@ public class DifferentialMovementController extends MovementController {
         this.motorRight = motorRight;
         this.colorSensorLeft = new ColorSensor(portSensorLeft);
         this.colorSensorRight = new ColorSensor(portSensorRight);
-        this.colorSensorFloorColor = new ColorSensor(s);
     }
 
     @Override
@@ -144,13 +138,8 @@ public class DifferentialMovementController extends MovementController {
         }
     }
 
-    @Override
-    public void lineFollowing(double speed) {
-        lineFollowing(speed, true);
-    }
 
-
-    public void lineFollowing(double speed, boolean stop) {
+    public void lineFollowing(double speed, int distance) {
         Sound.beep();
         int baseSpeed = (int) checkSpeed(speed);
 
@@ -166,20 +155,15 @@ public class DifferentialMovementController extends MovementController {
         motorRight.resetTachoCount();
         pilot.forward();
 
-        while (colorSensorFloorColor.getReflectedLight() < LINE_FOLLOWING_BREAK_REFLECT
-            || Math.abs(motorLeft.getTachoCount() + motorRight.getTachoCount()) / 2 < LINE_FOLLOWING_MIN) {
+        while (Math.abs(motorLeft.getTachoCount() + motorRight.getTachoCount()) / 2 < distance) {
             lightLeft = colorSensorLeft.getReflectedLight();
             lightRight = colorSensorRight.getReflectedLight();
             correctionValue = (lightLeft - lightRight) * -0.2f * baseSpeed;
-            //System.out.println(colorSensorFloorColor.getReflectedLight() +"|"+Math.abs(motorLeft.getTachoCount() + motorRight.getTachoCount()) / 2);
             motorLeft.setSpeed((int) (baseSpeed - correctionValue));
             motorRight.setSpeed((int) (baseSpeed + correctionValue));
         }
-        if (stop) {
-            pilot.stop();
-        }
+        setLinearSpeed((int) checkSpeed(speed));
     }
-
 
 
     @Override

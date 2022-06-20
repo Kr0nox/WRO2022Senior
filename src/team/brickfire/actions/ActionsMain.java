@@ -14,6 +14,7 @@ public class ActionsMain extends BaseAction {
 
     private final Circuit circuit;
     private final ActionsLaundry laundry;
+    private final ActionsWater water;
 
     /**
      * Creates an ActionsMain Object
@@ -23,16 +24,22 @@ public class ActionsMain extends BaseAction {
         super(robot);
         this.circuit = new Circuit(robot, CircuitPosition.MIDDLE, Orientation.NONE);
         this.laundry = new ActionsLaundry(robot);
+        this.water = new ActionsWater(robot);
     }
 
     /**
      * Executes all the tasks
      */
     public void execute() {
+        ActionsRoom test = new ActionsRoom(robot, laundry, water);
+        test.doRoom(true);
+
+        /*
         collectWater();
         firstSide();
         secondSide();
         driveHome();
+        */
     }
 
     // Pink

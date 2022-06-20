@@ -20,4 +20,8 @@ public class ArmLift extends Arm {
     public void moveBasket() {
         motor.rotateTo(100);
     }
+
+    protected void movePickUp() {
+        motor.rotateTo(0);
+    }
 }

@@ -2,10 +2,10 @@ package team.brickfire.robotParts;
 
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.*;
 import lejos.hardware.sensor.EV3ColorSensor;
 import team.brickfire.robotParts.arms.ArmBlockCarrier;
+import team.brickfire.robotParts.arms.ArmConstruct;
 import team.brickfire.robotParts.arms.ArmLift;
 import team.brickfire.robotParts.sensors.ColorSensor;
 
@@ -20,12 +20,10 @@ public class Robot extends DifferentialMovementController {
     // Add extra two sensors (maybe classes, depending on whether they need to save data)
     //private final ColorSensor scanner;
     // Add extra Motors (probably as own objects)
-    private final ColorSensor scanSensor;
+    private final ColorSensor scanLeft;
+    private final ColorSensor scanRight;
 
-
-
-    private final ArmBlockCarrier armBlockCarrier;
-    private final ArmLift armLift;
+    private final ArmConstruct armConstruct;
 
 
     /**
@@ -40,28 +38,40 @@ public class Robot extends DifferentialMovementController {
     public Robot(double wheelDiameter, double offset, Port portMotorLeft, Port portMotorRight,Port portSensorLeft, Port portSensorRight) {
         super(wheelDiameter, offset, new EV3LargeRegulatedMotor(portMotorLeft),
                 new EV3LargeRegulatedMotor(portMotorRight), new EV3ColorSensor(portSensorLeft),
-                new EV3ColorSensor(portSensorRight), new EV3ColorSensor(SensorPort.S1));
+                new EV3ColorSensor(portSensorRight));
         LCD.clearDisplay();
         setAngularSpeed(400);
         setLinearSpeed(110);
-        //this.scanner = new ColorSensor(new EV3ColorSensor(SensorPort.S4));
 
-        scanSensor = new ColorSensor(new EV3ColorSensor(SensorPort.S4));
-        armBlockCarrier = new ArmBlockCarrier();
-        armLift = new ArmLift();
+        scanLeft = new ColorSensor(new EV3ColorSensor(SensorPort.S2));
+        scanRight = new ColorSensor(new EV3ColorSensor(SensorPort.S3));
+        armConstruct = new ArmConstruct();
     }
 
     /**
      * returns ColorSensor for scanning laundry
      * @return laundryBasketColorSensor
      */
-    public ColorSensor scanner() {return scanSensor;}
-
-    public ArmBlockCarrier armBlockCarrier() {
-        return armBlockCarrier;
+    public int getColor(ColorPool c) {
+        if (scanLeft.getColorID() == 0 && scanRight.getColorID() == 0) {
+            return -1;
+        }
+        if (scanRight.getColorID() == 0) {
+            int col = scanLeft.getColorID();
+            return c.contains(col) ? col : -1;
+        }
+        if (scanLeft.getColorID() == 0) {
+            int col = scanRight.getColorID();
+            return c.contains(col) ? col : -1;
+        }
+        if (scanRight.getColorID() == scanLeft.getColorID()) {
+            int col = scanLeft.getColorID();
+            return c.contains(col) ? col : -1;
+        }
+        return -1;
     }
 
-    public ArmLift armLift() {
-        return armLift;
+    public ArmConstruct armConstruct() {
+        return armConstruct;
     }
 }

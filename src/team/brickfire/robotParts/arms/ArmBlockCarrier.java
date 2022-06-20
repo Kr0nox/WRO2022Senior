@@ -10,11 +10,12 @@ public class ArmBlockCarrier extends Arm {
         super (new EV3MediumRegulatedMotor(MotorPort.A));
     }
 
-    public void pickUp() {
-        motor.rotate(0);
-    }
-
     public void drop() {
         motor.rotate(0);
     }
+
+    public void pickUp() {
+        motor.rotate(0, true);
+    }
+
 }

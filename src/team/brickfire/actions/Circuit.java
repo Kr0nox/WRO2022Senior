@@ -88,7 +88,7 @@ public class Circuit extends BaseAction {
 
     private void driveOneForward() {
         // Driving
-        robot.lineFollowing(SPEED);
+        robot.lineFollowing(SPEED, 10);
         currentPosition = currentPosition.getAdjacent(currentOrientation);
         System.out.println(currentPosition.name());
         onLine = false;
