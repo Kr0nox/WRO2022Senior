@@ -73,7 +73,8 @@ public class DifferentialMovementController extends MovementController {
             }
         }
         int avgTachoCount = (motorLeft.getTachoCount() + motorRight.getTachoCount()) / 2;
-        double distCm = (avgTachoCount * 3.14 * 6.24 ) / 360;
+        // Dist = pi * d * rot / 360
+        double distCm = 3.14 * 6.24 * avgTachoCount / 360;
         double degrees = Math.toDegrees(Math.atan(distCm / 16) * (finishedFirst == 'r' ? 1 : -1));
 
         System.out.println(avgTachoCount + " | " + distCm + " | " + degrees);

@@ -1,6 +1,5 @@
 package team.brickfire.actions;
 
-import lejos.utility.Delay;
 import team.brickfire.robotParts.ColorPool;
 import team.brickfire.robotParts.Robot;
 
@@ -29,8 +28,8 @@ public class ActionsLaundry extends BaseAction {
     public void collectBlock() {
         robot.travel(-8.5);
         blocks.push(scanColor());
-        Delay.msDelay(1000);
-        //pick up laundry block
+        robot.travel(-1.5);
+        //robot.armConstruct().pickUp();
     }
 
     /**

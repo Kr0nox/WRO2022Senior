@@ -4,6 +4,7 @@ import lejos.robotics.Color;
 import lejos.utility.Delay;
 import team.brickfire.robotParts.ColorPool;
 import team.brickfire.robotParts.Robot;
+import team.brickfire.robotParts.arms.ArmConstruct;
 
 // package-private
 public class ActionsRoom extends BaseAction {
@@ -33,19 +34,22 @@ public class ActionsRoom extends BaseAction {
         isRoomGame = robot.getColor(ColorPool.ROOM) == Color.GREEN;
         Delay.msDelay(1000);
     }
-
+    static int i = 0;
     public void doRoom (boolean mirrored) {
+
         robot.setLinearSpeed(110);
         scanBlock();
         laundry.collectBlock();
-       //if (isRoomGame) {
+       if (isRoomGame || i % 2 == 1) {
             playGame(mirrored);
             leaveRoomBall(mirrored);
-        /*} else {
+        } else {
             water.deliverWater(mirrored);
             water.leaveRoomWater(mirrored);
-        */}
-    //}
+        }
+
+       i++;
+    }
 
     /**
      * Pick up ball and put it in basket
@@ -54,7 +58,7 @@ public class ActionsRoom extends BaseAction {
      */
     public void playGame (boolean mirrored) {
         //pin ball to wall
-        robot.travel(mirrored ? -21.5 : -20.8);
+        robot.travel(mirrored ? -20 : -19.3);
         //collect ball
         robot.armConstruct().moveLow();
         robot.armConstruct().moveHigh();

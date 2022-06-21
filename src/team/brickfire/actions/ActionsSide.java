@@ -17,16 +17,19 @@ class ActionsSide extends BaseAction {
 
     public void doSide() {
         // TODO: Drive to room starting point
-        robot.alignLine(true, 25);
-        robot.setLinearSpeed(110);
-        robot.travel(-9);
-        robot.turn(-90);
 
-        robot.travel(4.5);
+        //align for first room
+        robot.alignLine(true, 20);
+        robot.setLinearSpeed(110);
+        robot.travel(-10);
+        robot.turn(-90);
+        robot.driveTillLine(true, 40);
         robot.alignLine(false, 30);
 
+        //do first room
         new ActionsRoom(robot, laundry, water).doRoom(true);
 
+        //align for second room
         robot.alignLine(false,35);
 
         new ActionsRoom(robot, laundry, water).doRoom(false);

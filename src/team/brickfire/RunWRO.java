@@ -41,9 +41,19 @@ public class RunWRO {
         Sound.beep();
         Button.waitForAnyPress();
 
-        //robot.alignLine(true, 10);
-
         main.execute();
+
+
+
+
+
+
+
+
+
+
+
+
 
         Delay.msDelay(5000);
         robot.armConstruct().moveHigh();

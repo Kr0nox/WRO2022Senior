@@ -31,8 +31,21 @@ public class ActionsMain extends BaseAction {
      * Executes all the tasks
      */
     public void execute() {
-        /*ActionsRoom test = new ActionsRoom(robot, laundry, water);
-        test.doRoom(false);*/
+        water.collectBottles();
+
+        waterToSide();
+
+        new ActionsSide(robot, laundry, water).doSide();
+
+        //align for journey
+        robot.alignLine(true,30);
+
+        //journey
+        robot.setLinearSpeed(60);
+        robot.travel(70);
+        robot.turn(12.5);
+        robot.travel(65);
+        robot.turn(-12);
 
         new ActionsSide(robot, laundry, water).doSide();
 
@@ -44,24 +57,10 @@ public class ActionsMain extends BaseAction {
         */
     }
 
-    // Pink
-    private void collectWater() {
-        ActionsWater water = new ActionsWater(robot);
-        water.collectBottles();
+
+    public void waterToSide() {
+        robot.travel(78);
+        robot.turn(-35);
     }
 
-    // Blue
-    private void firstSide() {
-
-    }
-
-    // Green
-    private void secondSide() {
-
-    }
-
-    // Red
-    private void driveHome() {
-
-    }
 }

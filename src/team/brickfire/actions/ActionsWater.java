@@ -18,12 +18,12 @@ public class ActionsWater extends BaseAction {
     }
 
     public void collectBottles() {
-        robot.turn(45);
-        robot.travel(12);
-        //pick up water bottle
-        robot.travel(-3);
-        robot.turn(90);
-        robot.travel(8);
+        robot.travel(8, 90);
+        robot.turn(-45);
+        robot.armConstruct().moveLow(true);
+        robot.travel(30);
+        robot.armConstruct().moveHigh();
+        robot.turn(122);
     }
 
     public void deliverWater(boolean mirrored) {
@@ -31,10 +31,11 @@ public class ActionsWater extends BaseAction {
         System.out.println(bottleCount);
 
         // 2 & M | 1 & !M
-        robot.travel(bottleCount == 2 && mirrored || bottleCount == 1 && !mirrored ? -1 : -9.5);
-        robot.turn(mirrored ? 90 : -90);
+        robot.travel(bottleCount == 2 && mirrored || bottleCount == 1 && !mirrored ? 0.5 : -8);
 
+        robot.turn(mirrored ? 90 : -90);
         robot.travel(24.5);
+
         robot.armConstruct().moveTable();
 
         bottleCount--;
@@ -44,7 +45,7 @@ public class ActionsWater extends BaseAction {
         robot.travel(-26);
         robot.armConstruct().moveHigh(true);
         robot.turn(mirrored ? 90 : -90);
-        robot.travel(bottleCount == 1 ? -15 : -24);
+        robot.travel(bottleCount == 1 ? -13 : -22);
     }
 
 }

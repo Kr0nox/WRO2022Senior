@@ -3,6 +3,7 @@ package team.brickfire.robotParts.arms;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
+import lejos.utility.Delay;
 
 public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
 
@@ -13,13 +14,15 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
     }
 
     public void pickUp() {
-        armBlockCarrier.rotate(0, true);
+        armBlockCarrier.forward();
+        moveBlock();
+        Delay.msDelay(150);
         movePickUp();
-        // move pickUp2?
         moveHigh();
+        armBlockCarrier.stop();
     }
 
     public void drop() {
-        armBlockCarrier.rotate(0);
+        armBlockCarrier.rotate(-260);
     }
 }
