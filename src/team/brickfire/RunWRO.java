@@ -41,13 +41,14 @@ public class RunWRO {
         Sound.beep();
         Button.waitForAnyPress();
 
-        main.execute();
+        //main.execute();
 
 
 
 
-
-
+        robot.armConstruct().movePickUp();
+        Button.waitForAnyPress();
+        robot.armConstruct().moveLow();
 
 
 

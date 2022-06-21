@@ -187,7 +187,7 @@ public abstract class MovementController {
      */
     protected void setAngularSpeed(double speed) {
         pilot.setAngularSpeed(checkSpeed(speed));
-        pilot.setAngularAcceleration(/*0.5 **/ 2 * speed);
+        pilot.setAngularAcceleration(0.5 * speed);
     }
 
     /**

@@ -30,7 +30,7 @@ public class ArmLift extends Arm {
         motor.rotateTo(100);
     }
 
-    protected void movePickUp() {
+    public void movePickUp() {
         motor.rotateTo(720);
     }
 
