@@ -36,7 +36,7 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
     }
 
     /**
-     * Conpares the seen color to the given
+     * Compares the seen color to the given
      * @param colorID Color to compare to
      * @return Whether colors are equal
      */
@@ -44,20 +44,4 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
         return getColorID() == colorID;
     }
 
-    public int accurateColorID(int accuracy) {
-        int[] values = new int[15];
-        for (int i = 0; i < accuracy; i++) {
-            values[getColorID() + 1]++;
-        }
-
-        int maxValue = 0, maxIndex = 0;
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] > maxValue) {
-                maxValue = values[i];
-                maxIndex = i;
-            }
-        }
-        return maxIndex - 1;
-
-    }
 }

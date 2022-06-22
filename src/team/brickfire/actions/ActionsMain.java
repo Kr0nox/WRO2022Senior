@@ -1,9 +1,6 @@
 package team.brickfire.actions;
 
-import team.brickfire.actions.dataTypes.CircuitPosition;
-import team.brickfire.actions.dataTypes.Orientation;
 import team.brickfire.robotParts.Robot;
-import team.brickfire.robotParts.sensors.Sensor;
 
 /**
  * The "main" part of your actions or challenges. All coordination of the robot happens in here
@@ -12,7 +9,6 @@ import team.brickfire.robotParts.sensors.Sensor;
  */
 public class ActionsMain extends BaseAction {
 
-    private final Circuit circuit;
     private final ActionsLaundry laundry;
     private final ActionsWater water;
 
@@ -22,7 +18,6 @@ public class ActionsMain extends BaseAction {
      */
     public ActionsMain(Robot robot) {
         super(robot);
-        this.circuit = new Circuit(robot, CircuitPosition.MIDDLE, Orientation.NONE);
         this.laundry = new ActionsLaundry(robot);
         this.water = new ActionsWater(robot);
     }
@@ -49,12 +44,7 @@ public class ActionsMain extends BaseAction {
 
         new ActionsSide(robot, laundry, water).doSide();
 
-        /*
-        collectWater();
-        firstSide();
-        secondSide();
-        driveHome();
-        */
+        //deliver laundry
     }
 
 

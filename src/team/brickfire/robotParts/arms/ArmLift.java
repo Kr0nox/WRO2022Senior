@@ -2,7 +2,6 @@ package team.brickfire.robotParts.arms;
 
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
-import lejos.hardware.port.Port;
 
 public class ArmLift extends Arm {
     public ArmLift() {
@@ -24,10 +23,6 @@ public class ArmLift extends Arm {
 
     public void moveLow() {
         moveLow(false);
-    }
-
-    public void moveBasket() {
-        motor.rotateTo(100);
     }
 
     public void movePickUp() {

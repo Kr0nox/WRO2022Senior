@@ -1,6 +1,5 @@
 package team.brickfire.actions;
 
-import team.brickfire.robotParts.ColorPool;
 import team.brickfire.robotParts.Robot;
 
 import java.util.*;
@@ -27,7 +26,7 @@ public class ActionsLaundry extends BaseAction {
 
     public void collectBlock() {
         robot.travel(-8.5);
-        blocks.push(scanColor());
+        blocks.push(robot.scanner().laundryColor());
         robot.travel(-1.5);
         //robot.armConstruct().pickUp();
     }
@@ -41,7 +40,7 @@ public class ActionsLaundry extends BaseAction {
         // drive over Baskets and scan them
 
         for (int i = 0; i < 3; i++) {
-            baskets[i] = scanColor();
+            baskets[i] = robot.scanner().laundryColor();
             // if the basket corresponds to the lowest Block: Drop it
             if (baskets[i] == blocks.peek()) {
                 dropBlock();
@@ -58,10 +57,6 @@ public class ActionsLaundry extends BaseAction {
 
         // end over last basket
         travelToBasket(2);
-    }
-
-    private int scanColor() {
-        return robot.getColor(ColorPool.LAUNDRY);
     }
 
     private int findBasket(int c) {

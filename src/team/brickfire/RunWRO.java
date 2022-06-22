@@ -7,7 +7,6 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.utility.Delay;
 import team.brickfire.actions.*;
-import team.brickfire.robotParts.ColorPool;
 import team.brickfire.robotParts.Robot;
 
 /**
@@ -41,20 +40,7 @@ public class RunWRO {
         Sound.beep();
         Button.waitForAnyPress();
 
-        //main.execute();
-
-
-
-
-        robot.armConstruct().movePickUp();
-        Button.waitForAnyPress();
-        robot.armConstruct().moveLow();
-
-
-
-
-
-
+        main.execute();
 
         Delay.msDelay(5000);
         robot.armConstruct().moveHigh();

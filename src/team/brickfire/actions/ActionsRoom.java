@@ -2,11 +2,8 @@ package team.brickfire.actions;
 
 import lejos.robotics.Color;
 import lejos.utility.Delay;
-import team.brickfire.robotParts.ColorPool;
 import team.brickfire.robotParts.Robot;
-import team.brickfire.robotParts.arms.ArmConstruct;
 
-// package-private
 public class ActionsRoom extends BaseAction {
 
     public boolean isRoomGame;
@@ -14,6 +11,8 @@ public class ActionsRoom extends BaseAction {
     private final ActionsLaundry laundry;
     private final ActionsWater water;
 
+
+    private static final int GAME_ROOM_COLOR = Color.GREEN;
 
     /**
      * Stores the robot in the local variable
@@ -31,12 +30,11 @@ public class ActionsRoom extends BaseAction {
      */
     public void scanBlock () {
         robot.travel(-18.5);
-        isRoomGame = robot.getColor(ColorPool.ROOM) == Color.GREEN;
+        isRoomGame = robot.scanner().roomBlockColor() == GAME_ROOM_COLOR;
         Delay.msDelay(1000);
     }
     static int i = 0;
     public void doRoom (boolean mirrored) {
-
         robot.setLinearSpeed(110);
         scanBlock();
         laundry.collectBlock();

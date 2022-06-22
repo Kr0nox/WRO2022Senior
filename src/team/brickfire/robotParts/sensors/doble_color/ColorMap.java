@@ -54,7 +54,7 @@ public abstract class ColorMap {
     }
 
     protected static Map<Integer, Integer> mapOfValues(int... pairs) {
-        if ((pairs.length & 2) == 1) {
+        if ((pairs.length % 2) == 1) {
             return new HashMap<>();
         }
 

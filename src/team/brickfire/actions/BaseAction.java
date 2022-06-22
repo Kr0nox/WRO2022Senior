@@ -18,7 +18,7 @@ public abstract class BaseAction {
      * Stores the robot in the local variable
      * @param robot The robot class why is representing the robot
      */
-    public BaseAction(Robot robot) {
+    protected BaseAction(Robot robot) {
         this.robot = robot;
     }
 

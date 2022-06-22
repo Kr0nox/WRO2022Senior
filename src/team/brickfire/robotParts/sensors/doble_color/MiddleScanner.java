@@ -2,7 +2,6 @@ package team.brickfire.robotParts.sensors.doble_color;
 
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.robotics.Color;
 import team.brickfire.robotParts.sensors.ColorSensor;
 
 public class MiddleScanner {

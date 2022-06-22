@@ -1,14 +1,11 @@
 package team.brickfire.robotParts;
 
-import lejos.hardware.Button;
 import lejos.hardware.Sound;
-import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
-import lejos.utility.Delay;
 import team.brickfire.robotParts.sensors.ColorSensor;
 
 /**
@@ -79,9 +76,6 @@ public class DifferentialMovementController extends MovementController {
 
         System.out.println(avgTachoCount + " | " + distCm + " | " + degrees);
         turn(degrees, speed * 20);
-        //travel(-3.5);
-
-        //squareWithLine(speed * 10);
     }
 
 
@@ -172,15 +166,5 @@ public class DifferentialMovementController extends MovementController {
     public boolean isStalled() {
         return motorLeft.isStalled() || motorRight.isStalled();
     }
-
-
-    public RegulatedMotor motorLeft() {
-        return motorRight;
-    }
-
-    public RegulatedMotor motorRight() {
-        return motorLeft;
-    }
-
 
 }
