@@ -8,6 +8,7 @@ import team.brickfire.robotParts.arms.ArmBlockCarrier;
 import team.brickfire.robotParts.arms.ArmConstruct;
 import team.brickfire.robotParts.arms.ArmLift;
 import team.brickfire.robotParts.sensors.ColorSensor;
+import team.brickfire.robotParts.sensors.doble_color.MiddleScanner;
 
 /**
  * Robot class contains Movement. In this case it's differential, since it is the most useful for this case
@@ -20,11 +21,10 @@ public class Robot extends DifferentialMovementController {
     // Add extra two sensors (maybe classes, depending on whether they need to save data)
     //private final ColorSensor scanner;
     // Add extra Motors (probably as own objects)
-    private final ColorSensor scanLeft;
-    private final ColorSensor scanRight;
+
 
     private final ArmConstruct armConstruct;
-
+    private final MiddleScanner scanner;
 
     /**
      * Creates a robot object with the given parameters
@@ -44,8 +44,7 @@ public class Robot extends DifferentialMovementController {
         setLinearSpeed(110);
         //scanLeft = null;
         //scanRight = null;
-        scanLeft = new ColorSensor(new EV3ColorSensor(SensorPort.S2));
-        scanRight = new ColorSensor(new EV3ColorSensor(SensorPort.S3));
+        scanner = new MiddleScanner();
         armConstruct = new ArmConstruct();
     }
 
@@ -53,15 +52,8 @@ public class Robot extends DifferentialMovementController {
      * returns ColorSensor for scanning laundry
      * @return laundryBasketColorSensor
      */
-    public int getColor(ColorPool c) {
-        if (c.contains(scanLeft.getColorID())) {
-            return scanLeft.getColorID();
-        }
-        if (c.contains(scanRight.getColorID())) {
-            return scanLeft.getColorID();
-        }
-        return -1;
-
+    public MiddleScanner scanner() {
+        return scanner;
     }
 
     public ArmConstruct armConstruct() {
