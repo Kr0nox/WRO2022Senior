@@ -11,18 +11,26 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
 
     public ArmConstruct() {
         this.armBlockCarrier = new EV3MediumRegulatedMotor(MotorPort.A);
+        armBlockCarrier.setSpeed(1000);
     }
 
     public void pickUp() {
-        armBlockCarrier.forward();
-        moveBlock();
-        Delay.msDelay(150);
         movePickUp();
         moveHigh();
         armBlockCarrier.stop();
     }
 
+    public void lower() {
+        armBlockCarrier.forward();
+        motor.rotateTo(250);
+    }
+
+    public void stopPickUp() {
+        armBlockCarrier.stop();
+    }
+
     public void drop() {
-        armBlockCarrier.rotate(-260);
+        armBlockCarrier.rotate(-320);
+        armBlockCarrier.rotate(100);
     }
 }

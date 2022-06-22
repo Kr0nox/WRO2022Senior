@@ -25,6 +25,8 @@ public class ArmLift extends Arm {
         moveLow(false);
     }
 
+
+
     public void movePickUp() {
         motor.rotateTo(720);
     }

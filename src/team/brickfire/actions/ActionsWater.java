@@ -18,12 +18,12 @@ public class ActionsWater extends BaseAction {
     }
 
     public void collectBottles() {
-        robot.travel(8, 90);
+        robot.travel(8.5, 90);
         robot.turn(-45);
         robot.armConstruct().moveLow(true);
         robot.travel(30);
         robot.armConstruct().moveHigh();
-        robot.turn(122);
+        robot.turn(119);
     }
 
     public void deliverWater(boolean mirrored) {

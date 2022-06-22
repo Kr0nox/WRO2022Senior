@@ -17,7 +17,7 @@ class ActionsSide extends BaseAction {
         //align for first room
         robot.alignLine(true, 20);
         robot.setLinearSpeed(110);
-        robot.travel(-10);
+        robot.travel(-9.5);
         robot.turn(-90);
         robot.driveTillLine(true, 40);
         robot.alignLine(false, 30);
@@ -30,7 +30,7 @@ class ActionsSide extends BaseAction {
 
         new ActionsRoom(robot, laundry, water).doRoom(false);
 
-        robot.travel(-11.5);
+        robot.travel(-10.5);
         robot.turn(-90);
     }
 }

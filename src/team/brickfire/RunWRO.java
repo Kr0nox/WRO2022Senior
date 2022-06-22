@@ -19,6 +19,7 @@ public class RunWRO {
     /**
      * The diameter of the wheels
      */
+
     public static final double WHEEL_DIAMETER = 6.24;
     /**
      * Distance between wheels and center of the drive axis
@@ -30,6 +31,7 @@ public class RunWRO {
      * Also executes actions
      * @param args Command-line arguments
      */
+
     public static void main(String[] args) {
 
         Robot robot = new Robot(WHEEL_DIAMETER, OFFSET, MotorPort.B,
@@ -40,9 +42,15 @@ public class RunWRO {
         Sound.beep();
         Button.waitForAnyPress();
 
-        main.execute();
+        //main.execute();
 
-        Delay.msDelay(5000);
-        robot.armConstruct().moveHigh();
+        //new ActionsLaundry(robot, 3, 7, 0).deliverLaundry();
+
+        robot.armConstruct().drop();
+        robot.armConstruct().drop();
+        robot.armConstruct().drop();
+
+        /*Delay.msDelay(5000);
+        robot.armConstruct().moveLow();*/
     }
 }

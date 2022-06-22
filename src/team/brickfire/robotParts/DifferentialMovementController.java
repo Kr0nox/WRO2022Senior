@@ -58,6 +58,9 @@ public class DifferentialMovementController extends MovementController {
 
     @Override
     public void alignLine(boolean forward, double speed) {
+        if (colorSensorRight.isColor(Color.BLACK) && colorSensorLeft.isColor(Color.BLACK)) {
+            travel(forward ? -5 : 5);
+        }
         char finishedFirst = driveTillLine(forward, speed);
         motorLeft.resetTachoCount();
         motorRight.resetTachoCount();
@@ -74,7 +77,7 @@ public class DifferentialMovementController extends MovementController {
         double distCm = 3.14 * 6.24 * avgTachoCount / 360;
         double degrees = Math.toDegrees(Math.atan(distCm / 16) * (finishedFirst == 'r' ? 1 : -1));
 
-        System.out.println(avgTachoCount + " | " + distCm + " | " + degrees);
+        //System.out.println(avgTachoCount + " | " + distCm + " | " + degrees);
         turn(degrees, speed * 20);
     }
 

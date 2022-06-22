@@ -4,6 +4,7 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.*;
 import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.robotics.Color;
 import team.brickfire.robotParts.arms.ArmConstruct;
 import team.brickfire.robotParts.sensors.doble_color.MiddleScanner;
 
@@ -49,4 +50,19 @@ public class Robot extends DifferentialMovementController {
     public ArmConstruct armConstruct() {
         return armConstruct;
     }
+
+    public void curveLeft(double distance, int speed) {
+        motorLeft.setSpeed((int) (speed * 1.35));
+        motorRight.setSpeed(speed);
+        motorLeft.rotate((int) (distance * 360), true);
+        motorRight.rotate((int) (distance * 360));
+        motorLeft.setSpeed(speed);
+    }
+
+    /*public void driveToRoom() {
+        pilot.setLinearSpeed(30);
+        pilot.backward();
+        while (colorSensorRight.isColor(Color.WHITE) || colorSensorLeft.isColor(Color.WHITE));
+        pilot.stop();
+    }*/
 }
