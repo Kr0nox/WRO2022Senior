@@ -60,7 +60,6 @@ public class ActionsRoom extends BaseAction {
         //collect ball
         robot.armConstruct().moveLow();
         robot.armConstruct().moveHigh();
-        robot.armConstruct().stopPickUp();
         //align with basket
         robot.travel(8);
         robot.turn(mirrored ? -72.5 : 72.5);

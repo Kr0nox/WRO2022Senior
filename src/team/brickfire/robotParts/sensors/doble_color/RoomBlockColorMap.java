@@ -17,7 +17,7 @@ public class RoomBlockColorMap extends ColorMap {
                 Color.MAGENTA, Color.WHITE,
                 Color.ORANGE, Color.WHITE,
                 Color.WHITE, Color.WHITE,
-                Color.BLACK, Color.GREEN,
+                Color.BLACK, Color.NONE,
                 Color.PINK, Color.WHITE,
                 Color.GRAY, Color.GREEN,
                 Color.LIGHT_GRAY, Color.WHITE,

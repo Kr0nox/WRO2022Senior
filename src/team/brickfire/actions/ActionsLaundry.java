@@ -40,7 +40,7 @@ public class ActionsLaundry extends BaseAction {
         blocks.push(robot.scanner().laundryColor());
         System.out.println(robot.scanner().laundryColor());
         robot.travel(-1.5);
-        robot.armConstruct().lower();
+        robot.armConstruct().moveTransportBlock();
         Delay.msDelay(2000);
         //robot.armConstruct().pickUp();
     }

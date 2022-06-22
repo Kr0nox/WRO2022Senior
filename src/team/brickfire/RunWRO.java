@@ -38,17 +38,19 @@ public class RunWRO {
                 MotorPort.C, SensorPort.S1, SensorPort.S4);
         ActionsMain main = new ActionsMain(robot);
 
-        LCD.drawString("Ready", 2, 2);
+        //LCD.drawString("Ready", 2, 2);
         Sound.beep();
-        Button.waitForAnyPress();
+        //Button.waitForAnyPress();
+
+        robot.armConstruct().calibrateArm();
+
+        while (Button.ESCAPE.isUp()) {
+            robot.driveToRoom();
+            Button.waitForAnyPress();
+        }
 
         //main.execute();
 
-        //new ActionsLaundry(robot, 3, 7, 0).deliverLaundry();
-
-        robot.armConstruct().drop();
-        robot.armConstruct().drop();
-        robot.armConstruct().drop();
 
         /*Delay.msDelay(5000);
         robot.armConstruct().moveLow();*/

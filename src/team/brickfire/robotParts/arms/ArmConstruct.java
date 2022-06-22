@@ -1,9 +1,10 @@
 package team.brickfire.robotParts.arms;
 
+import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
-import lejos.utility.Delay;
 
 public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
 
@@ -11,7 +12,7 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
 
     public ArmConstruct() {
         this.armBlockCarrier = new EV3MediumRegulatedMotor(MotorPort.A);
-        armBlockCarrier.setSpeed(1000);
+        armBlockCarrier.setSpeed(1500);
     }
 
     public void pickUp() {
@@ -20,17 +21,39 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
         armBlockCarrier.stop();
     }
 
-    public void lower() {
+    public void moveTransportBlock() {
         armBlockCarrier.forward();
-        motor.rotateTo(250);
-    }
-
-    public void stopPickUp() {
-        armBlockCarrier.stop();
+        motor.rotateTo(240);
     }
 
     public void drop() {
-        armBlockCarrier.rotate(-320);
-        armBlockCarrier.rotate(100);
+        armBlockCarrier.rotate(-300);
+        armBlockCarrier.rotate(180);
+    }
+
+    public void calibrateArm() {
+        while (Button.ENTER.isUp()) {
+            if (Button.UP.isDown()) {
+                motor.backward();
+            } else if (Button.DOWN.isDown()) {
+                motor.forward();
+            } else {
+                motor.stop();
+            }
+            if (Button.LEFT.isDown()) {
+                armBlockCarrier.backward();
+            } else if (Button.RIGHT.isDown()) {
+                armBlockCarrier.forward();
+            } else {
+                armBlockCarrier.stop();
+            }
+            LCD.clearDisplay();
+            LCD.drawString("Lift: " + motor.getTachoCount(), 1, 1);
+            LCD.drawString("Whoop: " + motor.getTachoCount(), 1, 2);
+        }
+
+        motor.resetTachoCount();
+        armBlockCarrier.resetTachoCount();
+
     }
 }
