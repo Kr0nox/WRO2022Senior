@@ -21,11 +21,14 @@ public class MiddleScanner {
     }
     
     private int getColor(ColorMap map) {
-        int leftValue = map.getPrioritisedValue(map.mappedValues(sensorLeft.accurateColorID(5),
-                sensorLeft.accurateColorID(5), sensorLeft.accurateColorID(5)));
-
-        int rightValue = map.getPrioritisedValue(map.mappedValues(sensorRight.accurateColorID(5),
-                sensorRight.accurateColorID(5), sensorRight.accurateColorID(5)));
+        int[] leftMeasurements = new int[15];
+        int[] rightMeasurements = new int[leftMeasurements.length];
+        for (int i = 0; i < leftMeasurements.length; i++) {
+            leftMeasurements[i] = sensorLeft.getColorID();
+            rightMeasurements[i] = sensorRight.getColorID();
+        }
+        int leftValue = map.getPrioritisedValue(map.mappedValues(leftMeasurements));
+        int rightValue = map.getPrioritisedValue(map.mappedValues(rightMeasurements));
         
         return map.valueWithMaxPriority(leftValue, rightValue);
     }

@@ -1,14 +1,15 @@
 package team.brickfire.robotParts.sensors.doble_color;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
 
 public abstract class ColorMap {
 
-    private final HashMap<Integer, Integer> valueMapping;
-    private final HashMap<Integer, Integer> priorities;
+    protected final Map<Integer, Integer> valueMapping;
+    protected final Map<Integer, Integer> priorities;
 
-    protected ColorMap(HashMap<Integer, Integer> valueMapping, HashMap<Integer, Integer> priorities) {
+    protected ColorMap(Map<Integer, Integer> valueMapping, Map<Integer, Integer> priorities) {
         this.valueMapping = valueMapping;
         this.priorities = priorities;
     }
@@ -28,7 +29,16 @@ public abstract class ColorMap {
             prioritySum.remove(v);
             prioritySum.put(v, temp + priorities.get(v));
         }
-        return prioritySum.lastKey();
+
+        int maxvalue = -1;
+        int maxPriority = -1;
+        for (int k : prioritySum.keySet()) {
+            if (prioritySum.get(k) > maxPriority) {
+                maxPriority = prioritySum.get(k);
+                maxvalue = k;
+            }
+        }
+        return maxvalue;
     }
 
     public int valueWithMaxPriority(int ... values) {
@@ -41,5 +51,17 @@ public abstract class ColorMap {
             }
         }
         return maxvalue;
+    }
+
+    protected static Map<Integer, Integer> mapOfValues(int... pairs) {
+        if ((pairs.length & 2) == 1) {
+            return new HashMap<>();
+        }
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < pairs.length; i += 2) {
+            map.put(pairs[i], pairs[i + 1]);
+        }
+        return map;
     }
 }
