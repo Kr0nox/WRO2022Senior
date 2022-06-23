@@ -15,6 +15,7 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
      */
     public ColorSensor(EV3ColorSensor port) {
         super(port);
+        sensor.setCurrentMode(0);
     }
 
     /**

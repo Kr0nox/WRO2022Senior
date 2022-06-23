@@ -44,12 +44,10 @@ public class RunWRO {
 
         robot.armConstruct().calibrateArm();
 
-        while (Button.ESCAPE.isUp()) {
-            robot.driveToRoom();
-            Button.waitForAnyPress();
-        }
+        //new ActionsSide(robot, new ActionsLaundry(robot), new ActionsWater(robot)).doSide();
 
-        //main.execute();
+        main.execute();
+
 
 
         /*Delay.msDelay(5000);

@@ -5,6 +5,7 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
+import lejos.utility.Delay;
 
 public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
 
@@ -16,19 +17,21 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
     }
 
     public void pickUp() {
+        moveBlock();
+        Delay.msDelay(200);
         movePickUp();
         moveHigh();
         armBlockCarrier.stop();
     }
 
     public void moveTransportBlock() {
-        armBlockCarrier.forward();
+        armBlockCarrier.backward();
         motor.rotateTo(240);
     }
 
     public void drop() {
-        armBlockCarrier.rotate(-300);
-        armBlockCarrier.rotate(180);
+        armBlockCarrier.rotate(300);
+        armBlockCarrier.rotate(-180);
     }
 
     public void calibrateArm() {
@@ -41,9 +44,9 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
                 motor.stop();
             }
             if (Button.LEFT.isDown()) {
-                armBlockCarrier.backward();
-            } else if (Button.RIGHT.isDown()) {
                 armBlockCarrier.forward();
+            } else if (Button.RIGHT.isDown()) {
+                armBlockCarrier.backward();
             } else {
                 armBlockCarrier.stop();
             }

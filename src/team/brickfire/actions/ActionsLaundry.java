@@ -1,5 +1,6 @@
 package team.brickfire.actions;
 
+import lejos.robotics.Color;
 import lejos.utility.Delay;
 import team.brickfire.robotParts.Robot;
 
@@ -36,13 +37,22 @@ public class ActionsLaundry extends BaseAction {
     }
 
     public void collectBlock(boolean mirrored) {
-        robot.travel(mirrored ? -8.8 : -8.8);
         blocks.push(robot.scanner().laundryColor());
-        System.out.println(robot.scanner().laundryColor());
-        robot.travel(-1.5);
-        robot.armConstruct().moveTransportBlock();
-        Delay.msDelay(2000);
+        System.out.println("LC: " + robot.scanner().laundryColor());
+        if (getLastBlockColor() != Color.NONE) {
+            robot.armConstruct().moveTransportBlock();
+        }
         //robot.armConstruct().pickUp();
+    }
+
+
+    public int getLastBlockColor() {
+        System.out.println("Blocks" + blocks.toString());
+       if (!blocks.empty()) {
+           return blocks.peek();
+       } else {
+           return  -1;
+       }
     }
 
     /**

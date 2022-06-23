@@ -2,7 +2,7 @@ package team.brickfire.actions;
 
 import team.brickfire.robotParts.Robot;
 
-class ActionsSide extends BaseAction {
+public class ActionsSide extends BaseAction {
 
     private final ActionsLaundry laundry;
     private final ActionsWater water;
@@ -30,7 +30,6 @@ class ActionsSide extends BaseAction {
 
         new ActionsRoom(robot, laundry, water).doRoom(false);
 
-        robot.travel(-10.5);
-        robot.turn(-90);
+
     }
 }

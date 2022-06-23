@@ -1,5 +1,6 @@
 package team.brickfire.actions;
 
+import lejos.hardware.Sound;
 import lejos.robotics.Color;
 import lejos.utility.Delay;
 import team.brickfire.robotParts.Robot;
@@ -28,18 +29,14 @@ public class ActionsRoom extends BaseAction {
     /**
      * drive to roomBlock and scan
      */
-    public void scanBlock () {
-        //robot.driveToRoom();
-        robot.travel(-18.5);
-        isRoomGame = robot.scanner().roomBlockColor() == GAME_ROOM_COLOR;
-        Delay.msDelay(1000);
-    }
+
 
     public void doRoom (boolean mirrored) {
+        isRoomGame = robot.driveToRoom() == GAME_ROOM_COLOR;
         robot.setLinearSpeed(110);
-        scanBlock();
-        laundry.collectBlock(mirrored);
+        robot.travel(-7.8);
        if (isRoomGame) {
+           laundry.collectBlock(mirrored);
             playGame(mirrored);
             leaveRoomBall(mirrored);
         } else {
@@ -56,21 +53,25 @@ public class ActionsRoom extends BaseAction {
      */
     public void playGame (boolean mirrored) {
         //pin ball to wall
-        robot.travel(mirrored ? -19.8 : -20.5);
+        robot.travel(mirrored ? -21 : -21);
         //collect ball
-        robot.armConstruct().moveLow();
-        robot.armConstruct().moveHigh();
+        if (laundry.getLastBlockColor() != Color.NONE) {
+            robot.armConstruct().pickUp();
+        } else {
+            robot.armConstruct().moveLow();
+            robot.armConstruct().moveHigh();
+        }
         //align with basket
-        robot.travel(8);
-        robot.turn(mirrored ? -72.5 : 72.5);
+        robot.travel(mirrored ? 8 : 7);
+        robot.turn(mirrored ? -74 : 71);
         //travel to basket and drop off
-        robot.travel(mirrored ? -24.2: -23.5);
+        robot.travel(mirrored ? -23.5: -22.5);
     }
 
     public void leaveRoomBall(boolean mirrored) {
-        robot.travel(25.5);
-        robot.turn(mirrored ? -107 : 107);
-        robot.travel(-28);
+        robot.travel(mirrored ? 24.5: 23.5);
+        robot.turn(mirrored ? -105.5 : 108.5);
+        robot.travel(-26);
     }
 
 }

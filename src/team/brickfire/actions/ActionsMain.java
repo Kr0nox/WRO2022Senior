@@ -31,6 +31,8 @@ public class ActionsMain extends BaseAction {
         waterToSide();
 
         new ActionsSide(robot, laundry, water).doSide();
+        robot.travel(-12);
+        robot.turn(-90);
 
         //align for journey
         robot.alignLine(true,30);
@@ -43,9 +45,14 @@ public class ActionsMain extends BaseAction {
         robot.turn(-12);*/
         robot.curveLeft(3, 1000);
         robot.turn(4.5);
-        robot.curveLeft(3.15, 1000);
+        robot.curveLeft(3.6, 1000);
 
         new ActionsSide(robot, laundry, water).doSide();
+        robot.driveTillLine(false, 40);
+        robot.turn(90);
+
+        //drive to laundry
+        sideToLaundry();
 
         //deliver laundry
     }
@@ -54,6 +61,13 @@ public class ActionsMain extends BaseAction {
     public void waterToSide() {
         robot.curveLeft(3.9, 1000);
         robot.turn(-32);
+    }
+
+    public void sideToLaundry() {
+        robot.travel(-20);
+        robot.turn(75);
+        robot.travel(-50);
+        robot.turnLeft(-380, 800);
     }
 
     public void laundryToCenter() {

@@ -36,6 +36,6 @@ public class ArmLift extends Arm {
     }
 
     public void moveTable() {
-        motor.rotateTo(160);
+        motor.rotateTo(180);
     }
 }

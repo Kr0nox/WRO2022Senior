@@ -62,16 +62,16 @@ public class Robot extends DifferentialMovementController {
     public int driveToRoom() {
         pilot.setLinearSpeed(15);
         pilot.backward();
-        int i = 0;
-        while (colorSensorLeft.isColor(Color.WHITE) && colorSensorRight.isColor(Color.WHITE)) {
-            System.out.println("A");
-            i++;
-        }
+        while (colorSensorLeft.isColor(Color.WHITE) && colorSensorRight.isColor(Color.WHITE));
         pilot.stop();
         while (scanner.roomBlockColor() == Color.NONE) {
             travel(1);
         }
         return scanner.roomBlockColor();
+    }
 
+    public void turnLeft(int distance, int speed) {
+        motorLeft.setSpeed(speed);
+        motorLeft.rotate(distance);
     }
 }

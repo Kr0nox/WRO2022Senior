@@ -14,14 +14,14 @@ public class ActionsWater extends BaseAction {
      */
     public ActionsWater(Robot robot) {
         super(robot);
-        bottleCount = 1;
+        bottleCount = 2;
     }
 
     public void collectBottles() {
-        robot.travel(8.5, 90);
+        robot.travel(6.85, 90);
         robot.turn(-45);
         robot.armConstruct().moveLow(true);
-        robot.travel(30);
+        robot.travel(31.5);
         robot.armConstruct().moveHigh();
         robot.turn(119);
     }
@@ -35,17 +35,19 @@ public class ActionsWater extends BaseAction {
 
         robot.turn(mirrored ? 90 : -90);
         robot.travel(24.5);
-
         robot.armConstruct().moveTable();
 
         bottleCount--;
     }
 
     public void leaveRoomWater(boolean mirrored) {
-        robot.travel(-26);
+        //robot.armConstruct().moveHigh();
+        //robot.armConstruct().moveTransportBlock();
+        robot.travel(-24);
+        //robot.armConstruct().pickUp();
         robot.armConstruct().moveHigh(true);
         robot.turn(mirrored ? 90 : -90);
-        robot.travel(bottleCount == 1 ? -13 : -22);
+        robot.travel(bottleCount == 1 && mirrored || bottleCount == 0 && !mirrored ? -15 : -22);
     }
 
 }
