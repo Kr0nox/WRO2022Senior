@@ -1,7 +1,6 @@
 package team.brickfire.actions;
 
 import lejos.robotics.Color;
-import lejos.utility.Delay;
 import team.brickfire.robotParts.Robot;
 
 import java.util.*;
@@ -36,18 +35,15 @@ public class ActionsLaundry extends BaseAction {
         blocks.push(i3);
     }
 
-    public void collectBlock(boolean mirrored) {
+    public void collectBlock() {
         blocks.push(robot.scanner().laundryColor());
-        System.out.println("LC: " + robot.scanner().laundryColor());
         if (getLastBlockColor() != Color.NONE) {
             robot.armConstruct().moveTransportBlock();
         }
-        //robot.armConstruct().pickUp();
     }
 
 
     public int getLastBlockColor() {
-        System.out.println("Blocks" + blocks.toString());
        if (!blocks.empty()) {
            return blocks.peek();
        } else {
@@ -59,10 +55,7 @@ public class ActionsLaundry extends BaseAction {
      * Put Laundry blocks into their baskets
      */
     public void deliverLaundry() {
-        //robot.travel(-5);
-        // special turn
         // drive over Baskets and scan them
-
         for (int i = 0; i < 3; i++) {
             baskets[i] = robot.scanner().laundryColor();
             // if the basket corresponds to the lowest Block: Drop it
@@ -74,9 +67,6 @@ public class ActionsLaundry extends BaseAction {
                 position = i + 1;
             }
         }
-        System.out.println("Blcoks: " + blocks.toString());
-
-        System.out.println(Arrays.toString(baskets));
         // Deliver remaining blocks
         while (!blocks.empty()) {
             travelToBasket(findBasket(blocks.peek()));
@@ -90,7 +80,6 @@ public class ActionsLaundry extends BaseAction {
     private int findBasket(int c) {
         for (int i = 0; i < baskets.length; i++) {
             if (c == baskets[i]) {
-                System.out.println("Find: " + i);
                 return i;
             }
         }
@@ -103,7 +92,6 @@ public class ActionsLaundry extends BaseAction {
     }
 
     private void travelToBasket(int i) {
-        System.out.println("Travel to: " + i);
         robot.travel((i - position) * BASKET_DISTANCE);
         position = i;
     }

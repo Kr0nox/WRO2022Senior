@@ -5,9 +5,11 @@ import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.utility.Delay;
 import team.brickfire.actions.*;
 import team.brickfire.robotParts.Robot;
+import team.brickfire.robotParts.sensors.ColorSensor;
 
 /**
  * Utility class that starts the program and handles the order in which things happen

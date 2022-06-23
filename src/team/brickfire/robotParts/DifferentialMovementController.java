@@ -22,8 +22,6 @@ public class DifferentialMovementController extends MovementController {
      * Maximum difference between the reflected light of the two color sensors when squaring with line
      */
     private static final float FINAL_ADJUSTMENT_FOR_SQUARING = 0.1f;
-
-    // TODO: make private again
     protected final RegulatedMotor motorLeft;
     protected final RegulatedMotor motorRight;
 
@@ -77,7 +75,6 @@ public class DifferentialMovementController extends MovementController {
         double distCm = 3.14 * 6.24 * avgTachoCount / 360;
         double degrees = Math.toDegrees(Math.atan(distCm / 16) * (finishedFirst == 'r' ? 1 : -1));
 
-        //System.out.println(avgTachoCount + " | " + distCm + " | " + degrees);
         turn(degrees, speed * 20);
     }
 

@@ -36,7 +36,7 @@ public class ActionsRoom extends BaseAction {
         robot.setLinearSpeed(110);
         robot.travel(-7.8);
        if (isRoomGame) {
-           laundry.collectBlock(mirrored);
+           laundry.collectBlock();
             playGame(mirrored);
             leaveRoomBall(mirrored);
         } else {

@@ -19,7 +19,7 @@ public class ActionsMain extends BaseAction {
     public ActionsMain(Robot robot) {
         super(robot);
         this.laundry = new ActionsLaundry(robot);
-        this.water = new ActionsWater(robot);
+        this.water = new ActionsWater(robot, laundry);
     }
 
     /**
@@ -31,43 +31,38 @@ public class ActionsMain extends BaseAction {
         waterToSide();
 
         new ActionsSide(robot, laundry, water).doSide();
-        robot.travel(-12);
-        robot.turn(-90);
 
-        //align for journey
-        robot.alignLine(true,30);
-
-        //journey
-        /*robot.setLinearSpeed(60);
-        robot.travel(70);
-        robot.turn(12.5);
-        robot.travel(65);
-        robot.turn(-12);*/
-        robot.curveLeft(3, 1000);
-        robot.turn(4.5);
-        robot.curveLeft(3.6, 1000);
+        switchSides();
 
         new ActionsSide(robot, laundry, water).doSide();
-        robot.driveTillLine(false, 40);
-        robot.turn(90);
 
-        //drive to laundry
         sideToLaundry();
 
-        //deliver laundry
+        // deliver laundry
     }
-
 
     public void waterToSide() {
         robot.curveLeft(3.9, 1000);
         robot.turn(-32);
     }
 
+    public void switchSides() {
+        robot.travel(-12);
+        robot.turn(-90);
+        robot.alignLine(true,30);
+        robot.curveLeft(3, 1000);
+        robot.turn(4.5);
+        robot.curveLeft(3.6, 1000);
+    }
+
     public void sideToLaundry() {
+        robot.driveTillLine(false, 40);
+        robot.turn(90);
         robot.travel(-20);
         robot.turn(75);
         robot.travel(-50);
         robot.turnLeft(-380, 800);
+        // TODO: 1) finish this
     }
 
     public void laundryToCenter() {
