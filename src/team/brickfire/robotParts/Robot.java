@@ -1,12 +1,14 @@
 package team.brickfire.robotParts;
 
+import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.*;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
+import lejos.utility.Delay;
 import team.brickfire.robotParts.arms.ArmConstruct;
-import team.brickfire.robotParts.sensors.doble_color.MiddleScanner;
+import team.brickfire.robotParts.sensors.double_color.MiddleScanner;
 
 /**
  * Robot class contains Movement. In this case it's differential, since it is the most useful for this case
@@ -59,16 +61,38 @@ public class Robot extends DifferentialMovementController {
         motorLeft.setSpeed(speed);
     }
 
-    public int driveToRoom() {
+    public void curveLeft2(double distance, int speed) {
+        motorLeft.setSpeed((int) (speed * 1.5));
+        motorRight.setSpeed(speed);
+        motorLeft.rotate((int) (distance * 360), true);
+        motorRight.rotate((int) (distance * 360));
+        motorLeft.setSpeed(speed);
+    }
+
+    public int driveToRoom(boolean mirrored) {
         //TODO: 2.2) travel with normal speed first
+        setLinearSpeed(110);
+        travel(mirrored ? -18 : -15);
+        Delay.msDelay(100);
         pilot.setLinearSpeed(15);
+        boolean lB = colorSensorLeft.isColor(Color.BLUE) || mirrored;
+        boolean rB = colorSensorRight.isColor(Color.BLUE) || !mirrored;
+        System.out.println(colorSensorRight.getColorID());
+        System.out.println(colorSensorLeft.getColorID());
         pilot.backward();
-        while (colorSensorLeft.isColor(Color.WHITE) && colorSensorRight.isColor(Color.WHITE));
+        /*if (lB && rB) {
+             while (scanner.roomBlockColor() != Color.NONE);
+        } else {
+            while ((colorSensorLeft.isColor(Color.WHITE) || lB) && (colorSensorRight.isColor(Color.WHITE) || rB));
+        }*/
+        while ((colorSensorLeft.isColor(Color.WHITE)) && (colorSensorRight.isColor(Color.WHITE)));
         pilot.stop();
-        while (scanner.roomBlockColor() == Color.NONE) {
+        int c = scanner.roomBlockColor();
+        for (int i = 0; i < 2 && c == Color.NONE; i++) {
             travel(1);
+            c = scanner.roomBlockColor();
         }
-        return scanner.roomBlockColor();
+        return c;
     }
 
     public void turnLeft(int distance, int speed) {

@@ -1,5 +1,6 @@
 package team.brickfire.actions;
 
+import lejos.utility.Delay;
 import team.brickfire.robotParts.Robot;
 
 /**
@@ -26,6 +27,8 @@ public class ActionsMain extends BaseAction {
      * Executes all the tasks
      */
     public void execute() {
+        Delay.msDelay(250);
+
         water.collectBottles();
 
         waterToSide();
@@ -35,6 +38,7 @@ public class ActionsMain extends BaseAction {
         switchSides();
 
         new ActionsSide(robot, laundry, water).doSide();
+
 
         sideToLaundry();
 
@@ -47,21 +51,24 @@ public class ActionsMain extends BaseAction {
     }
 
     public void switchSides() {
-        robot.travel(-12);
+        robot.driveTillLine(false, 50);
+        robot.travel(4);
         robot.turn(-90);
         robot.alignLine(true,30);
         // TODO: 2.3) one large travel?
-        robot.curveLeft(3, 1000);
-        robot.turn(4.5);
         robot.curveLeft(3.6, 1000);
+        robot.turn(17);
+        robot.curveLeft(3, 1000);
+        robot.turn(-17);
     }
 
     public void sideToLaundry() {
         robot.driveTillLine(false, 40);
         robot.turn(90);
-        robot.travel(-20);
+        robot.setLinearSpeed(110);
+        robot.travel(-25);
         robot.turn(75);
-        robot.travel(-50);
+        robot.travel(-42.5);
         robot.turnLeft(-380, 800);
         // TODO: 1.1) finish this
     }

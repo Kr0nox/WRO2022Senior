@@ -1,4 +1,4 @@
-package team.brickfire.robotParts.sensors.doble_color;
+package team.brickfire.robotParts.sensors.double_color;
 
 import lejos.robotics.Color;
 
@@ -8,10 +8,6 @@ public class RoomBlockColorMap extends ColorMap {
         super(mapOfValues(Color.NONE, Color.NONE,
                 Color.RED, Color.WHITE,
                 Color.GREEN, Color.GREEN,
-                Color.BLUE, Color.WHITE,
-                Color.BLUE, Color.WHITE,
-                Color.BLUE, Color.WHITE,
-                Color.BLUE, Color.WHITE,
                 Color.BLUE, Color.WHITE,
                 Color.YELLOW, Color.WHITE,
                 Color.MAGENTA, Color.WHITE,

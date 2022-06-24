@@ -1,11 +1,12 @@
 package team.brickfire.actions;
 
+import lejos.hardware.Sound;
 import lejos.robotics.Color;
 import team.brickfire.robotParts.Robot;
 
 public class ActionsWater extends BaseAction {
 
-    private int bottleCount;
+    private boolean[] bottles;
     private final ActionsLaundry laundry;
 
     /**
@@ -14,57 +15,56 @@ public class ActionsWater extends BaseAction {
      */
     public ActionsWater(Robot robot, ActionsLaundry laundry) {
         super(robot);
-        bottleCount = 2;
+        bottles = new boolean[] {true, true};
         this.laundry = laundry;
-    }
-
-    public ActionsWater(Robot robot, int bottleCount) {
-        this(robot, new ActionsLaundry(robot));
-        this.bottleCount = bottleCount;
     }
 
     public void collectBottles() {
         // TODO: 1.6) make perfect
-        robot.travel(6.85, 90);
+        robot.travel(7.85, 90);
         robot.turn(-45);
         robot.armConstruct().moveLow(true);
         robot.travel(31.5);
         robot.armConstruct().moveHigh();
-        robot.turn(119);
+        robot.turn(121);
     }
 
     public void deliverWater(boolean mirrored) {
-        robot.armConstruct().moveTransportBlock();
         // 2 & M | 1 & !M
         // TODO: 1.2) figure these two out
-        robot.travel(bottleCount == 2 && mirrored || bottleCount == 1 && !mirrored ? 0.5 : -8);
+        if (bottles[mirrored ? 0 : 1]) {
+            robot.travel(-13);
+            bottles[mirrored ? 0 : 1] = false;
+        } else {
+            robot.travel(-8);
+        }
 
         robot.turn(mirrored ? 90 : -90);
-        // TODO: 1.3) Check the next two
         robot.travel(18);
-        robot.armConstruct().moveHigh();
+        robot.armConstruct().moveWaterBottle();
         robot.travel(6.5);
         robot.armConstruct().moveTable();
 
-        bottleCount--;
     }
 
     public void leaveRoomWater(boolean mirrored) {
-        // TODO: 1.4) figure the next three out
+
         robot.travel(-5);
             robot.armConstruct().moveHigh();
 
-        robot.travel(-4);
+        robot.travel(-7);
         if (laundry.getLastBlockColor() != Color.NONE) {
             robot.armConstruct().moveTransportBlock();
         }
-        robot.travel(-15);
+        robot.travel(-13);
         if (laundry.getLastBlockColor() != Color.NONE) {
             robot.armConstruct().pickUp();
         }
-        robot.turn(mirrored ? 90 : -90);
+        robot.turn(mirrored ? 93 : -93);
         // TODO: 1.5) Adjust these
-        robot.travel(bottleCount == 1 && mirrored || bottleCount == 0 && !mirrored ? -15 : -22);
+        Sound.beep();
+        robot.travel(-17);
+        Sound.beep();
     }
 
 }

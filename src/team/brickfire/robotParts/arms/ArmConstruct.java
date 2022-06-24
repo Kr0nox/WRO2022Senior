@@ -18,7 +18,7 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
 
     public void pickUp() {
         moveBlock();
-        Delay.msDelay(200);
+        Delay.msDelay(100);
         movePickUp();
         moveHigh();
         armBlockCarrier.stop();
@@ -26,7 +26,12 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
 
     public void moveTransportBlock() {
         armBlockCarrier.backward();
-        motor.rotateTo(240);
+        motor.rotateTo(230);
+    }
+
+    public void moveHigh(boolean immediateReturn) {
+        armBlockCarrier.stop();
+        motor.rotateTo(0 , immediateReturn);
     }
 
     public void drop() {

@@ -1,4 +1,4 @@
-package team.brickfire.robotParts.sensors.doble_color;
+package team.brickfire.robotParts.sensors.double_color;
 
 import java.util.HashMap;
 import java.util.Map;

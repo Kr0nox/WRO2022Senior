@@ -1,4 +1,4 @@
-package team.brickfire.robotParts.sensors.doble_color;
+package team.brickfire.robotParts.sensors.double_color;
 
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
@@ -29,7 +29,7 @@ public class MiddleScanner {
         int leftValue = map.getPrioritisedValue(map.mappedValues(leftMeasurements));
         int rightValue = map.getPrioritisedValue(map.mappedValues(rightMeasurements));
         
-        return map.valueWithMaxPriority(/*leftValue,*/ rightValue);
+        return map.valueWithMaxPriority(leftValue, rightValue);
     }
     
     public int laundryColor() {

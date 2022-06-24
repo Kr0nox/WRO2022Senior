@@ -17,11 +17,10 @@ public class ActionsSide extends BaseAction {
         //align for first room
         robot.alignLine(true, 20);
         robot.setLinearSpeed(110);
-        robot.travel(-9.5);
+        robot.travel(-11);
         // TODO: 2.1) turn, dTL, aL(false) --> turn, aL(true)
         robot.turn(-90);
-        robot.driveTillLine(true, 40);
-        robot.alignLine(false, 30);
+        robot.alignLine(true, 30);
 
         //do first room
         new ActionsRoom(robot, laundry, water).doRoom(true);

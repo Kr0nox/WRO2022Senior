@@ -1,4 +1,4 @@
-package team.brickfire.robotParts.sensors.doble_color;
+package team.brickfire.robotParts.sensors.double_color;
 
 import lejos.robotics.Color;
 
@@ -20,10 +20,10 @@ public class LaundryColorMap extends ColorMap {
                 Color.CYAN, Color.BLACK,
                 Color.BROWN, Color.YELLOW),
 
-                mapOfValues(Color.NONE, 2,
+                mapOfValues(Color.NONE, 1,
                         Color.RED, 5,
-                        Color.YELLOW, 7,
-                        Color.BLACK, 1)
+                        Color.YELLOW, 12,
+                        Color.BLACK, 5)
         );
     }
 }

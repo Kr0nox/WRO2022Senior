@@ -13,6 +13,7 @@ public class ActionsRoom extends BaseAction {
     private final ActionsWater water;
 
 
+    private static final int WATER_ROOM_COLOR = Color.WHITE;
     private static final int GAME_ROOM_COLOR = Color.GREEN;
 
     /**
@@ -32,11 +33,11 @@ public class ActionsRoom extends BaseAction {
 
 
     public void doRoom (boolean mirrored) {
-        isRoomGame = robot.driveToRoom() == GAME_ROOM_COLOR;
+        isRoomGame = robot.driveToRoom(mirrored) == GAME_ROOM_COLOR;
         robot.setLinearSpeed(110);
-        robot.travel(-7.8);
+        robot.travel(-8.8);
+        laundry.collectBlock();
        if (isRoomGame) {
-           laundry.collectBlock();
             playGame(mirrored);
             leaveRoomBall(mirrored);
         } else {
@@ -53,7 +54,7 @@ public class ActionsRoom extends BaseAction {
      */
     public void playGame (boolean mirrored) {
         //pin ball to wall
-        robot.travel(mirrored ? -21 : -21);
+        robot.travel(mirrored ? -20.7 : -21);
         //collect ball
         if (laundry.getLastBlockColor() != Color.NONE) {
             robot.armConstruct().pickUp();
@@ -63,15 +64,15 @@ public class ActionsRoom extends BaseAction {
         }
         //align with basket
         robot.travel(mirrored ? 8 : 7);
-        robot.turn(mirrored ? -74 : 71);
+        robot.turn(mirrored ? -68 : 71);
         //travel to basket and drop off
         robot.travel(mirrored ? -23.5: -22.5);
     }
 
     public void leaveRoomBall(boolean mirrored) {
         robot.travel(mirrored ? 24.5: 23.5);
-        robot.turn(mirrored ? -105.5 : 108.5);
-        robot.travel(-26);
+        robot.turn(mirrored ? -108.5 : 108.5);
+        robot.travel(-20);
     }
 
 }
