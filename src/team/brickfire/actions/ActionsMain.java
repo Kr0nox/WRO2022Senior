@@ -50,6 +50,7 @@ public class ActionsMain extends BaseAction {
         robot.travel(-12);
         robot.turn(-90);
         robot.alignLine(true,30);
+        // TODO: 2.3) one large travel?
         robot.curveLeft(3, 1000);
         robot.turn(4.5);
         robot.curveLeft(3.6, 1000);
@@ -62,7 +63,7 @@ public class ActionsMain extends BaseAction {
         robot.turn(75);
         robot.travel(-50);
         robot.turnLeft(-380, 800);
-        // TODO: 1) finish this
+        // TODO: 1.1) finish this
     }
 
     public void laundryToCenter() {

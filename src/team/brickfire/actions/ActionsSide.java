@@ -18,6 +18,7 @@ public class ActionsSide extends BaseAction {
         robot.alignLine(true, 20);
         robot.setLinearSpeed(110);
         robot.travel(-9.5);
+        // TODO: 2.1) turn, dTL, aL(false) --> turn, aL(true)
         robot.turn(-90);
         robot.driveTillLine(true, 40);
         robot.alignLine(false, 30);

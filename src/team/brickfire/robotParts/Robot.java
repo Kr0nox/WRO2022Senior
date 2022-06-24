@@ -60,6 +60,7 @@ public class Robot extends DifferentialMovementController {
     }
 
     public int driveToRoom() {
+        //TODO: 2.2) travel with normal speed first
         pilot.setLinearSpeed(15);
         pilot.backward();
         while (colorSensorLeft.isColor(Color.WHITE) && colorSensorRight.isColor(Color.WHITE));

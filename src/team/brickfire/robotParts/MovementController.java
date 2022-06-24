@@ -179,6 +179,7 @@ public abstract class MovementController {
      */
     public void setLinearSpeed(double speed) {
         pilot.setLinearSpeed(checkSpeed(speed));
+        // TODO: 2.4) Can we make this just a tiny bit higher?
         pilot.setLinearAcceleration(0.5 * speed);
     }
     /**

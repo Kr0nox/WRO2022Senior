@@ -24,7 +24,7 @@ public class ActionsWater extends BaseAction {
     }
 
     public void collectBottles() {
-        // TODO: 6) make perfect
+        // TODO: 1.6) make perfect
         robot.travel(6.85, 90);
         robot.turn(-45);
         robot.armConstruct().moveLow(true);
@@ -36,11 +36,11 @@ public class ActionsWater extends BaseAction {
     public void deliverWater(boolean mirrored) {
         robot.armConstruct().moveTransportBlock();
         // 2 & M | 1 & !M
-        // TODO: 2) figure these two out
+        // TODO: 1.2) figure these two out
         robot.travel(bottleCount == 2 && mirrored || bottleCount == 1 && !mirrored ? 0.5 : -8);
 
         robot.turn(mirrored ? 90 : -90);
-        // TODO: 3) Check the next two
+        // TODO: 1.3) Check the next two
         robot.travel(18);
         robot.armConstruct().moveHigh();
         robot.travel(6.5);
@@ -50,7 +50,7 @@ public class ActionsWater extends BaseAction {
     }
 
     public void leaveRoomWater(boolean mirrored) {
-        // TODO: 4) figure the next three out
+        // TODO: 1.4) figure the next three out
         robot.travel(-5);
             robot.armConstruct().moveHigh();
 
@@ -63,7 +63,7 @@ public class ActionsWater extends BaseAction {
             robot.armConstruct().pickUp();
         }
         robot.turn(mirrored ? 90 : -90);
-        // TODO: 5) Adjust these
+        // TODO: 1.5) Adjust these
         robot.travel(bottleCount == 1 && mirrored || bottleCount == 0 && !mirrored ? -15 : -22);
     }
 
