@@ -42,7 +42,7 @@ public class RunWRO {
 
         //LCD.drawString("Ready", 2, 2);
         Sound.beep();
-        Button.waitForAnyPress();
+        //Button.waitForAnyPress();
 
         robot.armConstruct().calibrateArm();
 
@@ -50,6 +50,7 @@ public class RunWRO {
 
         main.execute();
 
+        //robot.armConstruct().pickUp(3);
 
         /*while (Button.ESCAPE.isUp()) {
                 for (int j = 0; j < 11; j++) {

@@ -72,7 +72,7 @@ public class ActionsRoom extends BaseAction {
     public void leaveRoomBall(boolean mirrored) {
         robot.travel(mirrored ? 24.5: 23.5);
         robot.turn(mirrored ? -108.5 : 108.5);
-        robot.travel(-20);
+        robot.travel(mirrored ? -20 : -13);
     }
 
 }

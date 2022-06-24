@@ -22,8 +22,8 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
         movePickUp();
         if(amountBlocks >= 3) {
             armBlockCarrier.stop();
-            motor.rotate(100);
-            armBlockCarrier.rotate(80);
+            motor.rotate(-500);
+            armBlockCarrier.rotate(-150);
         }
         moveHigh();
         armBlockCarrier.stop();

@@ -40,7 +40,7 @@ public class ActionsWater extends BaseAction {
 
         robot.turn(mirrored ? 90 : -90);
         robot.travel(18);
-        robot.armConstruct().moveWaterBottle();
+        robot.armConstruct().moveHigh();
         robot.travel(6.5);
         robot.armConstruct().moveTable();
 
@@ -59,10 +59,8 @@ public class ActionsWater extends BaseAction {
         if (laundry.getLastBlockColor() != Color.NONE) {
             robot.armConstruct().pickUp(laundry.amountCollectedBlocks());
         }
-        robot.turn(mirrored ? 93 : -93);
-        Sound.beep();
+        robot.turn(mirrored ? 91.5 : -91.5);
         robot.travel(-17);
-        Sound.beep();
     }
 
 }

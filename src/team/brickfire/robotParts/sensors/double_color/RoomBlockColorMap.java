@@ -22,8 +22,8 @@ public class RoomBlockColorMap extends ColorMap {
                 Color.BROWN, Color.GREEN),
 
                 mapOfValues(Color.NONE, 2,
-                        Color.GREEN, 5,
-                        Color.WHITE, 10)
+                        Color.GREEN, 10,
+                        Color.WHITE, 5)
         );
     }
 

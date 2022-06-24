@@ -52,7 +52,7 @@ public class ActionsMain extends BaseAction {
 
     public void switchSides() {
         robot.driveTillLine(false, 50);
-        robot.travel(4);
+        robot.travel(8);
         robot.turn(-90);
         robot.alignLine(true,30);
         robot.curveLeft(3.6, 1000);
@@ -65,11 +65,12 @@ public class ActionsMain extends BaseAction {
         robot.driveTillLine(false, 40);
         robot.turn(90);
         robot.setLinearSpeed(110);
-        robot.travel(-25);
-        robot.turn(75);
-        robot.travel(-42.5);
+        robot.driveTillLine(false, 40);
+        robot.turn(90);
+        robot.driveTillLine(false, 40);
+        // robot.travel(-42.5);
         robot.turnLeft(-380, 800);
-        // TODO: 1.1) finish this
+        robot.driveToWashingArea();
     }
 
     public void laundryToCenter() {

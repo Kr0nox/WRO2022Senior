@@ -7,6 +7,7 @@ import lejos.hardware.port.*;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
 import lejos.utility.Delay;
+import team.brickfire.actions.ActionsLaundry;
 import team.brickfire.robotParts.arms.ArmConstruct;
 import team.brickfire.robotParts.sensors.double_color.MiddleScanner;
 
@@ -39,6 +40,8 @@ public class Robot extends DifferentialMovementController {
         setLinearSpeed(110);
         scanner = new MiddleScanner();
         armConstruct = new ArmConstruct();
+        motorLeft.stop();
+        motorRight.stop();
     }
 
     /**
@@ -87,11 +90,23 @@ public class Robot extends DifferentialMovementController {
         while ((colorSensorLeft.isColor(Color.WHITE)) && (colorSensorRight.isColor(Color.WHITE)));
         pilot.stop();
         int c = scanner.roomBlockColor();
-        for (int i = 0; i < 2 && c == Color.NONE; i++) {
+        while (c == Color.NONE) {
             travel(1);
             c = scanner.roomBlockColor();
         }
         return c;
+    }
+
+    public void driveToWashingArea() {
+        pilot.backward();
+        while (scanner.laundryColor() == Color.NONE);
+        pilot.stop();
+    }
+
+    public void driveToBlackWashingLine() {
+        pilot.backward();
+        while (!colorSensorLeft.isColor(Color.BLACK));
+        pilot.stop();
     }
 
     public void turnLeft(int distance, int speed) {

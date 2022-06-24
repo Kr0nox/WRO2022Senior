@@ -10,6 +10,8 @@ public class ActionsLaundry extends BaseAction {
 
     private final Stack<Integer> blocks;
     private final int[] baskets;
+
+    private int lastColor;
     private static final double BASKET_DISTANCE = -10.8;
 
     private int position;
@@ -24,7 +26,7 @@ public class ActionsLaundry extends BaseAction {
         blocks = new Stack<>();
         baskets = new int[3];
 
-
+        lastColor = Color.NONE;
     }
 
     public ActionsLaundry(Robot robot, int i1, int i2, int i3) {
@@ -41,15 +43,13 @@ public class ActionsLaundry extends BaseAction {
             blocks.push(c);
             robot.armConstruct().moveTransportBlock();
         }
+        lastColor = c;
+        System.out.println(blocks);
     }
 
 
     public int getLastBlockColor() {
-       if (!blocks.empty()) {
-           return blocks.peek();
-       } else {
-           return  -1;
-       }
+       return lastColor;
     }
 
     public int amountCollectedBlocks() {
