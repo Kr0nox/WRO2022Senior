@@ -41,10 +41,15 @@ public class ActionsRoom extends BaseAction {
             playGame(mirrored);
             leaveRoomBall(mirrored);
         } else {
-            water.deliverWater(mirrored);
-            water.leaveRoomWater(mirrored);
+           if (laundry.getLastBlockColor() != Color.NONE) {
+               robot.armConstruct().moveTransportBlock();
+               robot.travel(-10);
+               robot.armConstruct().pickUp(laundry.amountCollectedBlocks());
+               robot.travel(10);
+           }
+           robot.turn(180);
+           robot.travel(-13);
         }
-
     }
 
     /**
@@ -54,7 +59,7 @@ public class ActionsRoom extends BaseAction {
      */
     public void playGame (boolean mirrored) {
         //pin ball to wall
-        robot.travel(mirrored ? -20.7 : -21);
+        robot.travel(mirrored ? -20 : -20);
         //collect ball
         if (laundry.getLastBlockColor() != Color.NONE) {
             robot.armConstruct().pickUp(laundry.amountCollectedBlocks());
@@ -70,9 +75,9 @@ public class ActionsRoom extends BaseAction {
     }
 
     public void leaveRoomBall(boolean mirrored) {
-        robot.travel(mirrored ? 24.5: 23.5);
+        robot.travel(mirrored ? 22: 21);
         robot.turn(mirrored ? -108.5 : 108.5);
-        robot.travel(mirrored ? -20 : -13);
+        robot.travel(mirrored ? -27 : -13);
     }
 
 }

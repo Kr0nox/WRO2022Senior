@@ -74,7 +74,7 @@ public class Robot extends DifferentialMovementController {
 
     public int driveToRoom(boolean mirrored) {
         setLinearSpeed(110);
-        travel(mirrored ? -18 : -15);
+        travel(mirrored ? -13 : -15);
         Delay.msDelay(100);
         pilot.setLinearSpeed(15);
         boolean lB = colorSensorLeft.isColor(Color.BLUE) || mirrored;

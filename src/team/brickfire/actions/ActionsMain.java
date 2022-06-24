@@ -1,5 +1,6 @@
 package team.brickfire.actions;
 
+import lejos.hardware.Sound;
 import lejos.utility.Delay;
 import team.brickfire.robotParts.Robot;
 
@@ -29,18 +30,18 @@ public class ActionsMain extends BaseAction {
     public void execute() {
         Delay.msDelay(250);
 
-        water.collectBottles();
-
-        waterToSide();
+        robot.travel(-5.5);
+        robot.turn(45);
+        robot.curveLeft(3.5, 1000);
 
         new ActionsSide(robot, laundry, water).doSide();
 
         switchSides();
 
-        new ActionsSide(robot, laundry, water).doSide();
+        //new ActionsSide(robot, laundry, water).doSide();
 
 
-        sideToLaundry();
+        //sideToLaundry();
 
         // deliver laundry
     }
@@ -54,8 +55,11 @@ public class ActionsMain extends BaseAction {
         robot.driveTillLine(false, 50);
         robot.travel(8);
         robot.turn(-90);
-        robot.alignLine(true,30);
+        Sound.beep();
+        robot.alignLine(false,30);
+        Sound.beep();
         robot.curveLeft(3.6, 1000);
+        Sound.beep();
         robot.turn(17);
         robot.curveLeft(3, 1000);
         robot.turn(-17);
@@ -63,6 +67,7 @@ public class ActionsMain extends BaseAction {
 
     public void sideToLaundry() {
         robot.driveTillLine(false, 40);
+        robot.travel(2);
         robot.turn(90);
         robot.setLinearSpeed(110);
         robot.driveTillLine(false, 40);
