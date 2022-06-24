@@ -20,7 +20,7 @@ public class ActionsWater extends BaseAction {
     }
 
     public void collectBottles() {
-        // TODO: 1.6) make perfect
+        // TODO: 1.6) make perfect (maybe done)
         robot.travel(7.85, 90);
         robot.turn(-45);
         robot.armConstruct().moveLow(true);
@@ -31,7 +31,6 @@ public class ActionsWater extends BaseAction {
 
     public void deliverWater(boolean mirrored) {
         // 2 & M | 1 & !M
-        // TODO: 1.2) figure these two out
         if (bottles[mirrored ? 0 : 1]) {
             robot.travel(-13);
             bottles[mirrored ? 0 : 1] = false;
@@ -58,10 +57,9 @@ public class ActionsWater extends BaseAction {
         }
         robot.travel(-13);
         if (laundry.getLastBlockColor() != Color.NONE) {
-            robot.armConstruct().pickUp();
+            robot.armConstruct().pickUp(laundry.amountCollectedBlocks());
         }
         robot.turn(mirrored ? 93 : -93);
-        // TODO: 1.5) Adjust these
         Sound.beep();
         robot.travel(-17);
         Sound.beep();

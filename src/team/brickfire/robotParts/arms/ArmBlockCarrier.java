@@ -4,6 +4,6 @@ public interface ArmBlockCarrier {
 
     void drop();
 
-    void pickUp();
+    void pickUp(int i);
 
 }

@@ -16,10 +16,15 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
         armBlockCarrier.setSpeed(1500);
     }
 
-    public void pickUp() {
+    public void pickUp(int amountBlocks) {
         moveBlock();
         Delay.msDelay(100);
         movePickUp();
+        if(amountBlocks >= 3) {
+            armBlockCarrier.stop();
+            motor.rotate(100);
+            armBlockCarrier.rotate(80);
+        }
         moveHigh();
         armBlockCarrier.stop();
     }

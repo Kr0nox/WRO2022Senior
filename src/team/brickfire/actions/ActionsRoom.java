@@ -57,7 +57,7 @@ public class ActionsRoom extends BaseAction {
         robot.travel(mirrored ? -20.7 : -21);
         //collect ball
         if (laundry.getLastBlockColor() != Color.NONE) {
-            robot.armConstruct().pickUp();
+            robot.armConstruct().pickUp(laundry.amountCollectedBlocks());
         } else {
             robot.armConstruct().moveLow();
             robot.armConstruct().moveHigh();

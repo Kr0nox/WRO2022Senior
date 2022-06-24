@@ -70,7 +70,6 @@ public class Robot extends DifferentialMovementController {
     }
 
     public int driveToRoom(boolean mirrored) {
-        //TODO: 2.2) travel with normal speed first
         setLinearSpeed(110);
         travel(mirrored ? -18 : -15);
         Delay.msDelay(100);

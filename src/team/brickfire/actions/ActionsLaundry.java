@@ -36,8 +36,9 @@ public class ActionsLaundry extends BaseAction {
     }
 
     public void collectBlock() {
-        blocks.push(robot.scanner().laundryColor());
-        if (getLastBlockColor() != Color.NONE) {
+        int c = robot.scanner().laundryColor();
+        if (c != Color.NONE) {
+            blocks.push(c);
             robot.armConstruct().moveTransportBlock();
         }
     }
@@ -49,6 +50,10 @@ public class ActionsLaundry extends BaseAction {
        } else {
            return  -1;
        }
+    }
+
+    public int amountCollectedBlocks() {
+        return blocks.size();
     }
 
     /**

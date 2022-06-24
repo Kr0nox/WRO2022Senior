@@ -55,7 +55,6 @@ public class ActionsMain extends BaseAction {
         robot.travel(4);
         robot.turn(-90);
         robot.alignLine(true,30);
-        // TODO: 2.3) one large travel?
         robot.curveLeft(3.6, 1000);
         robot.turn(17);
         robot.curveLeft(3, 1000);
