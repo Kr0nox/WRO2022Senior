@@ -18,7 +18,7 @@ public class ArmLift extends Arm {
     }
 
     public void moveLow(boolean immediateReturn) {
-        motor.rotateTo(815, immediateReturn);
+        motor.rotateTo(-815, immediateReturn);
     }
 
     public void moveLow() {
@@ -27,14 +27,14 @@ public class ArmLift extends Arm {
 
 
     public void movePickUp() {
-        motor.rotateTo(725);
+        motor.rotateTo(-725);
     }
 
     public void moveBlock() {
-        motor.rotateTo(400);
+        motor.rotateTo(-400);
     }
 
     public void moveTable() {
-        motor.rotateTo(240);
+        motor.rotateTo(-240);
     }
 }

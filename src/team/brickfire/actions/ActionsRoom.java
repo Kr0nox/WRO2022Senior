@@ -37,19 +37,20 @@ public class ActionsRoom extends BaseAction {
         robot.setLinearSpeed(110);
         robot.travel(-8.8);
         laundry.collectBlock();
-       if (isRoomGame) {
+       /*if (isRoomGame) {
             playGame(mirrored);
             leaveRoomBall(mirrored);
-        } else {
-           if (laundry.getLastBlockColor() != Color.NONE) {
+        } else {*/
+           //if (laundry.getLastBlockColor() != Color.NONE) {
                robot.armConstruct().moveTransportBlock();
                robot.travel(-10);
                robot.armConstruct().pickUp(laundry.amountCollectedBlocks());
+                robot.armConstruct().moveHigh();
                robot.travel(10);
-           }
+           //}
            robot.turn(180);
            robot.travel(-13);
-        }
+        //}
     }
 
     /**
@@ -59,25 +60,26 @@ public class ActionsRoom extends BaseAction {
      */
     public void playGame (boolean mirrored) {
         //pin ball to wall
-        robot.travel(mirrored ? -20 : -20);
+        robot.travel(-8);
         //collect ball
         if (laundry.getLastBlockColor() != Color.NONE) {
             robot.armConstruct().pickUp(laundry.amountCollectedBlocks());
-        } else {
-            robot.armConstruct().moveLow();
-            robot.armConstruct().moveHigh();
         }
+        robot.armConstruct().moveLow();
+        robot.turn(mirrored ? 0 : 5);
+        robot.travel(-12);
+        robot.armConstruct().moveHigh();
         //align with basket
         robot.travel(mirrored ? 8 : 7);
-        robot.turn(mirrored ? -68 : 71);
+        robot.turn(mirrored ? -65 : 71);
         //travel to basket and drop off
         robot.travel(mirrored ? -23.5: -22.5);
     }
 
     public void leaveRoomBall(boolean mirrored) {
-        robot.travel(mirrored ? 22: 21);
-        robot.turn(mirrored ? -108.5 : 108.5);
-        robot.travel(mirrored ? -27 : -13);
+        robot.travel(mirrored ? 21 : 20);
+        robot.turn(mirrored ? -110 : 106);
+        robot.travel(mirrored ? -12 : -12);
     }
 
 }

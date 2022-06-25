@@ -30,18 +30,21 @@ public class ActionsMain extends BaseAction {
     public void execute() {
         Delay.msDelay(250);
 
-        robot.travel(-5.5);
+        robot.travel(-4);
         robot.turn(45);
         robot.curveLeft(3.5, 1000);
+        robot.turn(-3);
 
         new ActionsSide(robot, laundry, water).doSide();
 
         switchSides();
 
-        //new ActionsSide(robot, laundry, water).doSide();
+        new ActionsSide(robot, laundry, water).doSide();
 
 
-        //sideToLaundry();
+        sideToLaundry();
+        Sound.beep();
+        laundry.deliverLaundry();
 
         // deliver laundry
     }
@@ -52,20 +55,36 @@ public class ActionsMain extends BaseAction {
     }
 
     public void switchSides() {
-        robot.driveTillLine(false, 50);
-        robot.travel(8);
-        robot.turn(-90);
-        Sound.beep();
-        robot.alignLine(false,30);
-        Sound.beep();
+        robot.alignLine(false, 50);
+        robot.travel(2);
+        robot.turn(90);
+        robot.alignLine(true,30);
         robot.curveLeft(3.6, 1000);
         Sound.beep();
-        robot.turn(17);
-        robot.curveLeft(3, 1000);
-        robot.turn(-17);
+        robot.turn(15);
+        robot.curveLeft(2.9, 1000);
+        robot.turn(-15);
     }
 
     public void sideToLaundry() {
+        robot.alignLine(false, 50);
+        robot.travel(2);
+        robot.turn(90);
+        robot.alignLine(true,30);
+        robot.setLinearSpeed(90);
+        robot.travel(20);
+        robot.turn(90);
+        robot.setLinearSpeed(110);
+        robot.travel(65);
+        robot.setLinearSpeed(40);
+        robot.travel(5);
+        robot.setLinearSpeed(110);
+        robot.travel(-15);
+        robot.turnLeft(455, 800);
+        robot.alignLine(true,30);
+        robot.travel(-39);
+        robot.turn(3);
+        /*
         robot.driveTillLine(false, 40);
         robot.travel(2);
         robot.turn(90);
@@ -75,7 +94,7 @@ public class ActionsMain extends BaseAction {
         robot.driveTillLine(false, 40);
         // robot.travel(-42.5);
         robot.turnLeft(-380, 800);
-        robot.driveToWashingArea();
+        robot.driveToWashingArea();*/
     }
 
     public void laundryToCenter() {

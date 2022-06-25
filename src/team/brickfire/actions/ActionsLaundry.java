@@ -24,7 +24,7 @@ public class ActionsLaundry extends BaseAction {
     public ActionsLaundry(Robot robot) {
         super(robot);
         blocks = new Stack<>();
-        baskets = new int[3];
+        baskets = new int[]{-2, -2, -2} ;
 
         lastColor = Color.NONE;
     }
@@ -39,10 +39,9 @@ public class ActionsLaundry extends BaseAction {
 
     public void collectBlock() {
         int c = robot.scanner().laundryColor();
-        if (c != Color.NONE) {
             blocks.push(c);
             robot.armConstruct().moveTransportBlock();
-        }
+
         lastColor = c;
         System.out.println(blocks);
     }
@@ -60,6 +59,7 @@ public class ActionsLaundry extends BaseAction {
      * Put Laundry blocks into their baskets
      */
     public void deliverLaundry() {
+        robot.setLinearSpeed(90);
         // drive over Baskets and scan them
         for (int i = 0; i < 3; i++) {
             baskets[i] = robot.scanner().laundryColor();
@@ -74,6 +74,9 @@ public class ActionsLaundry extends BaseAction {
         }
         // Deliver remaining blocks
         while (!blocks.empty()) {
+            if (blocks.peek() == Color.NONE) {
+                blocks.pop();
+            }
             travelToBasket(findBasket(blocks.peek()));
             dropBlock();
         }
@@ -88,10 +91,19 @@ public class ActionsLaundry extends BaseAction {
                 return i;
             }
         }
+        for (int i = 0; i < baskets.length; i++) {
+            if (baskets[i] >= 0) {
+                return i;
+            }
+        }
+
         return -1;
     }
 
     private void dropBlock() {
+        if (position >= 0) {
+            baskets[position] = -2;
+        }
         robot.armConstruct().drop();
         blocks.pop();
     }

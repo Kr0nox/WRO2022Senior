@@ -19,19 +19,19 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
     public void pickUp(int amountBlocks) {
         moveBlock();
         Delay.msDelay(100);
-        movePickUp();
+        moveLow();
         if(amountBlocks >= 3) {
             armBlockCarrier.stop();
-            motor.rotate(-500);
-            armBlockCarrier.rotate(-150);
+            motor.rotate(500);
+            armBlockCarrier.rotate(150);
         }
-        moveHigh();
+        //moveHigh();
         armBlockCarrier.stop();
     }
 
     public void moveTransportBlock() {
         armBlockCarrier.backward();
-        motor.rotateTo(230);
+        motor.rotateTo(-270);
     }
 
     public void moveHigh(boolean immediateReturn) {
@@ -39,24 +39,30 @@ public class ArmConstruct extends ArmLift implements ArmBlockCarrier {
         motor.rotateTo(0 , immediateReturn);
     }
 
+    public void moveDeliver() {
+        motor.rotate(-200);
+    }
+
     public void drop() {
-        armBlockCarrier.rotate(300);
-        armBlockCarrier.rotate(-180);
+        moveDeliver();
+        armBlockCarrier.rotate(400);
+        armBlockCarrier.rotate(-200);
+        moveHigh();
     }
 
     public void calibrateArm() {
         while (Button.ENTER.isUp()) {
             if (Button.UP.isDown()) {
-                motor.backward();
-            } else if (Button.DOWN.isDown()) {
                 motor.forward();
+            } else if (Button.DOWN.isDown()) {
+                motor.backward();
             } else {
                 motor.stop();
             }
             if (Button.LEFT.isDown()) {
-                armBlockCarrier.forward();
-            } else if (Button.RIGHT.isDown()) {
                 armBlockCarrier.backward();
+            } else if (Button.RIGHT.isDown()) {
+                armBlockCarrier.forward();
             } else {
                 armBlockCarrier.stop();
             }

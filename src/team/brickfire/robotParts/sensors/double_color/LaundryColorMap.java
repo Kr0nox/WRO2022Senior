@@ -20,10 +20,10 @@ public class LaundryColorMap extends ColorMap {
                 Color.CYAN, Color.BLACK,
                 Color.BROWN, Color.YELLOW),
 
-                mapOfValues(Color.NONE, 1,
-                        Color.RED, 5,
+                mapOfValues(Color.NONE, 3,
+                        Color.RED, 10,
                         Color.YELLOW, 12,
-                        Color.BLACK, 5)
+                        Color.BLACK, 3)
         );
     }
 }
