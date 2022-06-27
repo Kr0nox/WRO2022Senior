@@ -2,6 +2,7 @@ package team.brickfire;
 
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
+import team.brickfire.actions.TestingAction;
 import team.brickfire.robotParts.Robot;
 
 /**
@@ -17,9 +18,12 @@ public class RunWRO {
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
-        Robot robot = Robot.create(6.24, 8);
+        Robot.create(6.24, 8);
+
         Sound.beep();
         Button.waitForAnyPress();
+
+        new TestingAction().test();
     }
 }
 
