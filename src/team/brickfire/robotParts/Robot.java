@@ -23,16 +23,17 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
     private final BaseRegulatedMotor motorLeft;
     private final BaseRegulatedMotor motorRight;
-
     private final ColorSensor colorSensorLeft;
-
     private final ColorSensor colorSensorRight;
-
     private final CustomMovePilot pilot;
     private final double wheelOffset;
     private final double wheelDiameter;
 
-
+    /**
+     * Constructor used by the Singleton-Pattern
+     * @param wheelDiameter Diameter of the wheels
+     * @param wheelOffset Distance of the wheels from the robots center
+     */
     private Robot(double wheelDiameter, double wheelOffset) {
         this.motorLeft = new EV3MediumRegulatedMotor(MotorPort.B);
         this.motorRight = new EV3MediumRegulatedMotor(MotorPort.C);
@@ -64,6 +65,9 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         return instance;
     }
 
+    /**
+     * Constructor used by actions
+     */
     protected Robot() {
         if (instance == null) {
             throw new RuntimeException("Robot was not created yet");
@@ -148,6 +152,13 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         motor.setAcceleration((int)acceleration);
     }
 
+    /**
+     * Limits the speed between the two given values
+     * @param value Speed to limit
+     * @param min Minimum value
+     * @param max Maximum value
+     * @return Limited value
+     */
     private double limitSpeed(double value, double min, double max) {
         if (value < min) {
             return min;
@@ -168,6 +179,11 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         return calcDistance(motorRight.getTachoCount());
     }
 
+    /**
+     * Calculates the distance in cm for one motor
+     * @param rotations Amount of rotations the motor did
+     * @return Distance driven in cm
+     */
     private double calcDistance(double rotations) {
         return (Math.abs(rotations) / 360) * Math.PI * wheelDiameter;
     }
