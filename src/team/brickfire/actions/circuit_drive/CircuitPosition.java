@@ -1,53 +1,50 @@
 package team.brickfire.actions.circuit_drive;
 
+/**
+ * Representation of all places in which the robot can stand in during CircuitDrive
+ *
+ * @author Team BrickFire
+ * @version 2.0
+ */
 public enum CircuitPosition {
 
-    CENTER(0, 0),
-    NORTH(0, 10),
-    NORTH_EAST(10, 10),
-    EAST(10, 0),
-    SOUTH_EAST(10, -10),
-    SOUTH(0, -10),
-    SOUTH_WEST(-10, -10),
-    WEST(-10, 0),
-    NORTH_WEST(-10, 10),
+    CENTER(new Vector2D(0, 0)),
+    NORTH(new Vector2D(0, 36.2)),
+    NORTH_EAST(new Vector2D(36.2, 36.2)),
+    EAST(new Vector2D(36.2, 0)),
+    SOUTH_EAST(new Vector2D(36.2, -36.2)),
+    SOUTH(new Vector2D(0, -36.2)),
+    SOUTH_WEST(new Vector2D(-36.2, -36.2)),
+    WEST(new Vector2D(-36.2, 0)),
+    NORTH_WEST(new Vector2D(-36.2, 36.2)),
 
-    EAST_ROOMS_CLOSE(15, 0),
-    EAST_ROOMS_FAR(20, 0),
+    EAST_ROOMS_CLOSE(new Vector2D(48.1, 0)),
+    EAST_ROOMS_FAR(new Vector2D(67, 0)),
 
-    WEST_ROOMS_CLOSE(-15, 0),
-    WEST_ROOMS_FAR(-20, 0),
+    WEST_ROOMS_CLOSE(new Vector2D(-48.1, 0)),
+    WEST_ROOMS_FAR(new Vector2D(-67, 0)),
 
-    RED_CLOSE(15, 5),
-    RED_FAR(20, 5),
-    GREEN_CLOSE(15, -5),
-    GREEN_FAR(20, -5),
-    YELLOW_CLOSE(-15, 5),
-    YELLOW_FAR(-20, 5),
-    BLUE_CLOSE(-15, -5),
-    BLUE_FAR(-20, -5);
+    RED_CLOSE(new Vector2D(48.1, 17.2)),
+    RED_FAR(new Vector2D(67, 20.4)),
+    GREEN_CLOSE(new Vector2D(48.1, -17.2)),
+    GREEN_FAR(new Vector2D(67, -20.4)),
+    YELLOW_CLOSE(new Vector2D(-48.1, 17.2)),
+    YELLOW_FAR(new Vector2D(-67, 20.4)),
+    BLUE_CLOSE(new Vector2D(-48.1, -17.2)),
+    BLUE_FAR(new Vector2D(-67, -20.4));
 
-    private final double xPos;
-    private final double yPos;
+    private final Vector2D pos;
 
-
-    CircuitPosition(double xPos, double yPos) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+    CircuitPosition(Vector2D pos) {
+        this.pos = pos;
     }
 
-    public double getX() {
-        return xPos;
-    }
-
-    public double getY() {
-        return yPos;
-    }
-
-    public double getDistance(CircuitPosition p) {
-
-        double xDistance = p.xPos - this.xPos;
-        double yDistance = p.yPos - this.yPos;
-        return Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+    /**
+     * Gets the position as a Vector. Origin is the center of the base (center of the playing field). 1 unit equals 1cm
+     *
+     * @return The vector of this position
+     */
+    public Vector2D getAsVector() {
+        return pos;
     }
 }

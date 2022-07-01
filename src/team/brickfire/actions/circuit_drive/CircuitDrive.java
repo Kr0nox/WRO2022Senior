@@ -2,86 +2,82 @@ package team.brickfire.actions.circuit_drive;
 
 import team.brickfire.actions.BaseAction;
 
-import java.util.List;
-
+/**
+ * Lets the robot drive around the network of black lines on the field
+ *
+ * @author Team Brickfire
+ * @version 3.0
+ */
 public class CircuitDrive extends BaseAction {
 
     private static final double DRIVING_SPEED = 100;
     private static final double TURNING_SPEED = 100;
 
-    private final CircuitGraph circuit;
+    private final CircuitNetwork circuit;
     private CircuitOrientation facing;
     private CircuitPosition position;
 
+    /**
+     * Creates an Action object for the circuit
+     *
+     * @param startingPosition Position the robot starts in
+     * @param startingOrientation Orientation the robot starts in
+     */
     public CircuitDrive(CircuitPosition startingPosition, CircuitOrientation startingOrientation) {
         super();
         this.facing = startingOrientation;
         this.position = startingPosition;
-        this.circuit = new CircuitGraph();
+        this.circuit = new CircuitNetwork();
     }
 
-    CircuitDrive() {
-        super(new Object());
-        circuit = new CircuitGraph();
-    }
-
-    public void driveTo(CircuitPosition goalPosition) {
-        for(GraphNode node : circuit.shortestPath(circuit.getNodeFromIdentifier(position),
-                circuit.getNodeFromIdentifier(goalPosition))) {
-            driveStraightDistance(node.getPosition());
-        }
-    }
-
+    /**
+     * Makes the robot drive to the specified place
+     *
+     * @param goalPosition Position the robot should stop in
+     * @param goalOrientation Direction the robot should face in after stopping
+     */
     public void driveTo(CircuitPosition goalPosition, CircuitOrientation goalOrientation) {
-        driveTo(goalPosition);
+        for (CircuitPosition c : circuit.getPath(position, goalPosition, facing, goalOrientation)) {
+            driveStraightDistance(c);
+        }
         turnTo(goalOrientation);
     }
 
+    /**
+     * Makes the robot turn to the said Orientation
+     *
+     * @param goalOrientation Orientation the robot should turn to
+     */
     public void turnTo(CircuitOrientation goalOrientation) {
         if (facing == goalOrientation) {
             return;
         }
-        if (goalOrientation.getX() == facing.getX() || goalOrientation.getY() == facing.getY()) {
-            turn(180, TURNING_SPEED);
-        }
 
-        int direction = facing.getX() * -goalOrientation.getY()
-                + facing.getY() * goalOrientation.getX();
-        turn(direction * -90, TURNING_SPEED);
-
+        turn((Vector2D.angle(goalOrientation.getAsVector(), facing.getAsVector())), TURNING_SPEED);
         facing = goalOrientation;
     }
 
+    /**
+     * Sets the current position for when the robot was moved by other means than this action
+     *
+     * @param position Robots new position
+     * @param orientation Robots new orientation
+     */
+    public void setPosition(CircuitPosition position, CircuitOrientation orientation) {
+        this.position = position;
+        this.facing = orientation;
+    }
+
     private void driveStraightDistance(CircuitPosition goalPosition) {
-        turnTo(CircuitOrientation.get(goalPosition.getX() - position.getX(),goalPosition.getY() - position.getY()));
-
-        lineFollowing(goalPosition.getDistance(position), DRIVING_SPEED);
+        Vector2D dif = goalPosition.getAsVector().subtract(position.getAsVector());
+        turnTo(CircuitOrientation.get(dif.normalized()));
+        resetDistance();
+        lineFollowing(dif.length(), DRIVING_SPEED);
         position = goalPosition;
+        alignMotorRotations();
     }
 
-    public CircuitPosition[] simplifyPath(List<GraphNode> path) {
-        for (int i = 0; i < path.size() - 2; i++) {
-            GraphNode one = path.get(i);
-            GraphNode two = path.get(i + 1);
-            GraphNode three = path.get(i + 2);
 
-            int otx = (int)Math.signum(two.getPosition().getX() - one.getPosition().getX());
-            int oty = (int)Math.signum(two.getPosition().getY() - one.getPosition().getY());
-            int ttx = (int)Math.signum(three.getPosition().getX() - two.getPosition().getX());
-            int tty = (int)Math.signum(three.getPosition().getY() - two.getPosition().getY());
 
-            if (otx == ttx && oty == tty) {
-                path.remove(two);
-                i--;
-            }
-        }
-        CircuitPosition[] a = new CircuitPosition[path.size() - 1];
-
-        for (int i = 0; i < a.length; i++) {
-            a[i] = path.get(i + 1).getPosition();
-        }
-
-        return a;
-    }
 
 }

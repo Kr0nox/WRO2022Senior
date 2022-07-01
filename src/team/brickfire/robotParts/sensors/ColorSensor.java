@@ -36,8 +36,9 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
     }
 
     /**
-     * Returns the ID of the color seen
-     * @return The seen color
+     * Returns the currently seen color
+     *
+     * @return Seen color
      */
     public Color getColor() {
         sensor.setCurrentMode(0);

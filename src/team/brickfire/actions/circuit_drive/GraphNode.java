@@ -1,7 +1,17 @@
 package team.brickfire.actions.circuit_drive;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
 
+/**
+ * Representation of a position on the circuit as a graph node
+ * All CircuitPositions are Nodes and nothing else is
+ * Used in CircuitNetwork
+ *
+ * @author Team BrickFire
+ * @version 1.0
+ */
 class GraphNode {
 
     private final List<GraphNode> adjacentNodes;
@@ -18,7 +28,11 @@ class GraphNode {
         node.adjacentNodes.add(this);
     }
 
-    public CircuitPosition getPosition() {
+    public Vector2D getPosition() {
+        return identifier.getAsVector();
+    }
+
+    public CircuitPosition getCircuitPosition() {
         return identifier;
     }
 
@@ -40,5 +54,10 @@ class GraphNode {
     @Override
     public int hashCode() {
         return Objects.hash(identifier);
+    }
+
+    @Override
+    public String toString() {
+        return identifier.name();
     }
 }
