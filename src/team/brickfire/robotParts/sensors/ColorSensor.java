@@ -1,5 +1,6 @@
 package team.brickfire.robotParts.sensors;
 
+import lejos.hardware.port.Port;
 import lejos.hardware.port.UARTPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import team.brickfire.data.color.Color;
@@ -16,7 +17,7 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
      * Creates an EV3 color sensor
      * @param port Port the sensor is plugged into
      */
-    private ColorSensor(UARTPort port) {
+    private ColorSensor(Port port) {
         super(new EV3ColorSensor(port));
         sensor.setCurrentMode(0);
     }
@@ -24,7 +25,7 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
     public static ColorSensor get(int port) {
         if (portsUsed[port - 1] == null) {
             try {
-                portsUsed[port - 1] = new ColorSensor((UARTPort) ports[port - 1]);
+                portsUsed[port - 1] = new ColorSensor(ports[port - 1]);
             } catch (Exception e) {
                 throw new NoSensorFoundException(e.getClass().getName() + "at port " + port + ": " + e.getMessage());
             }
