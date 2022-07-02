@@ -39,7 +39,7 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         this.motorRight = new EV3MediumRegulatedMotor(MotorPort.C);
         this.pilot = new CustomMovePilot(new WheeledChassis(new Wheel[]{
                 WheeledChassis.modelWheel(this.motorLeft, wheelDiameter).offset(wheelOffset),
-                WheeledChassis.modelWheel(this.motorLeft, wheelDiameter).offset(-wheelOffset)},
+                WheeledChassis.modelWheel(this.motorRight, wheelDiameter).offset(-wheelOffset)},
                 WheeledChassis.TYPE_DIFFERENTIAL));
         this.wheelDiameter = wheelDiameter;
         this.wheelOffset = wheelOffset;
@@ -291,7 +291,7 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
     @Override
     public void lineFollowing(double distance, double speed) {
-        double kP = 0.02, kI = 0.01, kD = 0.002;
+        double kP = -0.02, kI = 0.00, kD = 0.000;
         double integral = 0, lastError = 0;
 
         resetDistance();
@@ -315,7 +315,7 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
             setMotorSpeed(motorRight, speed * (1 + correction), speed * 4);
         }
         motorLeft.stop(true);
-        motorLeft.stop();
+        motorRight.stop();
     }
 
     @Override
