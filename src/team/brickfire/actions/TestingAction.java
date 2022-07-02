@@ -1,5 +1,10 @@
 package team.brickfire.actions;
 
+import lejos.hardware.Button;
+import lejos.utility.Delay;
+
+import java.awt.*;
+
 public class TestingAction extends BaseAction {
 
     public TestingAction() {
@@ -7,8 +12,9 @@ public class TestingAction extends BaseAction {
     }
 
     public void test() {
-        drive(10);
-        turn(90);
-        lineFollowing(100, 50);
+        setDrivingSpeed(50);
+        turnLeftWheel(100);
+        Button.waitForAnyPress();
+        turnRightWheel(100);
     }
 }
