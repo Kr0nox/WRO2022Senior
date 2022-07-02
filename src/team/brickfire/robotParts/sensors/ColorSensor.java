@@ -27,7 +27,7 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
             try {
                 portsUsed[port - 1] = new ColorSensor(ports[port - 1]);
             } catch (Exception e) {
-                throw new NoSensorFoundException(e.getClass().getName() + "at port " + port + ": " + e.getMessage());
+                throw new NoSensorFoundException(e.getClass().getName() + " at port " + port + ": " + e.getMessage());
             }
         }
         if (portsUsed[port - 1] instanceof ColorSensor) {
