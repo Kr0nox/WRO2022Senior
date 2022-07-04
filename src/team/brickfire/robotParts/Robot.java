@@ -95,12 +95,12 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
     @Override
     public void turnLeftWheel(double angle, boolean immediateReturn) {
-        pilot.arc(wheelOffset, angle, immediateReturn);
+        pilot.arc(-wheelOffset, angle, immediateReturn);
     }
 
     @Override
     public void turnRightWheel(double angle, boolean immediateReturn) {
-        pilot.arc(-wheelOffset, angle, immediateReturn);
+        pilot.arc(wheelOffset, angle, immediateReturn);
     }
 
     @Override
@@ -291,6 +291,9 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
     @Override
     public void lineFollowing(double distance, double speed) {
+        distance = distance * Math.signum(speed);
+        speed = Math.abs(speed);
+
         double kP = -0.02, kI = 0.00, kD = 0.000;
         double integral = 0, lastError = 0;
 

@@ -26,8 +26,8 @@ public abstract class DrivingBase {
      * @param immediateReturn If true, immediately exists the method after starting the motors
      */
     public void drive(double distance, double speed, boolean immediateReturn) {
-        setDrivingSpeed(speed);
-        drive(distance, immediateReturn);
+        setDrivingSpeed(Math.abs(speed));
+        drive(distance * Math.signum(speed), immediateReturn);
     }
 
     /**
@@ -67,8 +67,8 @@ public abstract class DrivingBase {
      * @param immediateReturn If true, immediately exists the method after starting the motors.
      */
     public void turn(double angle, double speed, boolean immediateReturn) {
-        setTurningSpeed(speed);
-        turn(angle, immediateReturn);
+        setTurningSpeed(Math.abs(speed));
+        turn(angle * Math.signum(speed), immediateReturn);
     }
 
     /**
@@ -110,8 +110,8 @@ public abstract class DrivingBase {
      * @param immediateReturn If true, immediately exists the method after starting the motors.
      */
     public void turnLeftWheel(double angle, double speed, boolean immediateReturn) {
-        setTurningSpeed(speed);
-        turnLeftWheel(angle, immediateReturn);
+        setTurningSpeed(Math.abs(speed));
+        turnLeftWheel(angle * Math.signum(speed), immediateReturn);
     }
 
     /**
@@ -153,8 +153,8 @@ public abstract class DrivingBase {
      * @param immediateReturn If true, immediately exists the method after starting the motors.
      */
     public void turnRightWheel(double angle, double speed, boolean immediateReturn) {
-        setTurningSpeed(speed);
-        turnRightWheel(angle, immediateReturn);
+        setTurningSpeed(Math.abs(speed));
+        turnRightWheel(angle * Math.signum(speed), immediateReturn);
     }
 
     /**
@@ -190,7 +190,7 @@ public abstract class DrivingBase {
      * @param speed Speed at which the robot drives (0-100% of maximum capability).
      */
     public void driveForward(double speed) {
-        setDrivingSpeed(speed);
+        setDrivingSpeed(Math.abs(speed));
         driveForward();
     }
 
@@ -205,7 +205,7 @@ public abstract class DrivingBase {
      * @param speed Speed at which the robot drives (0-100% of maximum capability).
      */
     public void driveBackward(double speed) {
-        setDrivingSpeed(speed);
+        setDrivingSpeed(Math.abs(speed));
         driveBackward();
     }
 
