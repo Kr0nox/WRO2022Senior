@@ -95,12 +95,12 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
     @Override
     public void turnLeftWheel(double angle, boolean immediateReturn) {
-        pilot.arc(wheelOffset, angle, immediateReturn);
+        pilot.arc(-wheelOffset, angle, immediateReturn);
     }
 
     @Override
     public void turnRightWheel(double angle, boolean immediateReturn) {
-        pilot.arc(-wheelOffset, angle, immediateReturn);
+        pilot.arc(wheelOffset, angle, immediateReturn);
     }
 
     @Override
