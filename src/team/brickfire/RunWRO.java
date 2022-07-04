@@ -18,7 +18,8 @@ public class RunWRO {
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
-        Robot.create(6.24, 8);
+        //original wheelOffset
+        Robot.create(6.24, 5.25);
 
         Sound.beep();
         Button.waitForAnyPress();
