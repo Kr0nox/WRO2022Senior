@@ -79,7 +79,7 @@ class CircuitNetwork {
         insertNodes(graph, west, westClose, westFar, yellowClose, yellowFar, blueClose, blueFar);
     }
 
-    private void insertNodes(Set<GraphNode> set,GraphNode... nodes) {
+    private void insertNodes(Set<GraphNode> set, GraphNode... nodes) {
         set.addAll(Arrays.asList(nodes));
     }
 
@@ -141,7 +141,7 @@ class CircuitNetwork {
         }
 
         List<GraphNode[]> bestPaths2 = new ArrayList<>();
-        for (int i = 0; i < bestPaths1.size() ; i++) {
+        for (int i = 0; i < bestPaths1.size(); i++) {
             if (!turnAtEnd[i]) {
                 bestPaths2.add(bestPaths1.get(i));
             }

@@ -314,8 +314,8 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
             double error = colorSensorLeft.getReflectedLight() - colorSensorRight.getReflectedLight();
             integral += error;
             double correction = error * kP + integral * kI + (error - lastError) * kD;
-            setMotorSpeed(motorLeft, speed * (1 - correction), speed * 4);
-            setMotorSpeed(motorRight, speed * (1 + correction), speed * 4);
+            setMotorSpeed(motorLeft, speed * (1 - correction), speed * 4 * (1 - correction));
+            setMotorSpeed(motorRight, speed * (1 + correction), speed * 4 * (1 + correction));
         }
         motorLeft.stop(true);
         motorRight.stop();

@@ -53,7 +53,9 @@ public class CircuitDrive extends BaseAction {
             return;
         }
 
-        turn((Vector2D.angle(goalOrientation.getAsVector(), facing.getAsVector())), TURNING_SPEED);
+        Vector2D v1 = facing.getAsVector();
+        Vector2D v2 = goalOrientation.getAsVector();
+        turn((Vector2D.angle(v1, v2)) * (v1.getX() * v2.getY() - v2.getX() * v1.getY()), TURNING_SPEED);
         facing = goalOrientation;
     }
 
