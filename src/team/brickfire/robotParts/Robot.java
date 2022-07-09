@@ -5,6 +5,7 @@ import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
+import team.brickfire.SpeedUtility;
 import team.brickfire.data.color.Color;
 import team.brickfire.robotParts.base.CompetitionFeatures;
 import team.brickfire.robotParts.base.DrivingBase;
@@ -124,49 +125,18 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
     @Override
     public void setDrivingSpeed(double speed, double acceleration) {
-        speed = limitSpeed(speed / 100 * pilot.getMaxLinearSpeed(), 0, pilot.getMaxLinearSpeed());
-        acceleration = limitSpeed(acceleration / 100 * pilot.getMaxLinearSpeed(), 0, Double.POSITIVE_INFINITY);
+        speed = SpeedUtility.limitSpeed(speed / 100 * pilot.getMaxLinearSpeed(), 0, pilot.getMaxLinearSpeed());
+        acceleration = SpeedUtility.limitSpeed(acceleration / 100 * pilot.getMaxLinearSpeed(), 0, Double.POSITIVE_INFINITY);
         pilot.setLinearSpeed(speed);
         pilot.setLinearAcceleration(acceleration);
     }
 
     @Override
     public void setTurningSpeed(double speed, double acceleration) {
-        speed = limitSpeed(speed / 100 * pilot.getMaxAngularSpeed(), 0, pilot.getAngularSpeed());
-        acceleration = limitSpeed(acceleration / 100 * pilot.getMaxAngularSpeed(), 0, Double.POSITIVE_INFINITY);
+        speed = SpeedUtility.limitSpeed(speed / 100 * pilot.getMaxAngularSpeed(), 0, pilot.getAngularSpeed());
+        acceleration = SpeedUtility.limitSpeed(acceleration / 100 * pilot.getMaxAngularSpeed(), 0, Double.POSITIVE_INFINITY);
         pilot.setAngularSpeed(speed);
         pilot.setAngularAcceleration(acceleration);
-    }
-
-
-    /**
-     * <p>Sets the speed and acceleration of the given motor</p>
-     * @param motor Motor which gets its speed and acceleration set
-     * @param speed Speed at which the motor rotates (0-100% of maximum capability).
-     * @param acceleration Speed at which the motor accelerates (0-100% of max speed)
-     */
-    private void setMotorSpeed(BaseRegulatedMotor motor,double speed, double acceleration) {
-        speed = limitSpeed(speed / 100 * motor.getMaxSpeed(), 0, motor.getMaxSpeed());
-        acceleration = limitSpeed(acceleration / 100 * motor.getMaxSpeed(), 0, Double.POSITIVE_INFINITY);
-        motor.setSpeed((int)speed);
-        motor.setAcceleration((int)acceleration);
-    }
-
-    /**
-     * Limits the speed between the two given values
-     * @param value Speed to limit
-     * @param min Minimum value
-     * @param max Maximum value
-     * @return Limited value
-     */
-    private double limitSpeed(double value, double min, double max) {
-        if (value < min) {
-            return min;
-        }
-        if (value > max) {
-            return max;
-        }
-        return value;
     }
 
     @Override
@@ -260,8 +230,8 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
     @Override
     public void alignLightLevel(double speed) {
         float dif = Float.POSITIVE_INFINITY;
-        setMotorSpeed(motorLeft, speed, speed * 4);
-        setMotorSpeed(motorRight, speed, speed * 4);
+        SpeedUtility.setMotorSpeed(motorLeft, speed, speed * 4);
+        SpeedUtility.setMotorSpeed(motorRight, speed, speed * 4);
 
         while (Math.abs(dif) >= 0.05) {
             float lv = colorSensorLeft.getReflectedLight();
@@ -298,8 +268,8 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         double integral = 0, lastError = 0;
 
         resetDistance();
-        setMotorSpeed(motorLeft, speed, speed * 4);
-        setMotorSpeed(motorRight, speed, speed * 4);
+        SpeedUtility.setMotorSpeed(motorLeft, speed, speed * 4);
+        SpeedUtility.setMotorSpeed(motorRight, speed, speed * 4);
 
         if (distance >= 0) {
             motorLeft.forward();
@@ -314,8 +284,8 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
             double error = colorSensorLeft.getReflectedLight() - colorSensorRight.getReflectedLight();
             integral += error;
             double correction = error * kP + integral * kI + (error - lastError) * kD;
-            setMotorSpeed(motorLeft, speed * (1 - correction), speed * 4 * (1 - correction));
-            setMotorSpeed(motorRight, speed * (1 + correction), speed * 4 * (1 + correction));
+            SpeedUtility.setMotorSpeed(motorLeft, speed * (1 - correction), speed * 4 * (1 - correction));
+            SpeedUtility.setMotorSpeed(motorRight, speed * (1 + correction), speed * 4 * (1 + correction));
         }
         motorLeft.stop(true);
         motorRight.stop();
