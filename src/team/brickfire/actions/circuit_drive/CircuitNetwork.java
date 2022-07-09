@@ -165,16 +165,20 @@ class CircuitNetwork {
         return bestPaths3.get(0);
     }
 
-    private Map<GraphNode, Integer> BFS(GraphNode startingNode) {
+    private Map<GraphNode, Integer> bfs(GraphNode startingNode) {
+        if (startingNode == null) {
+            return new HashMap<>();
+        }
+
         Map<GraphNode, Integer> layers = new HashMap<>();
-        Queue<GraphNode> q = new LinkedList<>();
-        q.add(startingNode);
+        Queue<GraphNode> nextNodes = new LinkedList<>();
+        nextNodes.add(startingNode);
         layers.put(startingNode, 0);
-        while (!q.isEmpty()) {
-            GraphNode u = q.poll();
+        while (!nextNodes.isEmpty()) {
+            GraphNode u = nextNodes.poll();
             for (GraphNode v : u.getAdjacent()) {
                 if (!layers.containsKey(v)) {
-                    q.add(v);
+                    nextNodes.add(v);
                     layers.put(v, layers.get(u) + 1);
                 }
             }
@@ -187,18 +191,18 @@ class CircuitNetwork {
             return new ArrayList<>();
         }
 
-        Map<GraphNode, Integer> layers = BFS(startingNode);
+        Map<GraphNode, Integer> layers = bfs(startingNode);
 
         List<GraphNode[]> paths = new ArrayList<>();
         int curLayer = layers.get(endNode);
-        paths.add(insertNode(new GraphNode[curLayer + 1], curLayer, endNode));
+        paths.add(insertNodes(new GraphNode[curLayer + 1], curLayer, endNode));
 
         while (curLayer > 0) {
             List<GraphNode[]> newPaths = new ArrayList<>();
             for (GraphNode[] path : paths) {
                 for (GraphNode latestNode : path[curLayer].getAdjacent()) {
                     if (layers.get(latestNode) == curLayer - 1) {
-                        newPaths.add(insertNode(copyPath(path), curLayer - 1, latestNode));
+                        newPaths.add(insertNodes(copyPath(path), curLayer - 1, latestNode));
                     }
                 }
             }
@@ -232,7 +236,7 @@ class CircuitNetwork {
         return positions;
     }
 
-    private GraphNode[] insertNode(GraphNode[] arr, int i, GraphNode n) {
+    private GraphNode[] insertNodes(GraphNode[] arr, int i, GraphNode n) {
         arr[i] = n;
         return arr;
     }
