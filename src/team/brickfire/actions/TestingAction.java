@@ -15,21 +15,8 @@ public class TestingAction extends BaseAction {
     }
 
     public void test() {
-        setDrivingSpeed(25,50);
-        drive(40);
-        Button.waitForAnyPress();
-        drive(100);
+        CircuitDrive circuit = new CircuitDrive(CircuitPosition.SOUTH_EAST, CircuitOrientation.WEST);
 
-        Button.waitForAnyPress();
-        setDrivingSpeed(50,100);
-        drive(40);
-        Button.waitForAnyPress();
-        drive(100);
-
-        Button.waitForAnyPress();
-        setDrivingSpeed(100,200);
-        drive(40);
-        Button.waitForAnyPress();
-        drive(100);
+        circuit.driveTo(CircuitPosition.WEST, CircuitOrientation.NORTH);
     }
 }

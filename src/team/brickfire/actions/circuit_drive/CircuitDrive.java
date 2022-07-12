@@ -10,8 +10,8 @@ import team.brickfire.actions.BaseAction;
  */
 public class CircuitDrive extends BaseAction {
 
-    private static final double DRIVING_SPEED = 100;
-    private static final double TURNING_SPEED = 100;
+    private static final double DRIVING_SPEED = 50;
+    private static final double TURNING_SPEED = 40;
 
     private final CircuitNetwork circuit;
     private CircuitOrientation facing;
@@ -55,6 +55,7 @@ public class CircuitDrive extends BaseAction {
 
         Vector2D v1 = facing.getAsVector();
         Vector2D v2 = goalOrientation.getAsVector();
+        System.out.println(Vector2D.angle(v1, v2) * (v1.getX() * v2.getY() - v2.getX() * v1.getY()));
         turn((Vector2D.angle(v1, v2)) * (v1.getX() * v2.getY() - v2.getX() * v1.getY()), TURNING_SPEED);
         facing = goalOrientation;
     }
