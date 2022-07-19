@@ -1,7 +1,7 @@
 package team.brickfire.actions.circuit_drive;
 
 /**
- * Representation of all places in which the robot can stand in during CircuitDrive
+ * <p>Representation of all places in which the robot can stand in during {@link CircuitDrive}</p>
  *
  * @author Team BrickFire
  * @version 2.0
@@ -40,7 +40,8 @@ public enum CircuitPosition {
     }
 
     /**
-     * Gets the position as a Vector. Origin is the center of the base (center of the playing field). 1 unit equals 1cm
+     * <p>Gets the position as a {@link Vector2D vector}. Origin is the center of the base (center of the playing field).
+     * 1 unit equals 1cm</p>
      *
      * @return The vector of this position
      */

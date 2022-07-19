@@ -8,8 +8,6 @@ package team.brickfire.robotParts.base;
  */
 public abstract class DrivingBase {
 
-    // region drive: distance, speed (opt), immediateReturn (opt)
-
     /**
      * <p>The robot drives the given distance in a straight line</p>
      *
@@ -48,9 +46,7 @@ public abstract class DrivingBase {
     public void drive(double distance) {
         drive(distance, false);
     }
-    // endregion
 
-    //region turn: angle, speed (opt), immediateReturn (opt)
     /**
      * <p>The robot turns the given number of degrees</p>
      *
@@ -89,9 +85,7 @@ public abstract class DrivingBase {
     public void turn(double angle) {
         turn(angle, false);
     }
-    // endregion
 
-    // region One wheel turn: angle, speed (opt), immediateReturn (opt)
     /**
      * <p>The robot turns the given number of degrees by only driving the left wheel and letting the right one
      * stand still</p>
@@ -177,7 +171,6 @@ public abstract class DrivingBase {
     public void turnRightWheel(double angle) {
         turnRightWheel(angle, false);
     }
-    // endregion
 
     /**
      * <p>Lets the robot drive forward until stopped</p>
@@ -219,14 +212,14 @@ public abstract class DrivingBase {
     /**
      * <p>Stops the robot</p>
      */
-     public void stop() {
+    public void stop() {
         stop(false);
     }
 
     /**
-     * Sets speed and acceleration of the robot for driving
-     * Speed is limited between 0%-100% of the max Speed
-     * Acceleration is relative to the max Speed.
+     * <p>Sets speed and acceleration of the robot for driving <br>
+     * Speed is limited between 0%-100% of the max Speed <br>
+     * Acceleration is relative to the max Speed.</p>
      *
      * @param speed Speed at which the robot drives (0-100% of maximum capability).
      * @param acceleration Acceleration of the robot when driving. (0-100% of max speed)
@@ -234,8 +227,8 @@ public abstract class DrivingBase {
     public abstract void setDrivingSpeed(double speed, double acceleration);
 
     /**
-     * Sets speed and acceleration of the robot for driving
-     * Speed is limited between 0%-100% of the max Speed
+     * </p>Sets speed and acceleration of the robot for driving <br>
+     * Speed is limited between 0%-100% of the max Speed</p>
      *
      * @param speed Speed at which the robot drives (0-infinite% of maximum capability).
      */
@@ -244,9 +237,9 @@ public abstract class DrivingBase {
     }
 
     /**
-     * Sets speed and acceleration of the robot for turning
-     * Speed is limited between 0%-100% of the max Speed
-     * Acceleration is relative to the max Speed
+     * <p>Sets speed and acceleration of the robot for turning <br>
+     * Speed is limited between 0%-100% of the max Speed <br>
+     * Acceleration is relative to the max Speed</p>
      *
      * @param speed Speed at which the robot turns (0-100% of maximum capability).
      * @param acceleration Acceleration of the robot when turning. (0-infinite% of max speed)
@@ -254,8 +247,8 @@ public abstract class DrivingBase {
     public abstract void setTurningSpeed(double speed, double acceleration);
 
     /**
-     * Sets speed and acceleration of the robot for turning
-     * Speed is limited between 0%-100% of the max Speed
+     * <p>Sets speed and acceleration of the robot for turning <br>
+     * Speed is limited between 0%-100% of the max Speed</p>
 
      * @param speed Speed at which the robot turns (0-100% of maximum capability).
      */

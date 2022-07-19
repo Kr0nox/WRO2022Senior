@@ -1,7 +1,7 @@
 package team.brickfire.robotParts.arms;
 
 import lejos.hardware.motor.BaseRegulatedMotor;
-import team.brickfire.SpeedUtility;
+import team.brickfire.robotParts.base.SpeedUtility;
 
 /**
  * <p>Represents a Motor that does stuff on the robot</p>
@@ -31,7 +31,7 @@ public abstract class Arm {
     }
 
     /**
-     * <p>Moves the arm to the desired position</p>
+     * <p>Moves the arm to the desired {@link ArmMovement position}</p>
      * @param goal Goal position
      * @param immediateReturn whether the method should immediately return after starting the motor
      */

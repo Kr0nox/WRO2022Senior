@@ -1,3 +1,4 @@
 .idea/
 out/
 checkstyleRules.xml
+*.iml

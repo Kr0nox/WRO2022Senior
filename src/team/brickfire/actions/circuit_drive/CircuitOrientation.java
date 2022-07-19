@@ -1,18 +1,18 @@
 package team.brickfire.actions.circuit_drive;
 
 /**
- * Representation of all directions in which the robot can look during CircuitDrive
+ * <p>Representation of all directions in which the robot can look during {@link CircuitDrive CircuitDrive}</p>
  *
  * @author Team BrickFire
  * @version 2.0
  */
 public enum CircuitOrientation {
 
-    NORTH(new Vector2D(0,1)),
-    EAST(new Vector2D(1,0)),
-    SOUTH(new Vector2D(0,-1)),
-    WEST(new Vector2D(-1,0)),
-    NONE(new Vector2D(0,0));
+    NORTH(new Vector2D(0, 1)),
+    EAST(new Vector2D(1, 0)),
+    SOUTH(new Vector2D(0, -1)),
+    WEST(new Vector2D(-1, 0)),
+    NONE(new Vector2D(0, 0));
 
     private final Vector2D fac;
     CircuitOrientation(Vector2D fac) {
@@ -20,7 +20,7 @@ public enum CircuitOrientation {
     }
 
     /**
-     * Returns the orientation as a normalized vector
+     * <p>Returns the orientation as a normalized {@link Vector2D vector}</p>
      *
      * @return Normalized vector
      */
@@ -29,7 +29,8 @@ public enum CircuitOrientation {
     }
 
     /**
-     * Gets a position based on the facing vector
+     * <p>Gets a position based on the facing {@link Vector2D vector}</p>
+     *
      * @param v Vector indicating a direction
      * @return The corresponding orientation
      */

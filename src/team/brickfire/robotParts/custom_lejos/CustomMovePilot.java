@@ -13,14 +13,21 @@ public class CustomMovePilot extends MovePilot {
 
     private final Chassis superChassis;
 
+    /**
+     * <p>Creates a move {@link MovePilot pilot}</p>
+     *
+     * @param chassis Chassis of the pilot
+     */
     public CustomMovePilot(Chassis chassis) {
         super(chassis);
         superChassis = chassis;
     }
 
+    /**
+     * <p>Stops the robot and immediately returns</p>
+     */
     public void instantStop() {
         superChassis.stop();
     }
-
 
 }

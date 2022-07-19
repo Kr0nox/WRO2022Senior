@@ -6,7 +6,7 @@ import lejos.hardware.sensor.UARTSensor;
 
 /**
  * <p>Base model for every Sensor</p>
- * <p>Follows a variation of the Singleton-Pattern</p>
+ * <p><i>Follows a variation of the Singleton-Pattern</i></p>
  * @param <T> The UARTSensor the child class will handle
  * @version 1.0
  * @author Team BrickFire

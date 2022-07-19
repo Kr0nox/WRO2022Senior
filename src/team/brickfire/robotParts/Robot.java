@@ -5,7 +5,7 @@ import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
-import team.brickfire.SpeedUtility;
+import team.brickfire.robotParts.base.SpeedUtility;
 import team.brickfire.data.color.Color;
 import team.brickfire.robotParts.base.CompetitionFeatures;
 import team.brickfire.robotParts.base.DrivingBase;
@@ -15,12 +15,15 @@ import team.brickfire.robotParts.sensors.ColorSensor;
 /**
  * <p>Represents the robot. <br>
  * It contains all the functions necessary for driving and some competition features like line following and aligning</p>
- * <p>It is modeled after the Singleton-Pattern</p>
+ * <p><i>It is modeled after the Singleton-Pattern</i></p>
  *
  * @version 3.0
  * @author Team BrickFire
  */
 public class Robot extends DrivingBase implements CompetitionFeatures {
+
+    // Singleton-Pattern
+    private static Robot instance;
 
     private final BaseRegulatedMotor motorLeft;
     private final BaseRegulatedMotor motorRight;
@@ -30,8 +33,11 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
     private final double wheelOffset;
     private final double wheelDiameter;
 
+
+
     /**
-     * Constructor used by the Singleton-Pattern
+     * <p>Constructor used by the Singleton-Pattern</p>
+     *
      * @param wheelDiameter Diameter of the wheels
      * @param wheelOffset Distance of the wheels from the robots center
      */
@@ -49,25 +55,8 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         this.colorSensorRight = ColorSensor.get(3);
     }
 
-    // Singleton-Pattern
-    private static Robot instance;
-
     /**
-     * Gives you the instance of the robot
-     * @param wheelDiameter Diameter of the wheel
-     * @param wheelOffset Distance of the wheels from the robots center
-     * @return The robot
-     */
-    public static Robot create(double wheelDiameter, double wheelOffset) {
-        if (instance == null) {
-            instance = new Robot(wheelDiameter, wheelOffset);
-        }
-
-        return instance;
-    }
-
-    /**
-     * Constructor used by actions
+     * <p>Constructor used by actions</p>
      */
     protected Robot() {
         if (instance == null) {
@@ -83,6 +72,23 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         this.colorSensorLeft = instance.colorSensorLeft;
         this.colorSensorRight = instance.colorSensorRight;
     }
+
+    /**
+     * <p>Gives you the instance of the robot</p>
+     * <p><i>For Singleton pattern</i></p>
+     * @param wheelDiameter Diameter of the wheel
+     * @param wheelOffset Distance of the wheels from the robots center
+     * @return The robot
+     */
+    public static Robot create(double wheelDiameter, double wheelOffset) {
+        if (instance == null) {
+            instance = new Robot(wheelDiameter, wheelOffset);
+        }
+
+        return instance;
+    }
+
+
 
     @Override
     public void drive(double distance, boolean immediateReturn) {
@@ -150,7 +156,8 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
     }
 
     /**
-     * Calculates the distance in cm for one motor
+     * <p>Calculates the distance in cm for one motor</p>
+     *
      * @param rotations Amount of rotations the motor did
      * @return Distance driven in cm
      */
@@ -207,7 +214,7 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         for (int i = 0; i < repetitions; i++) {
             Color targetColor = i % 2 == 0 ? Color.BLACK : Color.WHITE;
             boolean leftSeen = false, rightSeen = false;
-            if (((i % 2 == 0) && (speed >= 0)) || ((i % 2 == 0) &&(speed < 0))) {
+            if (((i % 2 == 0) && (speed >= 0)) || ((i % 2 == 0) && (speed < 0))) {
                 motorRight.forward();
                 motorLeft.forward();
             } else {

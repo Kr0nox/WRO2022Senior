@@ -3,7 +3,7 @@ package team.brickfire.robotParts.arms;
 import lejos.hardware.motor.BaseRegulatedMotor;
 
 /**
- * <p>The positions arms can be in</p>
+ * <p>The positions {@link Arm arm} can be in</p>
  *
  * @version 2.0
  * @author upoon
@@ -14,7 +14,7 @@ abstract class ArmMovement {
     private final ArmMovementType type;
 
     /**
-     * <p>Moves the arm with the desired type</p>
+     * <p>Moves the {@link Arm arm} with the desired type</p>
      *
      * @param distance Distance to move
      * @param type Type of Movement
@@ -25,7 +25,7 @@ abstract class ArmMovement {
     }
 
     /**
-     * <p>Moves the arm to the given position</p>
+     * <p>Moves the {@link Arm arm} to the given position</p>
      *
      * @param distance Position to move to
      */
@@ -35,7 +35,7 @@ abstract class ArmMovement {
     }
 
     /**
-     * <p>Rotates the given arm according to the movement</p>
+     * <p>Rotates the given {@link Arm arm} according to the movement</p>
      * <p><i>Package-private</i></p>
      *
      * @param arm Arm to rotate
@@ -61,6 +61,13 @@ abstract class ArmMovement {
             }
         };
 
+        /**
+         * <p>Executes this movement type</p>
+         *
+         * @param motor Motor to move
+         * @param distance Distance for moving
+         * @param immediateReturn Whether the method should immediately return
+         */
         abstract void execute(BaseRegulatedMotor motor, int distance, boolean immediateReturn);
 
     }

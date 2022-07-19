@@ -1,7 +1,13 @@
-package team.brickfire;
+package team.brickfire.robotParts.base;
 
 import lejos.hardware.motor.BaseRegulatedMotor;
 
+/**
+ * <p>Utility class for speed calculation and assignment</p>
+ *
+ * @version 1.0
+ * @author Team BrickFire
+ */
 public final class SpeedUtility {
 
     private SpeedUtility() {
@@ -17,8 +23,8 @@ public final class SpeedUtility {
     public static void setMotorSpeed(BaseRegulatedMotor motor, double speed, double acceleration) {
         speed = limitSpeed(speed / 100 * motor.getMaxSpeed(), 0, motor.getMaxSpeed());
         acceleration = limitSpeed(acceleration / 100 * motor.getMaxSpeed(), 0, Double.POSITIVE_INFINITY);
-        motor.setSpeed((int)speed);
-        motor.setAcceleration((int)acceleration);
+        motor.setSpeed((int) speed);
+        motor.setAcceleration((int) acceleration);
     }
 
     /**

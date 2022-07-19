@@ -61,7 +61,7 @@ public interface CompetitionFeatures {
     void lineFollowing(double distance, double speed);
 
     /**
-     * <p>The robot drives until it has reached the desired color </p>
+     * <p>The robot drives until it has reached the desired {@link Color color} </p>
      *
      * @param speed Speed at which the robot drives (0-100% of maximum capability).
      * @param color Color the robot stops at

@@ -25,7 +25,7 @@ public enum Color {
     }
 
     /**
-     * Returns the custom Color for a given id from lejos.robotics.Color
+     * <p>Returns the custom Color for a given id from {@link lejos.robotics.Color}</p>
      *
      * @param id LeJOS color id
      * @return The corresponding color

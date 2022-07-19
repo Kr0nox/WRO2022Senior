@@ -8,6 +8,11 @@ package team.brickfire.robotParts.sensors;
  */
 public class NoSensorFoundException extends RuntimeException {
 
+    /**
+     * <p>Creates an object of this exception</p>
+     *
+     * @param message Message detailing the error
+     */
     public NoSensorFoundException(String message) {
         super(message);
     }
