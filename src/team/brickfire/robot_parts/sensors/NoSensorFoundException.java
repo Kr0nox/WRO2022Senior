@@ -1,4 +1,4 @@
-package team.brickfire.robotParts.sensors;
+package team.brickfire.robot_parts.sensors;
 
 /**
  * <p>Exception for when no sensor was found in that port or a different sensor was found</p>

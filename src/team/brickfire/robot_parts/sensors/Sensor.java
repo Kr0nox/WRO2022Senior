@@ -1,4 +1,4 @@
-package team.brickfire.robotParts.sensors;
+package team.brickfire.robot_parts.sensors;
 
 import lejos.hardware.port.Port;
 import lejos.hardware.port.SensorPort;

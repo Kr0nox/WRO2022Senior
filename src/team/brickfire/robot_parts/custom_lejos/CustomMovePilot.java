@@ -1,4 +1,4 @@
-package team.brickfire.robotParts.custom_lejos;
+package team.brickfire.robot_parts.custom_lejos;
 
 import lejos.robotics.chassis.Chassis;
 import lejos.robotics.navigation.MovePilot;

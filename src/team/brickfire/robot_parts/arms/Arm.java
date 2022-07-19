@@ -1,7 +1,7 @@
-package team.brickfire.robotParts.arms;
+package team.brickfire.robot_parts.arms;
 
 import lejos.hardware.motor.BaseRegulatedMotor;
-import team.brickfire.robotParts.base.SpeedUtility;
+import team.brickfire.robot_parts.base.SpeedUtility;
 
 /**
  * <p>Represents a Motor that does stuff on the robot</p>

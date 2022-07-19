@@ -1,4 +1,4 @@
-package team.brickfire.robotParts.base;
+package team.brickfire.robot_parts.base;
 
 /**
  * <p>Collection of useful functions for driving and turning</p>

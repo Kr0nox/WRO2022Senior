@@ -1,4 +1,4 @@
-package team.brickfire.robotParts.arms;
+package team.brickfire.robot_parts.arms;
 
 import lejos.hardware.motor.BaseRegulatedMotor;
 

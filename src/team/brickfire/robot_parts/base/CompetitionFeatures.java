@@ -1,4 +1,4 @@
-package team.brickfire.robotParts.base;
+package team.brickfire.robot_parts.base;
 
 import team.brickfire.data.color.Color;
 

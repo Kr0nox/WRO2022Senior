@@ -1,16 +1,16 @@
-package team.brickfire.robotParts;
+package team.brickfire.robot_parts;
 
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
-import team.brickfire.robotParts.base.SpeedUtility;
+import team.brickfire.robot_parts.base.SpeedUtility;
 import team.brickfire.data.color.Color;
-import team.brickfire.robotParts.base.CompetitionFeatures;
-import team.brickfire.robotParts.base.DrivingBase;
-import team.brickfire.robotParts.custom_lejos.CustomMovePilot;
-import team.brickfire.robotParts.sensors.ColorSensor;
+import team.brickfire.robot_parts.base.CompetitionFeatures;
+import team.brickfire.robot_parts.base.DrivingBase;
+import team.brickfire.robot_parts.custom_lejos.CustomMovePilot;
+import team.brickfire.robot_parts.sensors.ColorSensor;
 
 /**
  * <p>Represents the robot. <br>
