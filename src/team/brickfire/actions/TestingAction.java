@@ -1,12 +1,8 @@
 package team.brickfire.actions;
 
-import lejos.hardware.Button;
-import lejos.utility.Delay;
 import team.brickfire.actions.circuit_drive.CircuitDrive;
 import team.brickfire.actions.circuit_drive.CircuitOrientation;
 import team.brickfire.actions.circuit_drive.CircuitPosition;
-
-import java.awt.*;
 
 public class TestingAction extends BaseAction {
 

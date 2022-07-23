@@ -3,7 +3,7 @@ package team.brickfire;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import team.brickfire.actions.TestingAction;
-import team.brickfire.robotParts.Robot;
+import team.brickfire.robot_parts.Robot;
 
 /**
  * Utility class that starts the program and handles the order in which things happen

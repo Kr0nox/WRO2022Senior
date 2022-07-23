@@ -46,7 +46,7 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         this.motorRight = new EV3MediumRegulatedMotor(MotorPort.C);
         this.pilot = new CustomMovePilot(new WheeledChassis(new Wheel[]{
                 WheeledChassis.modelWheel(this.motorLeft, wheelDiameter).offset(wheelOffset),
-                WheeledChassis.modelWheel(this.motorRight, wheelDiameter).offset(-wheelOffset)},
+                WheeledChassis.modelWheel(this.motorRight, wheelDiameter).offset(-wheelOffset).invert(true)},
                 WheeledChassis.TYPE_DIFFERENTIAL));
         this.wheelDiameter = wheelDiameter;
         this.wheelOffset = wheelOffset;

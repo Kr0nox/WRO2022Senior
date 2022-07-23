@@ -15,6 +15,12 @@ public abstract class ColorMap {
     protected final Map<Color, Color> valueMapping;
     protected final Map<Color, Integer> priorities;
 
+    /**
+     * <p>Creates a ColorMap</p>
+     *
+     * @param valueMapping Mapping of colors
+     * @param priorities Priorities of colors
+     */
     protected ColorMap(Map<Color, Color> valueMapping, Map<Color, Integer> priorities) {
         this.valueMapping = valueMapping;
         this.priorities = priorities;

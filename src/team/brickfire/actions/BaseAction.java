@@ -1,6 +1,6 @@
 package team.brickfire.actions;
 
-import team.brickfire.robotParts.Robot;
+import team.brickfire.robot_parts.Robot;
 
 /**
  * <p>Base action</p>
