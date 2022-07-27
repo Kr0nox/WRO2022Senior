@@ -9,7 +9,7 @@ import team.brickfire.robot_parts.base.SpeedUtility;
  * @version 2.1
  * @author Team BrickFire
  */
-public abstract class Arm {
+public class Arm {
 
     private final ArmMovement startPosition;
     private final BaseRegulatedMotor motor;

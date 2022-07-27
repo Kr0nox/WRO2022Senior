@@ -1,14 +1,12 @@
 package team.brickfire.robot_parts.arms;
 
-import lejos.hardware.motor.BaseRegulatedMotor;
-
 /**
  * <p>The positions {@link Arm arm} can be in</p>
  *
  * @version 2.1
  * @author upoon
  */
-abstract class ArmMovement {
+class ArmMovement {
 
     private final int distance;
     private final ArmMovementType type;
