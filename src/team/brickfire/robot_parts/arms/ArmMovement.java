@@ -98,7 +98,7 @@ abstract class ArmMovement {
         /**
          * <p>Executes this movement type</p>
          *
-         * @param motor Motor to move
+         * @param arm Motor to move
          * @param distance Distance for moving
          * @param immediateReturn Whether the method should immediately return
          */
