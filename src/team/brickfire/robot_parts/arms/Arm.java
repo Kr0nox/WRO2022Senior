@@ -6,7 +6,7 @@ import team.brickfire.robot_parts.base.SpeedUtility;
 /**
  * <p>Represents a Motor that does stuff on the robot</p>
  *
- * @version 2.0
+ * @version 2.1
  * @author Team BrickFire
  */
 public abstract class Arm {
@@ -14,6 +14,8 @@ public abstract class Arm {
     private final ArmMovement startPosition;
     private final BaseRegulatedMotor motor;
     private final double accelerationFactor;
+
+    private final double standardSpeed;
 
     /**
      * <p>Creates an Arm object</p>
@@ -28,6 +30,7 @@ public abstract class Arm {
         this.motor = motor;
         SpeedUtility.setMotorSpeed(motor, Math.abs(speed), Math.abs(speed) * accelerationFactor);
         this.accelerationFactor = accelerationFactor;
+        this.standardSpeed = speed;
     }
 
     /**
@@ -45,7 +48,7 @@ public abstract class Arm {
      *
      * @param speed Speed at which the robot drives (0-100% of maximum capability).
      */
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         SpeedUtility.setMotorSpeed(motor, Math.abs(speed), Math.abs(speed) * accelerationFactor);
     }
 
@@ -67,5 +70,15 @@ public abstract class Arm {
      */
     ArmMovement getStartPosition() {
         return startPosition;
+    }
+
+    /**
+     * <p>Returns the standard speed</p>
+     * <p><i>Package-private</i></p>
+     *
+     * @return The standard speed of this arm
+     */
+    double getStandardSpeed() {
+        return standardSpeed;
     }
 }

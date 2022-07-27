@@ -5,7 +5,7 @@ import lejos.hardware.motor.BaseRegulatedMotor;
 /**
  * <p>The positions {@link Arm arm} can be in</p>
  *
- * @version 2.0
+ * @version 2.1
  * @author upoon
  */
 abstract class ArmMovement {
@@ -13,8 +13,11 @@ abstract class ArmMovement {
     private final int distance;
     private final ArmMovementType type;
 
+    private final double speed;
+
     /**
-     * <p>Moves the {@link Arm arm} with the desired type</p>
+     * <p>Moves the {@link Arm arm} with the desired type<br>
+     * Speed will be the arms default speed</p>
      *
      * @param distance Distance to move
      * @param type Type of Movement
@@ -22,16 +25,41 @@ abstract class ArmMovement {
     protected ArmMovement(int distance, ArmMovementType type) {
         this.distance = distance;
         this.type = type;
+        this.speed = -1;
+    }
+
+    /**
+     * <p>Moves the {@link Arm arm} to the given position<br>
+     * Speed will be the arms default speed</p>
+     *
+     * @param distance Position to move to
+     */
+    protected ArmMovement(int distance) {
+        this(distance, ArmMovementType.ROTATE_TO);
+    }
+
+    /**
+     * <p>Moves the {@link Arm arm} with the desired type</p>
+     *
+     * @param distance Distance to move
+     * @param speed Speed the arm should rotate at. Ranges from -100 - 100
+     * @param type Type of Movement
+     *
+     */
+    protected ArmMovement(int distance, double speed, ArmMovementType type) {
+        this.distance = distance * (speed > 0 ? 1 : -1);
+        this.type = type;
+        this.speed = Math.abs(speed);
     }
 
     /**
      * <p>Moves the {@link Arm arm} to the given position</p>
      *
      * @param distance Position to move to
+     * @param speed Speed the arm should rotate at. Ranges from -100 - 100
      */
-    protected ArmMovement(int distance) {
-        this.distance = distance;
-        this.type = ArmMovementType.ROTATE_TO;
+    protected ArmMovement(int distance, double speed) {
+        this(distance, speed, ArmMovementType.ROTATE_TO);
     }
 
     /**
@@ -42,6 +70,12 @@ abstract class ArmMovement {
      * @param immediateReturn whether the method should immediately return after starting the motor
      */
     void execute(Arm arm, boolean immediateReturn) {
+        if (speed > 0) {
+            arm.setSpeed(speed);
+        } else {
+            arm.setSpeed(arm.getStandardSpeed());
+        }
+
         type.execute(arm.getMotor(), distance - arm.getStartPosition().distance, immediateReturn);
     }
 
