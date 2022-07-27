@@ -227,7 +227,7 @@ public abstract class DrivingBase {
     public abstract void setDrivingSpeed(double speed, double acceleration);
 
     /**
-     * </p>Sets speed and acceleration of the robot for driving <br>
+     * <p>Sets speed and acceleration of the robot for driving <br>
      * Speed is limited between 0%-100% of the max Speed</p>
      *
      * @param speed Speed at which the robot drives (0-infinite% of maximum capability).
