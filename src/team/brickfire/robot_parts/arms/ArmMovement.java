@@ -76,22 +76,22 @@ abstract class ArmMovement {
             arm.setSpeed(arm.getStandardSpeed());
         }
 
-        type.execute(arm.getMotor(), distance - arm.getStartPosition().distance, immediateReturn);
+        type.execute(arm, distance, immediateReturn);
     }
 
     protected enum ArmMovementType {
 
         ROTATE {
             @Override
-            public void execute(BaseRegulatedMotor motor, int distance, boolean immediateReturn) {
-                motor.rotate(distance, immediateReturn);
+            public void execute(Arm arm, int distance, boolean immediateReturn) {
+                arm.getMotor().rotate(distance, immediateReturn);
             }
         },
 
         ROTATE_TO {
             @Override
-            public void execute(BaseRegulatedMotor motor, int distance, boolean immediateReturn) {
-                motor.rotateTo(distance, immediateReturn);
+            public void execute(Arm arm, int distance, boolean immediateReturn) {
+                arm.getMotor().rotateTo(distance - arm.getStartPosition().distance, immediateReturn);
             }
         };
 
@@ -102,7 +102,7 @@ abstract class ArmMovement {
          * @param distance Distance for moving
          * @param immediateReturn Whether the method should immediately return
          */
-        abstract void execute(BaseRegulatedMotor motor, int distance, boolean immediateReturn);
+        abstract void execute(Arm arm, int distance, boolean immediateReturn);
 
     }
 
