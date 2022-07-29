@@ -11,7 +11,7 @@ import team.brickfire.robot_parts.base.SpeedUtility;
  */
 public class Arm {
 
-    private final ArmMovement startPosition;
+    private final RotateToArmMovement startPosition;
     private final BaseRegulatedMotor motor;
     private final double accelerationFactor;
 
@@ -25,7 +25,7 @@ public class Arm {
      * @param speed Speed it should rotate in
      * @param accelerationFactor How many times the speed, is the acceleration
      */
-    public Arm(BaseRegulatedMotor motor, ArmMovement startPosition, double speed, double accelerationFactor) {
+    protected Arm(BaseRegulatedMotor motor, RotateToArmMovement startPosition, double speed, double accelerationFactor) {
         this.startPosition = startPosition;
         this.motor = motor;
         SpeedUtility.setMotorSpeed(motor, Math.abs(speed), Math.abs(speed) * accelerationFactor);
@@ -43,6 +43,14 @@ public class Arm {
     }
 
     /**
+     * <p>Moves the arm to the desired {@link ArmMovement position}</p>
+     * @param goal Goal position
+     */
+    public void move(ArmMovement goal) {
+        goal.execute(this, false);
+    }
+
+    /**
      * <p>Sets the motors speed to the given value und sets the acceleration according to the accelerationFactor given
      * in the Constructor</p>
      *
@@ -50,6 +58,14 @@ public class Arm {
      */
     public void setSpeed(double speed) {
         SpeedUtility.setMotorSpeed(motor, Math.abs(speed), Math.abs(speed) * accelerationFactor);
+    }
+
+    /**
+     * <p>Determines whether the Arm is currently moving</p>
+     * @return True if the arm is moving, otherwise false
+     */
+    public boolean isMoving() {
+        return motor.isMoving();
     }
 
     /**
@@ -68,7 +84,7 @@ public class Arm {
      *
      * @return The starting position of this arm
      */
-    ArmMovement getStartPosition() {
+    RotateToArmMovement getStartPosition() {
         return startPosition;
     }
 

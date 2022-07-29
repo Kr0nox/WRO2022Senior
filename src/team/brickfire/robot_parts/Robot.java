@@ -5,6 +5,9 @@ import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
+import team.brickfire.robot_parts.arms.BlockArm;
+import team.brickfire.robot_parts.arms.RotateToArmMovement;
+import team.brickfire.robot_parts.arms.WaterBottleArm;
 import team.brickfire.robot_parts.base.SpeedUtility;
 import team.brickfire.data.color.Color;
 import team.brickfire.robot_parts.base.CompetitionFeatures;
@@ -24,6 +27,8 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
     // Singleton-Pattern
     private static Robot instance;
+    protected final WaterBottleArm waterBottleArm;
+    protected final BlockArm blockArm;
 
     private final BaseRegulatedMotor motorLeft;
     private final BaseRegulatedMotor motorRight;
@@ -32,7 +37,6 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
     private final CustomMovePilot pilot;
     private final double wheelOffset;
     private final double wheelDiameter;
-
 
 
     /**
@@ -53,6 +57,11 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
         this.colorSensorLeft = ColorSensor.get(2);
         this.colorSensorRight = ColorSensor.get(3);
+
+        this.waterBottleArm = WaterBottleArm.create(new EV3MediumRegulatedMotor(MotorPort.A),
+                (RotateToArmMovement) WaterBottleArm.LOWEST, 80, 1);
+        this.blockArm = BlockArm.create(new EV3MediumRegulatedMotor(MotorPort.D),
+                (RotateToArmMovement) BlockArm.LOWEST, 50, 3);
     }
 
     /**
@@ -71,6 +80,9 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
         this.colorSensorLeft = instance.colorSensorLeft;
         this.colorSensorRight = instance.colorSensorRight;
+
+        this.blockArm = instance.blockArm;
+        this.waterBottleArm = instance.waterBottleArm;
     }
 
     /**
