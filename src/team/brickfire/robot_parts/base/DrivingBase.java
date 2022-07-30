@@ -280,4 +280,10 @@ public abstract class DrivingBase {
      * <p>Resets the counter for traveled distance</p>
      */
     public abstract void resetDistance();
+
+    /**
+     * <p>Checks whether the robot is currently moving</p>
+     * @return True if the robot is moving, false otherwise
+     */
+    public abstract boolean isMoving();
 }

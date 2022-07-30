@@ -184,6 +184,11 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
     }
 
     @Override
+    public boolean isMoving() {
+        return pilot.isMoving();
+    }
+
+    @Override
     public void alignTrigonometry(double speed) {
         setDrivingSpeed(Math.abs(speed));
         setTurningSpeed(Math.abs(speed));
