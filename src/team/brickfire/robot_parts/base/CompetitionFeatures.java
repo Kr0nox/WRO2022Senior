@@ -38,7 +38,7 @@ public interface CompetitionFeatures {
     void alignColor(double speed, int repetitions);
 
     /**
-     * <p>The robot turns until booth sensors see the same reflected light value</p>
+     * <p>The robot turns until both sensors see the same reflected light value</p>
      *
      * @param speed Speed at which the robot executes the alignment (0-100% of maximum capability).
      */

@@ -231,7 +231,7 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         for (int i = 0; i < repetitions; i++) {
             Color targetColor = i % 2 == 0 ? Color.BLACK : Color.WHITE;
             boolean leftSeen = false, rightSeen = false;
-            if (((i % 2 == 0) && (speed >= 0)) || ((i % 2 == 0) && (speed < 0))) {
+            if (((i % 2 == 0) && (speed >= 0)) || ((i % 2 == 1) && (speed < 0))) {
                 motorRight.forward();
                 motorLeft.forward();
             } else {
