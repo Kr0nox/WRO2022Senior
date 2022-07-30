@@ -1,6 +1,6 @@
 package team.brickfire.actions.circuit_drive;
 
-import team.brickfire.actions.BaseAction;
+import team.brickfire.robot_parts.Robot;
 
 /**
  * <p>Lets the robot drive around the network of black lines on the field</p>
@@ -8,26 +8,30 @@ import team.brickfire.actions.BaseAction;
  * @author Team Brickfire
  * @version 3.0
  */
-public class CircuitDrive extends BaseAction {
+public class CircuitDrive {
 
     private static final double DRIVING_SPEED = 50;
     private static final double TURNING_SPEED = 40;
 
     private final CircuitNetwork circuit;
+    private final Robot robot;
     private CircuitOrientation facing;
     private CircuitPosition position;
+
 
     /**
      * <p>Creates an Action object for the circuit</p>
      *
+     * @param robot The robot to drive around the network
      * @param startingPosition {@link CircuitPosition Position} the robot starts in
      * @param startingOrientation {@link CircuitOrientation Orientation} the robot starts in
      */
-    public CircuitDrive(CircuitPosition startingPosition, CircuitOrientation startingOrientation) {
+    public CircuitDrive(Robot robot, CircuitPosition startingPosition, CircuitOrientation startingOrientation) {
         super();
         this.facing = startingOrientation;
         this.position = startingPosition;
         this.circuit = new CircuitNetwork();
+        this.robot = robot;
     }
 
     /**
@@ -56,7 +60,7 @@ public class CircuitDrive extends BaseAction {
         Vector2D v1 = facing.getAsVector();
         Vector2D v2 = goalOrientation.getAsVector();
         System.out.println(Vector2D.angle(v1, v2) * (v1.getX() * v2.getY() - v2.getX() * v1.getY()));
-        turn((Vector2D.angle(v1, v2)) * (v1.getX() * v2.getY() - v2.getX() * v1.getY()), TURNING_SPEED);
+        robot.turn((Vector2D.angle(v1, v2)) * (v1.getX() * v2.getY() - v2.getX() * v1.getY()), TURNING_SPEED);
         facing = goalOrientation;
     }
 
@@ -74,10 +78,10 @@ public class CircuitDrive extends BaseAction {
     private void driveStraightDistance(CircuitPosition goalPosition) {
         Vector2D dif = goalPosition.getAsVector().subtract(position.getAsVector());
         turnTo(CircuitOrientation.get(dif.normalized()));
-        resetDistance();
-        lineFollowing(dif.length(), DRIVING_SPEED);
+        robot.resetDistance();
+        robot.lineFollowing(dif.length(), DRIVING_SPEED);
         position = goalPosition;
-        alignMotorRotations();
+        robot.alignMotorRotations();
     }
 
 }
