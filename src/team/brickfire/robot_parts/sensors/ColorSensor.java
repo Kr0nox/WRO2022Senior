@@ -3,6 +3,7 @@ package team.brickfire.robot_parts.sensors;
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3ColorSensor;
 import team.brickfire.data.color.Color;
+import team.brickfire.data.color.ColorMap;
 
 /**
  * <p>Implementation of an {@link lejos.hardware.sensor.EV3ColorSensor EV3ColorSensor}</p>
@@ -70,4 +71,12 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
         return getColor() == colorID;
     }
 
+    public Color getMappedColor(ColorMap colorMap) {
+        Color[] colors = new Color[10];
+        for (int i = 0; i < colors.length; i++) {
+            colors[i] = getColor();
+        }
+
+        return colorMap.getPrioritisedValue(colorMap.mappedValues(colorMap.repeatByPriority(colors)));
+    }
 }

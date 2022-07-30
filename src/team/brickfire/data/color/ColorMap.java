@@ -1,6 +1,8 @@
 package team.brickfire.data.color;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +26,12 @@ public abstract class ColorMap {
     protected ColorMap(Map<Color, Color> valueMapping, Map<Color, Integer> priorities) {
         this.valueMapping = valueMapping;
         this.priorities = priorities;
+        if (valueMapping.size() != Color.values().length) {
+            throw new WrongColorsGivenException("The given value mapping has " + valueMapping.size() + " colors, but " + Color.values().length + " are expected");
+        }
+        if (priorities.size() != Color.values().length) {
+            throw new WrongColorsGivenException("The given priorities have " + priorities.size() + " colors, but " + Color.values().length + " are expected");
+        }
     }
 
     /**
@@ -41,12 +49,13 @@ public abstract class ColorMap {
     }
 
     /**
-     * <p>Returns the most prioritized color</p>
+     * <p>Returns the most prioritized color. <br>
+     * This gets calculated by summing the priorities of each value and returning the one with the highest priority</p>
      *
      * @param values Colors to calculate in the process
      * @return Prioritized color
      */
-    public Color getPrioritisedValue(Color... values) {
+    public Color getPrioritisedValueBySum(Color... values) {
         Map<Color, Integer> prioritySum = new HashMap<>();
         for (Color v : values) {
             int temp = prioritySum.containsKey(v) ? prioritySum.get(v) : 0;
@@ -66,7 +75,8 @@ public abstract class ColorMap {
     }
 
     /**
-     * <p>Chooses the color with the highest priority</p>
+     * <p>Chooses the color with the highest priority. <br>
+     * It only checks for the single color and ignores how often a color appears</p>
      *
      * @param values Colors to check
      * @return Color with the highest priority
@@ -81,5 +91,20 @@ public abstract class ColorMap {
             }
         }
         return maxvalue;
+    }
+
+    /**
+     * <p>Returns the color repeated as often as its priority says</p>
+     * @param values Values to repeat
+     * @return The values
+     */
+    public Color[] repeatByPriority(Color ... values) {
+        List<Color> colors = new ArrayList<>();
+        for (Color value : values) {
+            for (int i = 0; i < priorities.get(value); i++) {
+                colors.add(value);
+            }
+        }
+        return colors.toArray(new Color[0]);
     }
 }
