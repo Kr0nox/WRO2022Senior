@@ -27,10 +27,12 @@ public abstract class ColorMap {
         this.valueMapping = valueMapping;
         this.priorities = priorities;
         if (valueMapping.size() != Color.values().length) {
-            throw new WrongColorsGivenException("The given value mapping has " + valueMapping.size() + " colors, but " + Color.values().length + " are expected");
+            throw new WrongColorsGivenError("The given value mapping has " + valueMapping.size() + " colors, but "
+                    + Color.values().length + " are expected");
         }
         if (priorities.size() != Color.values().length) {
-            throw new WrongColorsGivenException("The given priorities have " + priorities.size() + " colors, but " + Color.values().length + " are expected");
+            throw new WrongColorsGivenError("The given priorities have " + priorities.size() + " colors, but "
+                    + Color.values().length + " are expected");
         }
     }
 

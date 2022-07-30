@@ -71,12 +71,17 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
         return getColor() == colorID;
     }
 
+    /**
+     * <p>Gets the color a set amount of time and then maps it according to the given map</p>
+     * @param colorMap Map to use
+     * @return The mapped color
+     */
     public Color getMappedColor(ColorMap colorMap) {
         Color[] colors = new Color[10];
         for (int i = 0; i < colors.length; i++) {
             colors[i] = getColor();
         }
 
-        return colorMap.getPrioritisedValue(colorMap.mappedValues(colorMap.repeatByPriority(colors)));
+        return colorMap.getPrioritisedValueBySum(colorMap.mappedValues(colorMap.repeatByPriority(colors)));
     }
 }

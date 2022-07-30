@@ -29,6 +29,9 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
     private static Robot instance;
     protected final WaterBottleArm waterBottleArm;
     protected final BlockArm blockArm;
+    protected final ColorSensor colorSensorBlocks;
+    protected final ColorSensor colorSensorBaskets;
+
 
     private final BaseRegulatedMotor motorLeft;
     private final BaseRegulatedMotor motorRight;
@@ -62,6 +65,8 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
                 (RotateToArmMovement) WaterBottleArm.LOWEST, 80, 1);
         this.blockArm = BlockArm.create(new EV3MediumRegulatedMotor(MotorPort.D),
                 (RotateToArmMovement) BlockArm.LOWEST, 50, 3);
+        this.colorSensorBlocks = ColorSensor.get(1);
+        this.colorSensorBaskets = ColorSensor.get(4);
     }
 
     /**
@@ -83,6 +88,9 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
         this.blockArm = instance.blockArm;
         this.waterBottleArm = instance.waterBottleArm;
+
+        this.colorSensorBlocks = instance.colorSensorBlocks;
+        this.colorSensorBaskets = instance.colorSensorBaskets;
     }
 
     /**
