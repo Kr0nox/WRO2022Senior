@@ -12,7 +12,7 @@ import java.util.Map;
  * @version 1.0
  * @author Team BrickFire
  */
-public abstract class ColorMap {
+public class ColorMap {
 
     protected final Map<Color, Color> valueMapping;
     protected final Map<Color, Integer> priorities;
@@ -23,17 +23,20 @@ public abstract class ColorMap {
      * @param valueMapping Mapping of colors
      * @param priorities Priorities of colors
      */
-    protected ColorMap(Map<Color, Color> valueMapping, Map<Color, Integer> priorities) {
+    public ColorMap(Map<Color, Color> valueMapping, Map<Color, Integer> priorities) {
         this.valueMapping = valueMapping;
         this.priorities = priorities;
-        if (valueMapping.size() != Color.values().length) {
-            throw new WrongColorsGivenError("The given value mapping has " + valueMapping.size() + " colors, but "
-                    + Color.values().length + " are expected");
-        }
-        if (priorities.size() != Color.values().length) {
-            throw new WrongColorsGivenError("The given priorities have " + priorities.size() + " colors, but "
-                    + Color.values().length + " are expected");
-        }
+
+        checkColorAmount();
+    }
+
+    /**
+     * <p>Creates a ColorMap <br>
+     * Can be used when another map inherits this and adds the values in its contractor</p>
+     */
+    protected ColorMap() {
+        this.valueMapping = new HashMap<>();
+        this.priorities = new HashMap<>();
     }
 
     /**
@@ -43,6 +46,8 @@ public abstract class ColorMap {
      * @return Mapped values
      */
     public Color[] mappedValues(Color... values) {
+        checkColorAmount();
+
         Color[] mapped = new Color[values.length];
         for (int i = 0; i < values.length; i++) {
             mapped[i] = valueMapping.get(values[i]);
@@ -58,6 +63,8 @@ public abstract class ColorMap {
      * @return Prioritized color
      */
     public Color getPrioritisedValueBySum(Color... values) {
+        checkColorAmount();
+
         Map<Color, Integer> prioritySum = new HashMap<>();
         for (Color v : values) {
             int temp = prioritySum.containsKey(v) ? prioritySum.get(v) : 0;
@@ -84,6 +91,8 @@ public abstract class ColorMap {
      * @return Color with the highest priority
      */
     public Color valueWithMaxPriority(Color ... values) {
+        checkColorAmount();
+
         Color maxvalue = null;
         int maxPriority = -1;
         for (Color v : values) {
@@ -101,6 +110,8 @@ public abstract class ColorMap {
      * @return The values
      */
     public Color[] repeatByPriority(Color ... values) {
+        checkColorAmount();
+
         List<Color> colors = new ArrayList<>();
         for (Color value : values) {
             for (int i = 0; i < priorities.get(value); i++) {
@@ -108,5 +119,16 @@ public abstract class ColorMap {
             }
         }
         return colors.toArray(new Color[0]);
+    }
+
+    private void checkColorAmount() {
+        if (valueMapping.size() != Color.values().length) {
+            throw new WrongColorsGivenError("The given value mapping has " + valueMapping.size() + " colors, but "
+                    + Color.values().length + " are expected");
+        }
+        if (priorities.size() != Color.values().length) {
+            throw new WrongColorsGivenError("The given priorities have " + priorities.size() + " colors, but "
+                    + Color.values().length + " are expected");
+        }
     }
 }
