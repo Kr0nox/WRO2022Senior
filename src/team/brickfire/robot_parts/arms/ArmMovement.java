@@ -79,7 +79,7 @@ public abstract class ArmMovement {
     /**
      * <p>Executes these movements after this one was executed. <br>
      * Only does so if the movement is with immediateReturn = false</p>
-     * <p>The difference to add: <br>
+     * <p>The difference to the add(RotateDistanceArmMovement... movements)-function: <br>
      * This stops the motor before starting the next one. This enables it to move the arm in one direction first and then
      * a different one at the next execution</p>
      * @param movements Movements to add
@@ -92,24 +92,26 @@ public abstract class ArmMovement {
     }
 
     /**
-     * <p>Adds a RotateDistanceArmMovement to this rotateTo movement</p>
-     * <p>The difference to chain:<br>
+     * <p>Adds a RotateDistanceArmMovement to this rotateTo movement<br>
+     * The speed will the the slowest out of all Movements including this one</p>
+     * <p>The difference to the chain(ArmMovement... movements)-function:<br>
      * This executes both movements without pausing in between, but if one movement is a positive distance
      * and the other is negative it wont move the longer one the whole distance</p>
-     * @param movements Movement to add to this
+     * @param movements {@link RotateDistanceArmMovement Movement} to add to this
      * @return The result of adding. This is a new object and not linked to the one the function was called on
      */
     public ArmMovement add(RotateDistanceArmMovement... movements) {
         ArmMovement newMovement = this.copy();
         for (RotateDistanceArmMovement movement : movements) {
             newMovement.distance += movement.distance;
-            newMovement.speed = newMovement.speed > 0 ? (movement.speed > 0 ? Math.min(speed, movement.speed) : newMovement.speed) : movement.speed;
+            newMovement.speed = newMovement.speed > 0
+                    ? (movement.speed > 0 ? Math.min(newMovement.speed, movement.speed) : newMovement.speed) : movement.speed;
         }
         return newMovement;
     }
 
     /**
-     * <p>Moves the arm as the class specified type</p>
+     * <p>Moves the {@link Arm arm} as the class specified type</p>
      * @param arm Arm to move
      * @param immediateReturn If true the robot exits the method immediately after starting the arm
      */

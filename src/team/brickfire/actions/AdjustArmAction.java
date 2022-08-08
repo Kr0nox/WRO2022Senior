@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>Can be used before the actual program starts to bring the arms into the desired position</p>
+ * <p>Can be used before the actual program starts to bring the {@link team.brickfire.robot_parts.arms.Arm arms}
+ * into the desired position</p>
  *
  * @version 1.0
  * @author Team BrickFire
@@ -32,7 +33,7 @@ public class AdjustArmAction extends BaseAction {
     }
 
     /**
-     * <p>Adds an ArmAdjustController</p>
+     * <p>Adds an {@link ArmAdjustmentController ArmAdjustController}</p>
      *
      * @param a ArmAdjustController to add
      * @return True if it was added successfully, false otherwise
@@ -42,7 +43,7 @@ public class AdjustArmAction extends BaseAction {
     }
 
     /**
-     * <p>Executes arm adjustment for both the robots arms until the center button gets pressed</p>
+     * <p>Executes arm adjustment for both the robots arms until the stop button gets pressed</p>
      */
     public void run() {
         int id = -1;

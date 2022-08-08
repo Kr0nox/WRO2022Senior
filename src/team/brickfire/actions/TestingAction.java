@@ -23,7 +23,7 @@ public class TestingAction extends BaseAction {
      * <p>Gets executed</p>
      */
     public void test() {
-        CircuitDrive circuit = new CircuitDrive(CircuitPosition.SOUTH_EAST, CircuitOrientation.WEST);
+        CircuitDrive circuit = new CircuitDrive(this, CircuitPosition.SOUTH_EAST, CircuitOrientation.WEST);
 
         circuit.driveTo(CircuitPosition.WEST, CircuitOrientation.NORTH);
     }

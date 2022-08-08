@@ -43,7 +43,7 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
     }
 
     /**
-     * Returns the currently seen color
+     * Returns the currently seen {@link Color color}
      *
      * @return Seen color
      */
@@ -63,8 +63,8 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
     }
 
     /**
-     * Compares the seen color to the given
-     * @param colorID Color to compare to
+     * Compares the seen {@link Color color} to the given
+     * @param colorID {@link Color Color} to compare to
      * @return Whether colors are equal
      */
     public boolean isColor(Color colorID) {
@@ -72,12 +72,13 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
     }
 
     /**
-     * <p>Gets the color a set amount of time and then maps it according to the given map</p>
+     * <p>Gets the {@link Color color} n-times and then maps it according to the given {@link ColorMap map}</p>
      * @param colorMap Map to use
+     * @param n Number of tries of getting color
      * @return The mapped color
      */
-    public Color getMappedColor(ColorMap colorMap) {
-        Color[] colors = new Color[10];
+    public Color getMappedColor(ColorMap colorMap, int n) {
+        Color[] colors = new Color[n];
         for (int i = 0; i < colors.length; i++) {
             colors[i] = getColor();
         }

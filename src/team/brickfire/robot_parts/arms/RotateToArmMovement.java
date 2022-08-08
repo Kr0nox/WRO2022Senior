@@ -1,7 +1,7 @@
 package team.brickfire.robot_parts.arms;
 
 /**
- * <p>Movement for rotating an Arm to a certain position</p>
+ * <p>Movement for rotating an {@link Arm Arm} to a certain position</p>
  *
  * @version 1.0
  * @author Team BrickFire

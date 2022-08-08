@@ -22,7 +22,7 @@ public class CircuitDrive {
     /**
      * <p>Creates an Action object for the circuit</p>
      *
-     * @param robot The robot to drive around the network
+     * @param robot The robot to drive around the {@link CircuitNetwork network}
      * @param startingPosition {@link CircuitPosition Position} the robot starts in
      * @param startingOrientation {@link CircuitOrientation Orientation} the robot starts in
      */

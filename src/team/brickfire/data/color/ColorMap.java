@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>Maps colors to compassionate for problems with the sensor</p>
- * <p>Calculates a prioritized color to compensate for problems with the sensor</p>
+ * <p>Maps {@link Color colors} to compassionate for problems with the sensor</p>
+ * <p>Calculates a prioritized {@link Color color} to compensate for problems with the sensor</p>
  *
  * @version 1.0
  * @author Team BrickFire
@@ -26,8 +26,6 @@ public class ColorMap {
     public ColorMap(Map<Color, Color> valueMapping, Map<Color, Integer> priorities) {
         this.valueMapping = valueMapping;
         this.priorities = priorities;
-
-        checkColorAmount();
     }
 
     /**
@@ -40,14 +38,13 @@ public class ColorMap {
     }
 
     /**
-     * <p>Returns an array of the mapped color values</p>
+     * <p>Returns an array of the mapped {@link Color color} values</p>
+     * <p>It maps each input value to its in the constructor given mapped color and returns this array.</p>
      *
      * @param values Values to map
      * @return Mapped values
      */
     public Color[] mappedValues(Color... values) {
-        checkColorAmount();
-
         Color[] mapped = new Color[values.length];
         for (int i = 0; i < values.length; i++) {
             mapped[i] = valueMapping.get(values[i]);
@@ -56,15 +53,13 @@ public class ColorMap {
     }
 
     /**
-     * <p>Returns the most prioritized color. <br>
+     * <p>Returns the most prioritized {@link Color color}. <br>
      * This gets calculated by summing the priorities of each value and returning the one with the highest priority</p>
      *
      * @param values Colors to calculate in the process
      * @return Prioritized color
      */
     public Color getPrioritisedValueBySum(Color... values) {
-        checkColorAmount();
-
         Map<Color, Integer> prioritySum = new HashMap<>();
         for (Color v : values) {
             int temp = prioritySum.containsKey(v) ? prioritySum.get(v) : 0;
@@ -84,15 +79,13 @@ public class ColorMap {
     }
 
     /**
-     * <p>Chooses the color with the highest priority. <br>
+     * <p>Chooses the {@link Color color} with the highest priority. <br>
      * It only checks for the single color and ignores how often a color appears</p>
      *
      * @param values Colors to check
      * @return Color with the highest priority
      */
     public Color valueWithMaxPriority(Color ... values) {
-        checkColorAmount();
-
         Color maxvalue = null;
         int maxPriority = -1;
         for (Color v : values) {
@@ -105,13 +98,11 @@ public class ColorMap {
     }
 
     /**
-     * <p>Returns the color repeated as often as its priority says</p>
+     * <p>Returns the {@link Color color} repeated as often as its priority says</p>
      * @param values Values to repeat
      * @return The values
      */
     public Color[] repeatByPriority(Color ... values) {
-        checkColorAmount();
-
         List<Color> colors = new ArrayList<>();
         for (Color value : values) {
             for (int i = 0; i < priorities.get(value); i++) {
@@ -121,14 +112,4 @@ public class ColorMap {
         return colors.toArray(new Color[0]);
     }
 
-    private void checkColorAmount() {
-        if (valueMapping.size() != Color.values().length) {
-            throw new WrongColorsGivenError("The given value mapping has " + valueMapping.size() + " colors, but "
-                    + Color.values().length + " are expected");
-        }
-        if (priorities.size() != Color.values().length) {
-            throw new WrongColorsGivenError("The given priorities have " + priorities.size() + " colors, but "
-                    + Color.values().length + " are expected");
-        }
-    }
 }

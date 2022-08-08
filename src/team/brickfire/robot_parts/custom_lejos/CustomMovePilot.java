@@ -4,7 +4,7 @@ import lejos.robotics.chassis.Chassis;
 import lejos.robotics.navigation.MovePilot;
 
 /**
- * <p>Extension of the LeJOS provided MovePilot with some more features</p>
+ * <p>Extension of the LeJOS provided {@link MovePilot MovePilot} with some more features</p>
  *
  * @version 1.0
  * @author Team BrickFire
