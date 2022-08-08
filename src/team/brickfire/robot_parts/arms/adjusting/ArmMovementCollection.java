@@ -1,5 +1,7 @@
 package team.brickfire.robot_parts.arms.adjusting;
 
+import team.brickfire.robot_parts.arms.ArmMovement;
+
 /**
  * <p>Interface for a collection of ArmMovements to be iterated through<br>
  * Can be used in a manual controller</p>
@@ -25,4 +27,11 @@ public interface ArmMovementCollection {
      * @return Amount of allowed positions
      */
     int positionCount();
+
+    /**
+     * <p>Gets the arms 0 position</p>
+     *
+     * @return 0 position of arm
+     */
+    ArmMovement getZero();
 }

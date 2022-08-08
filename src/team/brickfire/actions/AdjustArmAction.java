@@ -1,10 +1,12 @@
 package team.brickfire.actions;
 
 import lejos.hardware.Button;
+import lejos.hardware.Key;
 import lejos.hardware.lcd.LCD;
 import team.brickfire.robot_parts.arms.adjusting.ArmAdjustmentController;
-import team.brickfire.robot_parts.arms.BlockArm;
-import team.brickfire.robot_parts.arms.WaterBottleArm;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Can be used before the actual program starts to bring the arms into the desired position</p>
@@ -13,18 +15,30 @@ import team.brickfire.robot_parts.arms.WaterBottleArm;
  * @author Team BrickFire
  */
 public class AdjustArmAction extends BaseAction {
-
-    private final ArmAdjustmentController<WaterBottleArm> waterAdjust;
-    private final ArmAdjustmentController<BlockArm> blockAdjust;
+    private final List<ArmAdjustmentController> armControllers;
+    private final int stopButton;
 
     /**
      * <p>Creates an AdjustArmAction</p>
+     *
+     * @param stopButton Button that stops the run() function
      */
-    public AdjustArmAction() {
+    public AdjustArmAction(Key stopButton) {
         super();
+        this.stopButton = stopButton.getId();
+        this.armControllers = new ArrayList<>();
+        addArmAdjustController(new ArmAdjustmentController<>(blockArm, Button.UP, Button.LEFT, Button.ESCAPE));
+        addArmAdjustController(new ArmAdjustmentController<>(waterBottleArm, Button.RIGHT, Button.LEFT, Button.ESCAPE));
+    }
 
-        blockAdjust = new ArmAdjustmentController<>(blockArm, Button.UP, Button.LEFT, Button.ESCAPE);
-        waterAdjust = new ArmAdjustmentController<>(waterBottleArm, Button.RIGHT, Button.LEFT, Button.ESCAPE);
+    /**
+     * <p>Adds an ArmAdjustController</p>
+     *
+     * @param a ArmAdjustController to add
+     * @return True if it was added successfully, false otherwise
+     */
+    public boolean addArmAdjustController(ArmAdjustmentController a) {
+        return armControllers.add(a);
     }
 
     /**
@@ -32,10 +46,11 @@ public class AdjustArmAction extends BaseAction {
      */
     public void run() {
         int id = -1;
-        while (id != Button.ENTER.getId()) {
+        while (id != stopButton) {
             Button.waitForAnyPress();
-            waterAdjust.notify(id);
-            blockAdjust.notify(id);
+            for (ArmAdjustmentController armController : armControllers) {
+                armController.notify(id);
+            }
         }
 
         LCD.clear();
@@ -45,8 +60,9 @@ public class AdjustArmAction extends BaseAction {
      * <p>Moves both arms to the position they were in when the program was started</p>
      */
     public void moveZero() {
-        blockArm.move(BlockArm.ZERO);
-        waterBottleArm.move(WaterBottleArm.ZERO);
+        for (ArmAdjustmentController armController : armControllers) {
+            armController.moveZero();
+        }
     }
 
     /**

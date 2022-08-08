@@ -12,14 +12,14 @@ import team.brickfire.robot_parts.arms.adjusting.ArmMovementCollection;
 public class BlockArm extends Arm implements ArmMovementCollection {
 
     public static final ArmMovement ZERO = new RotateToArmMovement(0);
-    /* TODO: Figure values out */
+    // TODO: Figure values out
     public static final ArmMovement LOWEST = new RotateToArmMovement(-1);
     public static final ArmMovement HIGHEST = new RotateToArmMovement(-1);
     public static final ArmMovement MIDDLE = new RotateToArmMovement(-1);
     public static final ArmMovement OPEN = new RotateDistanceArmMovement(-1);
     public static final ArmMovement CLOSE = new RotateDistanceArmMovement(-1);
 
-    private static final ArmMovement[] POSITIONS = new ArmMovement[]{LOWEST, MIDDLE, HIGHEST};
+    private static final ArmMovement[] POSITIONS = new ArmMovement[]{OPEN, CLOSE, LOWEST, MIDDLE, HIGHEST};
 
     private static BlockArm instance;
     private int index;
@@ -68,5 +68,10 @@ public class BlockArm extends Arm implements ArmMovementCollection {
     @Override
     public int positionCount() {
         return POSITIONS.length;
+    }
+
+    @Override
+    public ArmMovement getZero() {
+        return ZERO;
     }
 }

@@ -34,7 +34,7 @@ public class ArmAdjustmentController<T extends Arm & ArmMovementCollection> {
         this.nextButton = nextButton.getId();
         this.previousButton = previousButton.getId();
         this.resetButton = resetButton.getId();
-        LCD.drawString("Up: " + nextButton.getName() + " Down: " + previousButton.getName(), 1, row);
+        LCD.drawString("Arm: " + arm.getClass().getName() + " Up: " + nextButton.getName() + " Down: " + previousButton.getName(), 1, row);
         row++;
     }
 
@@ -48,9 +48,7 @@ public class ArmAdjustmentController<T extends Arm & ArmMovementCollection> {
         } else if (buttonID == previousButton) {
             arm.previous();
         } else if (buttonID == resetButton) {
-            for (int i = 0; i < arm.positionCount(); i++) {
-                arm.previous();
-            }
+            arm.move(arm.getZero());
         }
     }
 
@@ -67,4 +65,10 @@ public class ArmAdjustmentController<T extends Arm & ArmMovementCollection> {
         }
     }
 
+    /**
+     * <p>Moves the arm to its defined 0 position</p>
+     */
+    public void moveZero() {
+        arm.move(arm.getZero());
+    }
 }

@@ -13,7 +13,7 @@ public class WaterBottleArm extends Arm implements ArmMovementCollection {
 
 
     public static final ArmMovement ZERO = new RotateDistanceArmMovement(0);
-    /* TODO: Figure values out */
+    //TODO: Figure values out
     public static final ArmMovement HIGHEST = new RotateToArmMovement(-1);
     public static final ArmMovement LOWEST = new RotateToArmMovement(-1);
     public static final ArmMovement TABLE = new RotateToArmMovement(-1);
@@ -70,5 +70,10 @@ public class WaterBottleArm extends Arm implements ArmMovementCollection {
     @Override
     public int positionCount() {
         return POSITIONS.length;
+    }
+
+    @Override
+    public ArmMovement getZero() {
+        return ZERO;
     }
 }

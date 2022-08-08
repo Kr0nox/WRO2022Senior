@@ -1,5 +1,6 @@
 package team.brickfire;
 
+import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import team.brickfire.actions.AdjustArmAction;
 import team.brickfire.actions.TestingAction;
@@ -10,7 +11,7 @@ import team.brickfire.robot_parts.Robot;
  * @version 3.0
  * @author Team BrickFire
  */
-public class RunWRO {
+public final class RunWRO {
 
     /**
      * This method gets called when the program starts
@@ -21,7 +22,7 @@ public class RunWRO {
         Robot.create(6.24, 6.05);
 
         Sound.beep();
-        new AdjustArmAction().run();
+        new AdjustArmAction(Button.ENTER).run();
 
         new TestingAction().test();
     }
