@@ -56,6 +56,7 @@ public final class LaundryAction extends BaseAction {
      */
     public boolean scanBlock() {
         blocks.add(colorSensorBlocks.getMappedColor(colorMap, 10));
+        System.out.println(blocks.peek());
         return blocks.peek() != Color.NONE_MATCHING && blocks.peek() != Color.NO_COLOR;
     }
 

@@ -48,7 +48,7 @@ public class AdjustArmAction extends BaseAction {
     public void run() {
         int id = -1;
         while (id != stopButton) {
-            Button.waitForAnyPress();
+            id = Button.waitForAnyPress();
             for (ArmAdjustmentController armController : armControllers) {
                 armController.notify(id);
             }

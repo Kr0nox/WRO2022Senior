@@ -1,8 +1,12 @@
 package team.brickfire.actions;
 
+import lejos.hardware.Button;
 import team.brickfire.actions.circuit_drive.CircuitDrive;
 import team.brickfire.actions.circuit_drive.CircuitOrientation;
 import team.brickfire.actions.circuit_drive.CircuitPosition;
+import team.brickfire.robot_parts.arms.ArmMovement;
+import team.brickfire.robot_parts.arms.BlockArm;
+import team.brickfire.robot_parts.arms.WaterBottleArm;
 
 /**
  * <p>Action is used for testing</p>
@@ -23,8 +27,14 @@ public class TestingAction extends BaseAction {
      * <p>Gets executed</p>
      */
     public void test() {
-        CircuitDrive circuit = new CircuitDrive(this, CircuitPosition.SOUTH_EAST, CircuitOrientation.WEST);
+        waterBottleArm.move(WaterBottleArm.PICKUP);
+        Button.waitForAnyPress();
+        waterBottleArm.move(WaterBottleArm.OVER_TABLE);
 
-        circuit.driveTo(CircuitPosition.WEST, CircuitOrientation.NORTH);
+        new Side().doSide();
+
+        Button.waitForAnyPress();
+        blockArm.move(BlockArm.HIGHEST);
+        waterBottleArm.move(WaterBottleArm.START);
     }
 }

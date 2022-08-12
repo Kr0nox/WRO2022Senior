@@ -25,12 +25,12 @@ public class RoomBlockColorMap extends ColorMap {
 
         priorities.put(Color.NONE_MATCHING, 1);
         priorities.put(Color.NO_COLOR, 3);
-        priorities.put(Color.BLACK, 0);
+        priorities.put(Color.BLACK, 1);
         priorities.put(Color.WHITE, 10);
-        priorities.put(Color.RED, 0);
+        priorities.put(Color.RED, 1);
         priorities.put(Color.GREEN, 5);
         priorities.put(Color.BLUE, 4);
-        priorities.put(Color.YELLOW, 0);
-        priorities.put(Color.BROWN, 0);
+        priorities.put(Color.YELLOW, 1);
+        priorities.put(Color.BROWN, 1);
     }
 }

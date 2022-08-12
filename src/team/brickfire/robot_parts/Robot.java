@@ -49,11 +49,11 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
      * @param wheelOffset Distance of the wheels from the robots center
      */
     private Robot(double wheelDiameter, double wheelOffset) {
-        this.motorLeft = new EV3MediumRegulatedMotor(MotorPort.B);
-        this.motorRight = new EV3MediumRegulatedMotor(MotorPort.C);
+        this.motorLeft = new EV3MediumRegulatedMotor(MotorPort.C);
+        this.motorRight = new EV3MediumRegulatedMotor(MotorPort.B);
         this.pilot = new CustomMovePilot(new WheeledChassis(new Wheel[]{
-                WheeledChassis.modelWheel(this.motorLeft, wheelDiameter).offset(wheelOffset),
-                WheeledChassis.modelWheel(this.motorRight, wheelDiameter).offset(-wheelOffset).invert(true)},
+                WheeledChassis.modelWheel(this.motorRight, wheelDiameter).offset(wheelOffset),
+                WheeledChassis.modelWheel(this.motorLeft, wheelDiameter).offset(-wheelOffset).invert(true)},
                 WheeledChassis.TYPE_DIFFERENTIAL));
         this.wheelDiameter = wheelDiameter;
         this.wheelOffset = wheelOffset;
@@ -62,11 +62,11 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         this.colorSensorRight = ColorSensor.get(3);
 
         this.waterBottleArm = WaterBottleArm.create(new EV3MediumRegulatedMotor(MotorPort.A),
-                (RotateToArmMovement) WaterBottleArm.LOWEST, 80, 1);
+                (RotateToArmMovement) WaterBottleArm.START, 80, 1);
         this.blockArm = BlockArm.create(new EV3MediumRegulatedMotor(MotorPort.D),
-                (RotateToArmMovement) BlockArm.LOWEST, 50, 3);
-        this.colorSensorBlocks = ColorSensor.get(1);
-        this.colorSensorBaskets = ColorSensor.get(4);
+                (RotateToArmMovement) BlockArm.HIGHEST, 50, 3);
+        this.colorSensorBlocks = ColorSensor.get(4);
+        this.colorSensorBaskets = ColorSensor.get(1);
     }
 
     /**
@@ -241,9 +241,9 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
             boolean leftSeen = false, rightSeen = false;
             if (((i % 2 == 0) && (speed >= 0)) || ((i % 2 == 1) && (speed < 0))) {
                 motorRight.forward();
-                motorLeft.forward();
-            } else {
                 motorLeft.backward();
+            } else {
+                motorLeft.forward();
                 motorRight.backward();
             }
             while (!(leftSeen && rightSeen)) {
@@ -304,10 +304,10 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         SpeedUtility.setMotorSpeed(motorRight, speed, speed * 4);
 
         if (distance >= 0) {
-            motorLeft.forward();
+            motorLeft.backward();
             motorRight.forward();
         } else {
-            motorLeft.backward();
+            motorLeft.forward();
             motorRight.backward();
         }
 

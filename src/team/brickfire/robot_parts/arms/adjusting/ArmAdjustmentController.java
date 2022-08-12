@@ -34,7 +34,7 @@ public class ArmAdjustmentController<T extends Arm & ArmMovementCollection> {
         this.nextButton = nextButton.getId();
         this.previousButton = previousButton.getId();
         this.resetButton = resetButton.getId();
-        LCD.drawString("Arm: " + arm.getClass().getName() + " Up: " + nextButton.getName() + " Down: " + previousButton.getName(), 1, row);
+        LCD.drawString(arm.getName() + ": Up: " + nextButton.getName() + " Down: " + previousButton.getName(), 1, row);
         row++;
     }
 

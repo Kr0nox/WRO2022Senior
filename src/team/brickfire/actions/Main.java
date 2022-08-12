@@ -1,8 +1,10 @@
 package team.brickfire.actions;
 
+import lejos.hardware.Button;
 import team.brickfire.actions.circuit_drive.CircuitDrive;
 import team.brickfire.actions.circuit_drive.CircuitOrientation;
 import team.brickfire.actions.circuit_drive.CircuitPosition;
+import team.brickfire.robot_parts.arms.WaterBottleArm;
 
 /**
  * <p>Main Action</p>
@@ -37,16 +39,26 @@ public class Main extends BaseAction {
      * <p>Executes the main action</p>
      */
     public void execute() {
-        // TODO: drive to water bottles and pick them up
+        /*// drive to water bottles and pick them up
+        waterBottleArm.move(WaterBottleArm.PICKUP,true);
+        drive(4,100);
+        turn(-44);
+        setDrivingSpeed(60,100);
+        drive(38);
+        setDrivingSpeed(100);
         WaterBottleAction.getInstance();
+        waterBottleArm.move(WaterBottleArm.OVER_TABLE);
 
-        // TODO: drive to circuit starting position
+        // drive to circuit starting position
+        turnLeftWheel(-76);
+        drive(2);
+
         CircuitDrive circuit = new CircuitDrive(this, CircuitPosition.NORTH, CircuitOrientation.EAST);
-        circuit.driveTo(CircuitPosition.GREEN_CLOSE, CircuitOrientation.SOUTH);
+        circuit.driveTo(CircuitPosition.GREEN_CLOSE, CircuitOrientation.SOUTH);*/
 
         new Side().doSide();
 
-        circuit.setPosition(CircuitPosition.EAST_ROOMS_CLOSE, CircuitOrientation.SOUTH);
+        /*circuit.setPosition(CircuitPosition.EAST_ROOMS_CLOSE, CircuitOrientation.SOUTH);
         circuit.driveTo(CircuitPosition.YELLOW_CLOSE, CircuitOrientation.NORTH);
 
         new Side().doSide();
@@ -56,7 +68,10 @@ public class Main extends BaseAction {
 
         int basket = LaundryAction.getInstance().deliverBlocks();
 
-        // TODO: drive to base
+        // TODO: drive to base*/
+
+        Button.waitForAnyPress();
+        waterBottleArm.move(WaterBottleArm.START);
     }
 
 }

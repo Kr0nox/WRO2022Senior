@@ -34,4 +34,10 @@ public interface ArmMovementCollection {
      * @return 0 position of arm
      */
     ArmMovement getZero();
+
+    /**
+     * <p>Returns the name of the arm</p>
+     * @return The arms name
+     */
+    String getName();
 }

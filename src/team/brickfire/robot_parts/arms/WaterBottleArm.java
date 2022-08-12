@@ -13,16 +13,13 @@ public class WaterBottleArm extends Arm implements ArmMovementCollection {
 
 
     public static final ArmMovement ZERO = new RotateDistanceArmMovement(0);
-    //TODO: Figure values out
-    public static final ArmMovement HIGHEST = new RotateToArmMovement(-1);
-    public static final ArmMovement LOWEST = new RotateToArmMovement(-1);
-    public static final ArmMovement TABLE = new RotateToArmMovement(-1);
-    public static final ArmMovement OVER_TABLE = new RotateToArmMovement(-1);
-    public static final ArmMovement OPEN = new RotateDistanceArmMovement(-1);
-    public static final ArmMovement CLOSE = new RotateDistanceArmMovement(-1);
+    public static final ArmMovement START = new RotateToArmMovement(0);
+    public static final ArmMovement PICKUP = new RotateToArmMovement(-340);
+    public static final ArmMovement TABLE = new RotateToArmMovement(-215);
+    public static final ArmMovement OVER_TABLE = new RotateToArmMovement(-80);
     public static final ArmMovement DROP_BLOCK = new RotateDistanceArmMovement(-1);
 
-    private static final ArmMovement[] POSITIONS = new ArmMovement[]{LOWEST, TABLE, OVER_TABLE, HIGHEST};
+    private static final ArmMovement[] POSITIONS = new ArmMovement[]{PICKUP, TABLE, OVER_TABLE, START};
     private static WaterBottleArm instance;
     private int index;
 
@@ -75,5 +72,10 @@ public class WaterBottleArm extends Arm implements ArmMovementCollection {
     @Override
     public ArmMovement getZero() {
         return ZERO;
+    }
+
+    @Override
+    public String getName() {
+        return "Water";
     }
 }

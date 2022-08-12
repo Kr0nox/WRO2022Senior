@@ -12,12 +12,14 @@ import team.brickfire.robot_parts.arms.adjusting.ArmMovementCollection;
 public class BlockArm extends Arm implements ArmMovementCollection {
 
     public static final ArmMovement ZERO = new RotateToArmMovement(0);
-    // TODO: Figure values out
-    public static final ArmMovement LOWEST = new RotateToArmMovement(-1);
-    public static final ArmMovement HIGHEST = new RotateToArmMovement(-1);
-    public static final ArmMovement MIDDLE = new RotateToArmMovement(-1);
-    public static final ArmMovement OPEN = new RotateDistanceArmMovement(-1);
-    public static final ArmMovement CLOSE = new RotateDistanceArmMovement(-1);
+    public static final ArmMovement LOWEST = new RotateToArmMovement(0, 100);
+    public static final ArmMovement MIDDLE = new RotateToArmMovement(-95);
+    public static final ArmMovement HIGHEST = new RotateToArmMovement(-190, 20);
+    public static final RotateDistanceArmMovement OPEN = new RotateDistanceArmMovement(80);
+    public static final RotateDistanceArmMovement CLOSE = new RotateDistanceArmMovement(-80);
+    public static final RotateDistanceArmMovement DROP_BALL = new RotateDistanceArmMovement(150);
+    public static final ArmMovement BASKET = new RotateToArmMovement(-95, 30);
+    public static final ArmMovement NUDGE = new RotateDistanceArmMovement(-70, 50).chain(new RotateDistanceArmMovement(70, 100));
 
     private static final ArmMovement[] POSITIONS = new ArmMovement[]{OPEN, CLOSE, LOWEST, MIDDLE, HIGHEST};
 
@@ -73,5 +75,10 @@ public class BlockArm extends Arm implements ArmMovementCollection {
     @Override
     public ArmMovement getZero() {
         return ZERO;
+    }
+
+    @Override
+    public String getName() {
+        return "Block";
     }
 }

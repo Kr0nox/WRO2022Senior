@@ -18,11 +18,11 @@ public enum CircuitPosition {
     WEST(new Vector2D(-36.2, 0)),
     NORTH_WEST(new Vector2D(-36.2, 36.2)),
 
-    EAST_ROOMS_CLOSE(new Vector2D(48.1, 0)),
-    EAST_ROOMS_FAR(new Vector2D(67, 0)),
+    EAST_ROOMS_CLOSE(new Vector2D(71.6, 0)),
+    EAST_ROOMS_FAR(new Vector2D(92.6, 0)),
 
-    WEST_ROOMS_CLOSE(new Vector2D(-48.1, 0)),
-    WEST_ROOMS_FAR(new Vector2D(-67, 0)),
+    WEST_ROOMS_CLOSE(new Vector2D(-71.6, 0)),
+    WEST_ROOMS_FAR(new Vector2D(-92.6, 0)),
 
     RED_CLOSE(new Vector2D(48.1, 17.2)),
     RED_FAR(new Vector2D(67, 20.4)),

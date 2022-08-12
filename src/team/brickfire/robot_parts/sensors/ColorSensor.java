@@ -5,6 +5,8 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import team.brickfire.data.color.Color;
 import team.brickfire.data.color.ColorMap;
 
+import java.util.Arrays;
+
 /**
  * <p>Implementation of an {@link lejos.hardware.sensor.EV3ColorSensor EV3ColorSensor}</p>
  * <p><i>Follows a variation of the Singleton-Pattern</i></p>
@@ -82,6 +84,7 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
         for (int i = 0; i < colors.length; i++) {
             colors[i] = getColor();
         }
+        System.out.println(Arrays.toString(colors));
 
         return colorMap.getPrioritisedValueBySum(colorMap.mappedValues(colorMap.repeatByPriority(colors)));
     }
