@@ -9,14 +9,14 @@ package team.brickfire.actions.circuit_drive;
 public enum CircuitPosition {
 
     CENTER(new Vector2D(0, 0)),
-    NORTH(new Vector2D(0, 36.2)),
-    NORTH_EAST(new Vector2D(36.2, 36.2)),
-    EAST(new Vector2D(36.2, 0)),
-    SOUTH_EAST(new Vector2D(36.2, -36.2)),
+    NORTH(new Vector2D(0, 35.6)),
+    NORTH_EAST(new Vector2D(39.7, 35.6)),
+    EAST(new Vector2D(39.7, 0)),
+    SOUTH_EAST(new Vector2D(39.7, -36.2)),
     SOUTH(new Vector2D(0, -36.2)),
-    SOUTH_WEST(new Vector2D(-36.2, -36.2)),
-    WEST(new Vector2D(-36.2, 0)),
-    NORTH_WEST(new Vector2D(-36.2, 36.2)),
+    SOUTH_WEST(new Vector2D(-39.7, -36.2)),
+    WEST(new Vector2D(-39.7, 0)),
+    NORTH_WEST(new Vector2D(-39.7, 35.6)),
 
     EAST_ROOMS_CLOSE(new Vector2D(71.6, 0)),
     EAST_ROOMS_FAR(new Vector2D(92.6, 0)),

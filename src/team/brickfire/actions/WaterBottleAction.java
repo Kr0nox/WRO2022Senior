@@ -16,7 +16,7 @@ public final class WaterBottleAction extends BaseAction {
 
     private WaterBottleAction() {
         super();
-        this.bottles = new boolean[]{true, false};
+        this.bottles = new boolean[]{true, true};
     }
 
     /**

@@ -27,7 +27,7 @@ public class Side extends BaseAction {
      * <p>Performs the side action</p>
      */
     public void doSide() {
-        new Room(true).doRoom();
+        new Room(false).doRoom();
         //new Room(false).doRoom();
     }
 
@@ -72,7 +72,7 @@ public class Side extends BaseAction {
                 while (getDistance() < 6);
                 blockArm.move(BlockArm.NUDGE);
                 setDrivingSpeed(60, 100);
-                drive(-6);
+                drive(-6.5);
                 laundryAction.scanBlock();
                 blockArm.move(BlockArm.HIGHEST);
                 playGame();
@@ -85,17 +85,17 @@ public class Side extends BaseAction {
         private void playGame() {
             // Collect Ball
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
-            drive(-9.5, 75);
+            drive(-9, 75);
             blockArm.move(BlockArm.BASKET);
             // Drop ball off
-            turn(thingsOnLeft ? -68 : 68);
-            drive(-18, 100);
+            turn(thingsOnLeft ? -60 : 56);
+            drive(-17.5, 100);
             blockArm.move(BlockArm.DROP_BALL);
             // TODO: Leave room
-            drive(19, true);
+            drive(18.5, true);
             blockArm.move(BlockArm.MIDDLE, true);
             while (isMoving());
-            turn(thingsOnLeft ? -115 : 115);
+            turn(thingsOnLeft ? -110 : 114);
         }
 
     }
