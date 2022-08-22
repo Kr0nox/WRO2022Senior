@@ -31,7 +31,7 @@ public class TestingAction extends BaseAction {
         Button.waitForAnyPress();
         waterBottleArm.move(WaterBottleArm.OVER_TABLE);
 
-        new Side().doSide();
+        new Side(true).doSide();
 
         Button.waitForAnyPress();
         blockArm.move(BlockArm.HIGHEST);

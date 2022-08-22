@@ -50,7 +50,10 @@ public final class WaterBottleAction extends BaseAction {
         // Drop off bottle
         waterBottleArm.move(WaterBottleArm.TABLE);
         // TODO: Leave room
-        drive(-15);
+        drive(-26.5);
         waterBottleArm.move(WaterBottleArm.OVER_TABLE);
+        turn(thingsOnLeft ? 90 : -90);
+        // TODO: Different distance
+        drive(-23);
     }
 }

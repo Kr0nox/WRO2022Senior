@@ -20,11 +20,11 @@ public final class RunWRO {
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
-        Robot.create(6.24, 9.3);
+        Robot.create(6.24, 8.85);
 
         Sound.beep();
-        new AdjustArmAction(Button.ENTER).run();
-        //Button.waitForAnyPress();
+        //new AdjustArmAction(Button.ENTER).run();
+        Button.waitForAnyPress();
         new TestingAction().test();
         //Main.getInstance().execute();
     }

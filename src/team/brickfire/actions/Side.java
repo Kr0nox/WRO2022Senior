@@ -1,5 +1,6 @@
 package team.brickfire.actions;
 
+import lejos.utility.Delay;
 import team.brickfire.data.color.Color;
 import team.brickfire.data.color.RoomBlockColorMap;
 import team.brickfire.robot_parts.arms.BlockArm;
@@ -14,11 +15,13 @@ public class Side extends BaseAction {
 
     private final LaundryAction laundryAction;
     private final WaterBottleAction waterBottleAction;
+    private final boolean east;
 
     /**
      * <p>Creates a new Side object</p>
      */
-    public Side() {
+    public Side(boolean east) {
+        this.east = east;
         this.laundryAction = LaundryAction.getInstance();
         this.waterBottleAction = WaterBottleAction.getInstance();
     }
@@ -27,8 +30,8 @@ public class Side extends BaseAction {
      * <p>Performs the side action</p>
      */
     public void doSide() {
+        new Room(true).doRoom();
         new Room(false).doRoom();
-        //new Room(false).doRoom();
     }
 
     /**
@@ -57,7 +60,10 @@ public class Side extends BaseAction {
          * End position is on the crossing of the central east-west-line and the room-block-line</p>
          */
         private void doRoom() {
-            drive(-2.5, 100);
+            alignTrigonometry(-20);
+            Delay.msDelay(5000);
+            drive(thingsOnLeft && east || !thingsOnLeft && !east ? -1.2 : -0.8, 100);
+            Delay.msDelay(5000);
 
             this.roomColor = colorSensorBlocks.getMappedColor(new RoomBlockColorMap(), 10);
 
@@ -88,16 +94,16 @@ public class Side extends BaseAction {
             drive(-9, 75);
             blockArm.move(BlockArm.BASKET);
             // Drop ball off
-            turn(thingsOnLeft ? -60 : 56);
+            turn(thingsOnLeft ? -60 : 60);
             drive(-17.5, 100);
             blockArm.move(BlockArm.DROP_BALL);
             // TODO: Leave room
             drive(18.5, true);
             blockArm.move(BlockArm.MIDDLE, true);
             while (isMoving());
-            turn(thingsOnLeft ? -110 : 114);
+            turn(thingsOnLeft ? -109 : 110);
+            drive(-28.5);
         }
-
     }
 
 }

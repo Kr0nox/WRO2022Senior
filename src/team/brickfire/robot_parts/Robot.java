@@ -208,15 +208,7 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         }
         // drive first sensor to line
         boolean leftSeen = colorSensorLeft.isColor(Color.BLACK), rightSeen = colorSensorRight.isColor(Color.BLACK);
-        while (!(leftSeen || rightSeen)) {
-            leftSeen = colorSensorLeft.isColor(Color.BLACK);
-            rightSeen = colorSensorRight.isColor(Color.BLACK);
-        }
-        boolean leftFirst = leftSeen;
-
-        // measure Distance
-        resetDistance();
-        setDrivingSpeed(speed / 2);
+        int firstSide = 0;
         while (!(leftSeen && rightSeen)) {
             if (!leftSeen) {
                 leftSeen = colorSensorLeft.isColor(Color.BLACK);
@@ -224,10 +216,16 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
             if (!rightSeen) {
                 rightSeen = colorSensorRight.isColor(Color.BLACK);
             }
+            if ((leftSeen || rightSeen) && firstSide == 0) {
+                setDrivingSpeed(Math.abs(speed) / 2);
+                resetDistance();
+                firstSide = leftSeen ? 1:2 ;
+            }
         }
 
         // correct
-        double angle = Math.toDegrees(Math.atan(getDistance() / (2 * wheelOffset))) * (leftFirst ? 1 : -1);
+        double angle = Math.toDegrees(Math.atan(getDistance() / (11.8))) * (firstSide == 1 ? 1 : -1)
+                * (speed >= 0 ? 1 : -1);
         turn(angle);
     }
 

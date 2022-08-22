@@ -56,12 +56,12 @@ public class Main extends BaseAction {
         CircuitDrive circuit = new CircuitDrive(this, CircuitPosition.NORTH, CircuitOrientation.EAST);
         circuit.driveTo(CircuitPosition.GREEN_CLOSE, CircuitOrientation.SOUTH);*/
 
-        new Side().doSide();
+        new Side(true).doSide();
 
         /*circuit.setPosition(CircuitPosition.EAST_ROOMS_CLOSE, CircuitOrientation.SOUTH);
         circuit.driveTo(CircuitPosition.YELLOW_CLOSE, CircuitOrientation.NORTH);
 
-        new Side().doSide();
+        new Side(false).doSide();
 
         circuit.setPosition(CircuitPosition.WEST_ROOMS_CLOSE, CircuitOrientation.NORTH);
         circuit.driveTo(CircuitPosition.SOUTH_WEST, CircuitOrientation.SOUTH);
