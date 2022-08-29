@@ -31,7 +31,7 @@ public class Side extends BaseAction {
      */
     public void doSide() {
         new Room(true).doRoom();
-        new Room(false).doRoom();
+        //new Room(false).doRoom();
     }
 
     /**
@@ -60,10 +60,8 @@ public class Side extends BaseAction {
          * End position is on the crossing of the central east-west-line and the room-block-line</p>
          */
         private void doRoom() {
-            alignTrigonometry(-20);
-            Delay.msDelay(5000);
-            drive(thingsOnLeft && east || !thingsOnLeft && !east ? -1.2 : -0.8, 100);
-            Delay.msDelay(5000);
+            alignTrigonometry(20);
+            drive(thingsOnLeft && east || !thingsOnLeft && !east ? 12.5 : 13, 100);
 
             this.roomColor = colorSensorBlocks.getMappedColor(new RoomBlockColorMap(), 10);
 
@@ -74,11 +72,12 @@ public class Side extends BaseAction {
             if (roomColor == Color.WHITE) {
                 waterBottleAction.deliverBottle(thingsOnLeft);
             } else {
-                drive(-10, 60, true);
+                drive(10, 60, true);
                 while (getDistance() < 6);
                 blockArm.move(BlockArm.NUDGE);
                 setDrivingSpeed(60, 100);
-                drive(-6.5);
+                drive(6.5);
+                blockArm.move(BlockArm.CLOSE);
                 laundryAction.scanBlock();
                 blockArm.move(BlockArm.HIGHEST);
                 playGame();
@@ -91,18 +90,25 @@ public class Side extends BaseAction {
         private void playGame() {
             // Collect Ball
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
-            drive(-9, 75);
+            drive(9, 75);
             blockArm.move(BlockArm.BASKET);
             // Drop ball off
+            turnLeftWheel(90);
+            drive(14);
+            blockArm.move(BlockArm.DROP_BALL);
+
+            /*
             turn(thingsOnLeft ? -60 : 60);
-            drive(-17.5, 100);
+            drive(17.5, 100);
             blockArm.move(BlockArm.DROP_BALL);
             // TODO: Leave room
-            drive(18.5, true);
+            drive(-18.5, true);
             blockArm.move(BlockArm.MIDDLE, true);
             while (isMoving());
             turn(thingsOnLeft ? -109 : 110);
-            drive(-28.5);
+            drive(28.5);
+            */
+
         }
     }
 
