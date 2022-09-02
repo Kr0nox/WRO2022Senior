@@ -1,5 +1,6 @@
 package team.brickfire.actions;
 
+import lejos.hardware.Button;
 import lejos.utility.Delay;
 import team.brickfire.data.color.Color;
 import team.brickfire.data.color.RoomBlockColorMap;
@@ -90,7 +91,7 @@ public class Side extends BaseAction {
         private void playGame() {
             // Collect Ball
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
-            drive(9, 75);
+            drive(9.5, 75);
             blockArm.move(BlockArm.BASKET);
             // Drop ball off
             turnLeftWheel(90);
@@ -111,5 +112,4 @@ public class Side extends BaseAction {
 
         }
     }
-
 }

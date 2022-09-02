@@ -28,7 +28,6 @@ public class TestingAction extends BaseAction {
      */
     public void test() {
 
-
         new Side(true).doSide();
 
         Button.waitForAnyPress();

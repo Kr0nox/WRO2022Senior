@@ -18,8 +18,8 @@ public class BlockArm extends Arm implements ArmMovementCollection {
     public static final RotateDistanceArmMovement OPEN = new RotateDistanceArmMovement(80);
     public static final RotateDistanceArmMovement CLOSE = new RotateDistanceArmMovement(-80);
     public static final RotateDistanceArmMovement DROP_BALL = new RotateDistanceArmMovement(150);
-    public static final ArmMovement BASKET = new RotateToArmMovement(-95, 30);
-    public static final ArmMovement NUDGE = new RotateDistanceArmMovement(-70, 50).chain(new RotateDistanceArmMovement(70, 100));
+    public static final ArmMovement BASKET = new RotateToArmMovement(-70, 30);
+    public static final ArmMovement NUDGE = new RotateDistanceArmMovement(-100, 50).chain(new RotateDistanceArmMovement(70, 100));
 
     private static final ArmMovement[] POSITIONS = new ArmMovement[]{OPEN, CLOSE, LOWEST, MIDDLE, HIGHEST};
 
