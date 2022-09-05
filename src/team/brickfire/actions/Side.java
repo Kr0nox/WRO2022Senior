@@ -91,12 +91,16 @@ public class Side extends BaseAction {
         private void playGame() {
             // Collect Ball
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
-            drive(9.5, 75);
+            drive(10, 75);
             blockArm.move(BlockArm.BASKET);
             // Drop ball off
-            turnLeftWheel(90);
+            turnLeftWheel(82);
             drive(14);
             blockArm.move(BlockArm.DROP_BALL);
+            drive(-32);
+            turnLeftWheel(90);
+            drive(15);
+            alignTrigonometry(50);
 
             /*
             turn(thingsOnLeft ? -60 : 60);
