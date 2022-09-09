@@ -40,9 +40,10 @@ public final class WaterBottleAction extends BaseAction {
         bottles[driveDeep && thingsOnLeft || !driveDeep && !thingsOnLeft ? 0 : 1] = false;
         // Drive to table
         setDrivingSpeed(80, 120);
-        drive(-6);
         blockArm.move(BlockArm.NUDGE);
-        drive(driveDeep ? -19 : -12);
+        drive(driveDeep ? -25 : -18);
+        while (getDistance() < 6);
+        blockArm.move(BlockArm.NUDGE);
         LaundryAction.getInstance().scanBlock();
         blockArm.move(BlockArm.HIGHEST);
         turn(88);

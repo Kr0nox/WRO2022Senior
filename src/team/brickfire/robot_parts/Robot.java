@@ -58,11 +58,11 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         this.wheelDiameter = wheelDiameter;
         this.wheelOffset = wheelOffset;
 
-        this.colorSensorLeft = ColorSensor.get(2);
+        this.colorSensorLeft = ColorSensor.get(1);
         this.colorSensorRight = ColorSensor.get(3);
 
         this.waterBottleArm = WaterBottleArm.create(new EV3MediumRegulatedMotor(MotorPort.A),
-                (RotateToArmMovement) WaterBottleArm.START, 80, 1);
+                (RotateToArmMovement) WaterBottleArm.START, 40, 1);
         this.blockArm = BlockArm.create(new EV3MediumRegulatedMotor(MotorPort.D),
                 (RotateToArmMovement) BlockArm.HIGHEST, 50, 3);
         this.colorSensorBlocks = ColorSensor.get(4);
@@ -201,7 +201,7 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         setDrivingSpeed(Math.abs(speed));
         setTurningSpeed(Math.abs(speed));
 
-        if (speed >= 0) {
+       if (speed >= 0) {
             driveForward();
         } else {
             driveBackward();
@@ -226,14 +226,15 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
         // correct
 
 
-        if(getDistance() >= 5) {
-            double angle = Math.toDegrees(Math.atan(getDistance() / (11.8))) * (firstSide == 1 ? 1 : -1)
+        if(getDistance() >= 0.1) {
+            double angle = Math.toDegrees(Math.atan(getDistance() / 10)) * (firstSide == 1 ? -1 : 1)
                     * (speed >= 0 ? 1 : -1);
             System.out.println(getDistance() + " | " + angle);
             turn(angle);
         } else {
             stop();
         }
+
     }
 
     @Override

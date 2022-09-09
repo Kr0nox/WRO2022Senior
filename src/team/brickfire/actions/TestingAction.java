@@ -32,5 +32,6 @@ public class TestingAction extends BaseAction {
 
         Button.waitForAnyPress();
         blockArm.move(BlockArm.HIGHEST);
+        waterBottleArm.move(WaterBottleArm.START);
     }
 }

@@ -62,7 +62,8 @@ public class Side extends BaseAction {
          */
         private void doRoom() {
             alignTrigonometry(20);
-            drive(thingsOnLeft && east || !thingsOnLeft && !east ? 12.5 : 13, 100);
+            setDrivingSpeed(100, 100);
+            drive(thingsOnLeft && east || !thingsOnLeft && !east ? 12.5 : 12, 100);
 
             this.roomColor = colorSensorBlocks.getMappedColor(new RoomBlockColorMap(), 10);
 
@@ -76,7 +77,7 @@ public class Side extends BaseAction {
                 drive(10, 60, true);
                 while (getDistance() < 6);
                 blockArm.move(BlockArm.NUDGE);
-                setDrivingSpeed(60, 100);
+                setDrivingSpeed(100, 200);
                 drive(6.5);
                 blockArm.move(BlockArm.CLOSE);
                 laundryAction.scanBlock();
@@ -91,29 +92,26 @@ public class Side extends BaseAction {
         private void playGame() {
             // Collect Ball
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
-            drive(10, 75);
+            drive(9.25, 100);
             blockArm.move(BlockArm.BASKET);
             // Drop ball off
-            turnLeftWheel(82);
-            drive(14);
+            if (thingsOnLeft) {
+                turnLeftWheel(80);
+            } else {
+                turnRightWheel(92);
+            }
+            drive(14, 100);
             blockArm.move(BlockArm.DROP_BALL);
-            drive(-32);
-            turnLeftWheel(90);
-            drive(15);
-            alignTrigonometry(50);
-
-            /*
-            turn(thingsOnLeft ? -60 : 60);
-            drive(17.5, 100);
-            blockArm.move(BlockArm.DROP_BALL);
-            // TODO: Leave room
-            drive(-18.5, true);
             blockArm.move(BlockArm.MIDDLE, true);
-            while (isMoving());
-            turn(thingsOnLeft ? -109 : 110);
-            drive(28.5);
-            */
-
+            drive(-30);
+            System.out.println(thingsOnLeft);
+            if (thingsOnLeft) {
+                turnLeftWheel(88);
+            } else {
+                turnRightWheel(90);
+            }
+            setDrivingSpeed(100,100);
+            drive(29);
         }
     }
 }
