@@ -20,8 +20,6 @@ public final class LaundryAction extends BaseAction {
 
     // TODO: figure these two constants out
     private static final double BASKET_DISTANCE = 10.8;
-    // This is 0 if we can drop the blocks of while standing in front of the basket with the sensor
-    private static final double DIFFERENCE_TO_SLIDE_POSITION = -1;
 
     private static LaundryAction instance;
     private final Queue<Color> blocks;
@@ -67,7 +65,6 @@ public final class LaundryAction extends BaseAction {
      * @return The laundry basket the robot finishes this method in front of (0 = west; 1 = center; 2 = east)
      */
     public int deliverBlocks() {
-        // TODO: drive to first basket
 
         List<Color> allColors = Arrays.asList(Color.RED, Color.YELLOW, Color.BLACK);
         int currentBasket = 0;
@@ -77,17 +74,16 @@ public final class LaundryAction extends BaseAction {
             baskets[i] = colorSensorBaskets.getMappedColor(colorMap, 10);
             allColors.remove(baskets[i]);
 
+            if (blocks.poll() == baskets[i]) {
+                dropOffBlock();
+            }
+
             if (i < baskets.length - 2) {
                 drive(BASKET_DISTANCE);
                 currentBasket = i + 1;
             }
         }
         baskets[baskets.length - 1] = allColors.get(0);
-
-        // drop off first block and align to basket correctly
-        int distToFirstBasket = getDistanceToCorrectBasket(currentBasket);
-        drive(BASKET_DISTANCE * distToFirstBasket + DIFFERENCE_TO_SLIDE_POSITION * distToFirstBasket > 0 ? -1 : 1);
-        currentBasket += distToFirstBasket;
 
         // deliver remaining blocks
         while (!blocks.isEmpty()) {
