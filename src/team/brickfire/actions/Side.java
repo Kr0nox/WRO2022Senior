@@ -32,7 +32,7 @@ public class Side extends BaseAction {
      */
     public void doSide() {
         new Room(true).doRoom();
-        //new Room(false).doRoom();
+        new Room(false).doRoom();
     }
 
     /**

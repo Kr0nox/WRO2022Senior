@@ -27,8 +27,15 @@ public class TestingAction extends BaseAction {
      * <p>Gets executed</p>
      */
     public void test() {
+        waterBottleArm.move(WaterBottleArm.PICKUP);
+        Button.waitForAnyPress();
+        waterBottleArm.move(WaterBottleArm.OVER_TABLE);
+        Button.waitForAnyPress();
+        waterBottleArm.move(WaterBottleArm.TABLE);
+        Button.waitForAnyPress();
+        waterBottleArm.move(WaterBottleArm.PICKUP);
 
-        new Side(true).doSide();
+        //new Side(true).doSide();
 
         Button.waitForAnyPress();
         blockArm.move(BlockArm.HIGHEST);

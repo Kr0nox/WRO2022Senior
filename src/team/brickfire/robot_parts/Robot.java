@@ -65,8 +65,8 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
                 (RotateToArmMovement) WaterBottleArm.START, 40, 1);
         this.blockArm = BlockArm.create(new EV3MediumRegulatedMotor(MotorPort.D),
                 (RotateToArmMovement) BlockArm.HIGHEST, 50, 3);
-        this.colorSensorBlocks = ColorSensor.get(4);
-        this.colorSensorBaskets = ColorSensor.get(1);
+        this.colorSensorBlocks = ColorSensor.get(2);
+        this.colorSensorBaskets = ColorSensor.get(4);
     }
 
     /**

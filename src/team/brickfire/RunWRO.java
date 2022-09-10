@@ -25,8 +25,8 @@ public final class RunWRO {
         Sound.beep();
         //new AdjustArmAction(Button.ENTER).run();
         Button.waitForAnyPress();
-        new TestingAction().test();
-        //Main.getInstance().execute();
+        //new TestingAction().test();
+        Main.getInstance().execute();
     }
 }
 

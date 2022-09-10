@@ -3,6 +3,8 @@ package team.brickfire.actions;
 import team.brickfire.robot_parts.arms.BlockArm;
 import team.brickfire.robot_parts.arms.WaterBottleArm;
 
+import java.util.Arrays;
+
 /**
  * <p>Action for everything to do with Water Bottles</p>
  *
@@ -39,22 +41,28 @@ public final class WaterBottleAction extends BaseAction {
         boolean driveDeep = thingsOnLeft && !bottles[1] || !thingsOnLeft && bottles[0];
         bottles[driveDeep && thingsOnLeft || !driveDeep && !thingsOnLeft ? 0 : 1] = false;
         // Drive to table
+        System.out.println(driveDeep);
+        System.out.println(Arrays.toString(bottles));
         setDrivingSpeed(80, 120);
-        blockArm.move(BlockArm.NUDGE);
-        drive(driveDeep ? -25 : -18);
+        drive(driveDeep ? 19 : 14);
         while (getDistance() < 6);
-        blockArm.move(BlockArm.NUDGE);
         LaundryAction.getInstance().scanBlock();
         blockArm.move(BlockArm.HIGHEST);
-        turn(88);
-        drive(28, 100);
+        turn(thingsOnLeft ? 88 : -88);
+        blockArm.move(BlockArm.MIDDLE,true);
+        drive(-21, 100);
         // Drop off bottle
+        blockArm.move(BlockArm.LOWEST, true);
         waterBottleArm.move(WaterBottleArm.TABLE);
         // TODO: Leave room
-        drive(-26.5);
+        drive(22);
+        System.out.println("completed drive");
         waterBottleArm.move(WaterBottleArm.OVER_TABLE);
+        System.out.println("completed overtable");
+        blockArm.move(BlockArm.MIDDLE, true);
         turn(thingsOnLeft ? 90 : -90);
         // TODO: Different distance
-        drive(-23);
+        setDrivingSpeed(100,100);
+        drive(driveDeep ? 25.5 : 20.5);
     }
 }
