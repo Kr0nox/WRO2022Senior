@@ -2,12 +2,11 @@ package team.brickfire.actions;
 
 import team.brickfire.data.color.Color;
 import team.brickfire.data.color.ColorMap;
-import team.brickfire.data.color.LaundryColorMap;
+import team.brickfire.data.color.LaundryBasketColorMap;
 import team.brickfire.robot_parts.arms.WaterBottleArm;
 
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 /**
@@ -19,7 +18,7 @@ import java.util.Queue;
 public final class LaundryAction extends BaseAction {
 
     // TODO: figure these two constants out
-    private static final double BASKET_DISTANCE = 10.8;
+    private static final double BASKET_DISTANCE = 10.5;
 
     private static LaundryAction instance;
     private final Queue<Color> blocks;
@@ -33,7 +32,7 @@ public final class LaundryAction extends BaseAction {
         super();
         this.blocks = new LinkedList<>();
         baskets = new Color[]{Color.NO_COLOR, Color.NO_COLOR, Color.NO_COLOR};
-        colorMap = new LaundryColorMap();
+        colorMap = new LaundryBasketColorMap();
     }
 
     /**
@@ -53,9 +52,10 @@ public final class LaundryAction extends BaseAction {
      * @return True if there was a block, false otherwise
      */
     public boolean scanBlock() {
-        blocks.add(colorSensorBlocks.getMappedColor(colorMap, 10));
-        System.out.println(blocks.peek());
-        return blocks.peek() != Color.NONE_MATCHING && blocks.peek() != Color.NO_COLOR;
+        Color color = colorSensorBlocks.getMappedColor(colorMap, 10);
+        blocks.add(color);
+        System.out.println("Laundry block: " + color);
+        return color != Color.NONE_MATCHING && color != Color.NO_COLOR;
     }
 
     /**
@@ -65,16 +65,23 @@ public final class LaundryAction extends BaseAction {
      * @return The laundry basket the robot finishes this method in front of (0 = west; 1 = center; 2 = east)
      */
     public int deliverBlocks() {
+        setDrivingSpeed(100,200);
 
-        List<Color> allColors = Arrays.asList(Color.RED, Color.YELLOW, Color.BLACK);
+        System.out.println("Blocks stored: " + blocks);
+
+        Color[] allColors = new Color[]{Color.YELLOW, Color.RED, Color.BLACK};
         int currentBasket = 0;
 
         // Scan baskets
         for (int i = 0; i < baskets.length - 1; i++) {
             baskets[i] = colorSensorBaskets.getMappedColor(colorMap, 10);
-            allColors.remove(baskets[i]);
+            for (int j = 0; j < allColors.length; j++) {
+                if (baskets[i] == allColors[j]) {
+                    allColors[j] = Color.NO_COLOR;
+                }
+            }
 
-            if (blocks.poll() == baskets[i]) {
+            if (blocks.peek() == baskets[i]) {
                 dropOffBlock();
             }
 
@@ -83,8 +90,13 @@ public final class LaundryAction extends BaseAction {
                 currentBasket = i + 1;
             }
         }
-        baskets[baskets.length - 1] = allColors.get(0);
-
+        for (int j = 0; j < allColors.length; j++) {
+            if (allColors[j] != Color.NO_COLOR) {
+                baskets[baskets.length - 1] = allColors[j];
+                break;
+            }
+        }
+        System.out.println("Baskets scanned : " + Arrays.toString(baskets));
         // deliver remaining blocks
         while (!blocks.isEmpty()) {
             int dist = getDistanceToCorrectBasket(currentBasket);
@@ -92,12 +104,15 @@ public final class LaundryAction extends BaseAction {
             currentBasket += dist;
             dropOffBlock();
         }
+        drive(BASKET_DISTANCE * (2 - currentBasket));
+        currentBasket = 2;
         return currentBasket;
     }
 
     private void dropOffBlock() {
-        waterBottleArm.move(WaterBottleArm.DROP_BLOCK.chain(WaterBottleArm.ZERO));
+        waterBottleArm.move(WaterBottleArm.DROP_BLOCK);
         blocks.poll();
+        waterBottleArm.move(WaterBottleArm.ZERO);
     }
 
     private int getDistanceToCorrectBasket(int currentBasket) {
@@ -109,4 +124,7 @@ public final class LaundryAction extends BaseAction {
         return 0;
     }
 
+    public void addBlock(Color color) {
+        blocks.add(color);
+    }
 }

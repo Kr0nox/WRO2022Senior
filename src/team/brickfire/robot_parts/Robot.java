@@ -67,6 +67,9 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
                 (RotateToArmMovement) BlockArm.HIGHEST, 50, 3);
         this.colorSensorBlocks = ColorSensor.get(2);
         this.colorSensorBaskets = ColorSensor.get(4);
+
+        this.colorSensorLeft.getColor();
+        this.colorSensorRight.getColor();
     }
 
     /**
@@ -198,10 +201,12 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
     @Override
     public void alignTrigonometry(double speed) {
+        getDistance();
+        resetDistance();
         setDrivingSpeed(Math.abs(speed));
         setTurningSpeed(Math.abs(speed));
 
-       if (speed >= 0) {
+        if (speed >= 0) {
             driveForward();
         } else {
             driveBackward();
@@ -222,17 +227,16 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
                 firstSide = leftSeen ? 1:2 ;
             }
         }
+        double dist = getDistance();
+        stop();
 
-        // correct
+        //System.out.println("Distance: " + dist);
 
-
-        if(getDistance() >= 0.1) {
-            double angle = Math.toDegrees(Math.atan(getDistance() / 10)) * (firstSide == 1 ? -1 : 1)
+        if(dist >= 0.1) {
+            double angle = Math.toDegrees(Math.atan(dist / 10)) * (firstSide == 1 ? -1 : 1)
                     * (speed >= 0 ? 1 : -1);
-            System.out.println(getDistance() + " | " + angle);
+            //System.out.println("Angle: " + angle);
             turn(angle);
-        } else {
-            stop();
         }
 
     }

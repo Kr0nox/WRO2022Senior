@@ -169,7 +169,6 @@ public abstract class DrivingBase {
      * @param angle Angle the robot should rotate in degrees.
      */
     public void turnRightWheel(double angle) {
-        System.out.println("fucking richts");
         turnRightWheel(angle, false);
     }
 

@@ -38,31 +38,29 @@ public final class WaterBottleAction extends BaseAction {
      * @param thingsOnLeft Whether the table is on the left side of the room
      */
     public void deliverBottle(boolean thingsOnLeft) {
-        boolean driveDeep = thingsOnLeft && !bottles[1] || !thingsOnLeft && bottles[0];
-        bottles[driveDeep && thingsOnLeft || !driveDeep && !thingsOnLeft ? 0 : 1] = false;
+        boolean driveDeep = thingsOnLeft && !bottles[1] || !thingsOnLeft && !bottles[0];
+        bottles[thingsOnLeft && bottles[1] || !thingsOnLeft && !bottles[0] ? 1 : 0] = false;
         // Drive to table
-        System.out.println(driveDeep);
-        System.out.println(Arrays.toString(bottles));
-        setDrivingSpeed(80, 120);
-        drive(driveDeep ? 19 : 14);
-        while (getDistance() < 6);
+        setDrivingSpeed(80, 150);
+        drive(5.5);
+        blockArm.move(BlockArm.NUDGE);
+        drive(driveDeep ? 16 : 6);
         LaundryAction.getInstance().scanBlock();
-        blockArm.move(BlockArm.HIGHEST);
-        turn(thingsOnLeft ? 88 : -88);
+        blockArm.move(BlockArm.HIGHEST, true);
+        turn(thingsOnLeft ? 91 : -90);
         blockArm.move(BlockArm.MIDDLE,true);
-        drive(-21, 100);
+        setDrivingSpeed(100,200);
+        drive(-21);
         // Drop off bottle
         blockArm.move(BlockArm.LOWEST, true);
         waterBottleArm.move(WaterBottleArm.TABLE);
-        // TODO: Leave room
-        drive(22);
-        System.out.println("completed drive");
+        drive(10);
         waterBottleArm.move(WaterBottleArm.OVER_TABLE);
-        System.out.println("completed overtable");
+        // Leave room
+        drive(12);
+        turn(thingsOnLeft ? 91 : -87);
         blockArm.move(BlockArm.MIDDLE, true);
-        turn(thingsOnLeft ? 90 : -90);
-        // TODO: Different distance
-        setDrivingSpeed(100,100);
-        drive(driveDeep ? 25.5 : 20.5);
+        setDrivingSpeed(100,150);
+        drive(driveDeep ? 24 : 15);
     }
 }

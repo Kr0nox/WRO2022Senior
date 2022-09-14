@@ -59,7 +59,6 @@ public class CircuitDrive {
 
         Vector2D v1 = facing.getAsVector();
         Vector2D v2 = goalOrientation.getAsVector();
-        System.out.println(Vector2D.angle(v1, v2) * (v1.getX() * v2.getY() - v2.getX() * v1.getY()));
         robot.turn((Vector2D.angle(v1, v2)) * (v1.getX() * v2.getY() - v2.getX() * v1.getY()), TURNING_SPEED);
         facing = goalOrientation;
     }

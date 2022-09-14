@@ -96,7 +96,6 @@ class CircuitNetwork {
                                      CircuitOrientation startOrientation, CircuitOrientation endOrientation) {
         List<GraphNode[]> allPaths = getAllShortestPaths(getNodeFromIdentifier(startPosition), getNodeFromIdentifier(endPosition));
         GraphNode[] bestPath = getBestPath(allPaths, startOrientation.getAsVector(), endOrientation.getAsVector());
-        System.out.println(Arrays.toString(bestPath));
         return makeDrivablePath(bestPath);
     }
 

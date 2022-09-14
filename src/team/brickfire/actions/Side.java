@@ -62,24 +62,38 @@ public class Side extends BaseAction {
          */
         private void doRoom() {
             alignTrigonometry(20);
-            setDrivingSpeed(100, 100);
-            drive(thingsOnLeft && east || !thingsOnLeft && !east ? 12.5 : 12, 100);
+            setDrivingSpeed(100, 150);
+            if (east) {
+                if (thingsOnLeft) {
+                    // green
+                    drive(12.8);
+                } else {
+                    // red
+                    drive(11.8);
+                }
+            } else {
+                if (thingsOnLeft) {
+                    // yellow
+                    drive(13);
+                } else {
+                    // blue
+                    drive(12.5);
+                }
+            }
 
             this.roomColor = colorSensorBlocks.getMappedColor(new RoomBlockColorMap(), 10);
 
-            System.out.println(roomColor);
+            System.out.println("Room color: " + roomColor);
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
 
 
             if (roomColor == Color.WHITE) {
                 waterBottleAction.deliverBottle(thingsOnLeft);
             } else {
-                drive(10, 60, true);
-                while (getDistance() < 6);
+                drive(9.5, 60, true);
                 blockArm.move(BlockArm.NUDGE);
-                setDrivingSpeed(100, 200);
+                setDrivingSpeed(80, 150);
                 drive(6.5);
-                blockArm.move(BlockArm.CLOSE);
                 laundryAction.scanBlock();
                 blockArm.move(BlockArm.HIGHEST);
                 playGame();
@@ -90,25 +104,26 @@ public class Side extends BaseAction {
          * <p>Plays the game</p>
          */
         private void playGame() {
+            setDrivingSpeed(100, 200);
             // Collect Ball
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
-            drive(9.25, 100);
+            drive(10);
             blockArm.move(BlockArm.BASKET);
             // Drop ball off
             if (thingsOnLeft) {
                 turnLeftWheel(80);
             } else {
-                turnRightWheel(92);
+                turnRightWheel(85);
             }
-            drive(14, 100);
+            drive(15);
             blockArm.move(BlockArm.DROP_BALL);
             blockArm.move(BlockArm.MIDDLE, true);
-            drive(-30);
-            System.out.println(thingsOnLeft);
+            //drive back
+            drive(-32);
             if (thingsOnLeft) {
-                turnLeftWheel(88);
+                turnLeftWheel(90);
             } else {
-                turnRightWheel(90);
+                turnRightWheel(92);
             }
             setDrivingSpeed(100,100);
             drive(29);

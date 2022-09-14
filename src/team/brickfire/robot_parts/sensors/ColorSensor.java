@@ -84,7 +84,7 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
         for (int i = 0; i < colors.length; i++) {
             colors[i] = getColor();
         }
-        System.out.println(Arrays.toString(colors));
+        //System.out.println(Arrays.toString(colors));
 
         return colorMap.getPrioritisedValueBySum(colorMap.mappedValues(colorMap.repeatByPriority(colors)));
     }

@@ -40,18 +40,20 @@ public class Main extends BaseAction {
      * <p>Executes the main action</p>
      */
     public void execute() {
-        //collect bottles
-        /*waterBottleArm.move(WaterBottleArm.PICKUP,true);
-        setDrivingSpeed(50,80);
+        // collect bottles
+        waterBottleArm.move(WaterBottleArm.PICKUP,true);
+        setDrivingSpeed(50,100);
         setTurningSpeed(50,100);
         drive(-6.5);
         turn(-42);
         drive(-26.5);
         waterBottleArm.move(WaterBottleArm.OVER_TABLE);
 
-        turnRightWheel(-62);
-        drive(87,100);
-        turnLeftWheel(-70);
+        // drive to side
+        turnRightWheel(-63);
+        setDrivingSpeed(100, 250);
+        drive(87);
+        turnLeftWheel(-65);
 
 
         new Side(true).doSide();
@@ -59,30 +61,44 @@ public class Main extends BaseAction {
 
         // Switch Sides
         alignTrigonometry(20);
-        turnRightWheel(92.5);
-        drive(128, 100);
+        turnRightWheel(88);
+        setDrivingSpeed(100, 250);
+        drive(17);
         alignTrigonometry(20);
-        drive(9,80);
+        turn(5);
+        setDrivingSpeed(100, 200);
+        drive(105);
+        alignTrigonometry(20);
+        setDrivingSpeed(80, 150);
+        drive(9);
         turnLeftWheel(-87);
 
-        new Side(false).doSide();*/
 
+        new Side(false).doSide();
 
-        alignTrigonometry(20);
+        // drive to laundry baskets
+        alignTrigonometry(30);
         setDrivingSpeed(100,200);
         turn(88,100);
-        drive(65);
+        drive(20);
+        alignTrigonometry(20);
+        setDrivingSpeed(100,200);
+        drive(33);
         turn(90);
         drive(27);
         alignTrigonometry(20);
-        drive(-6,50);
+        setDrivingSpeed(50, 120);
+        drive(-2.5);
         turn(-88,30);
-        drive(-4.5);
+        drive(-4);
 
-        // TODO: drive to base
+        LaundryAction.getInstance().deliverBlocks();
 
-        Button.waitForAnyPress();
-        waterBottleArm.move(WaterBottleArm.START);
+        // drive to base
+        turnLeftWheel(122);
+        drive(24.5, 100);
+
+        waterBottleArm.move(WaterBottleArm.START,true);
         blockArm.move(BlockArm.HIGHEST);
     }
 
