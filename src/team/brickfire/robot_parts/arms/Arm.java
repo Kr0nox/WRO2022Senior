@@ -3,6 +3,11 @@ package team.brickfire.robot_parts.arms;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import team.brickfire.robot_parts.base.SpeedUtility;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * <p>Represents a Motor that does stuff on the robot</p>
  *
@@ -26,8 +31,8 @@ public class Arm {
      * @param accelerationFactor How many times the speed, is the acceleration
      */
     protected Arm(BaseRegulatedMotor motor, RotateToArmMovement startPosition, double speed, double accelerationFactor) {
-        this.startPosition = startPosition;
         this.motor = motor;
+        this.startPosition = readPosition(startPosition);
         SpeedUtility.setMotorSpeed(motor, Math.abs(speed), Math.abs(speed) * accelerationFactor);
         this.accelerationFactor = accelerationFactor;
         this.standardSpeed = speed;
@@ -40,6 +45,7 @@ public class Arm {
      */
     public void move(ArmMovement goal, boolean immediateReturn) {
         goal.execute(this, immediateReturn);
+        writePosition();
     }
 
     /**
@@ -48,6 +54,7 @@ public class Arm {
      */
     public void move(ArmMovement goal) {
         goal.execute(this, false);
+        writePosition();
     }
 
     /**
@@ -96,5 +103,31 @@ public class Arm {
      */
     double getStandardSpeed() {
         return standardSpeed;
+    }
+
+    private RotateToArmMovement readPosition(RotateToArmMovement defaultPos) {
+        try {
+            FileReader fr = new FileReader(this.getClass().getName() + ".arm");
+
+            int ch = 0;
+            String out = "";
+            while ((ch = fr.read()) != -1) {
+                out += (char)ch;
+            }
+            fr.close();
+            return new RotateToArmMovement(Integer.parseInt(out));
+        } catch (Exception e) {
+            return defaultPos;
+        }
+    }
+
+    private void writePosition() {
+        try {
+            FileWriter fw = new FileWriter(this.getClass().getName() + ".arm");
+            fw.write((startPosition.distance + motor.getTachoCount()) + "");
+            fw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
