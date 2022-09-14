@@ -4,6 +4,7 @@ import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3ColorSensor;
 import team.brickfire.data.color.Color;
 import team.brickfire.data.color.ColorMap;
+import team.brickfire.data.color.MultiColor;
 
 import java.util.Arrays;
 
@@ -79,13 +80,12 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
      * @param n Number of tries of getting color
      * @return The mapped color
      */
-    public Color getMappedColor(ColorMap colorMap, int n) {
+    public MultiColor multiColor(int n) {
         Color[] colors = new Color[n];
         for (int i = 0; i < colors.length; i++) {
             colors[i] = getColor();
         }
-        //System.out.println(Arrays.toString(colors));
 
-        return colorMap.getPrioritisedValueBySum(colorMap.mappedValues(colorMap.repeatByPriority(colors)));
+        return new MultiColor(colors);
     }
 }

@@ -4,6 +4,7 @@ import lejos.hardware.Button;
 import team.brickfire.actions.circuit_drive.CircuitDrive;
 import team.brickfire.actions.circuit_drive.CircuitOrientation;
 import team.brickfire.actions.circuit_drive.CircuitPosition;
+import team.brickfire.data.color.Color;
 import team.brickfire.robot_parts.arms.ArmMovement;
 import team.brickfire.robot_parts.arms.BlockArm;
 import team.brickfire.robot_parts.arms.WaterBottleArm;

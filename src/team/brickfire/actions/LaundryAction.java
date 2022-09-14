@@ -3,11 +3,10 @@ package team.brickfire.actions;
 import team.brickfire.data.color.Color;
 import team.brickfire.data.color.ColorMap;
 import team.brickfire.data.color.LaundryBasketColorMap;
+import team.brickfire.data.color.MultiColor;
 import team.brickfire.robot_parts.arms.WaterBottleArm;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * <p>Action for everything to do with laundry blocks</p>
@@ -21,16 +20,18 @@ public final class LaundryAction extends BaseAction {
     private static final double BASKET_DISTANCE = 10.5;
 
     private static LaundryAction instance;
-    private final Queue<Color> blocks;
+    private final List<MultiColor> blockScans;
     private final Color[] baskets;
     private final ColorMap colorMap;
+
+    private Queue<Color> blocks;
 
     /**
      * <p>Creates a new LaundryBlockAction</p>
      */
     private LaundryAction() {
         super();
-        this.blocks = new LinkedList<>();
+        this.blockScans = new ArrayList<>();
         baskets = new Color[]{Color.NO_COLOR, Color.NO_COLOR, Color.NO_COLOR};
         colorMap = new LaundryBasketColorMap();
     }
@@ -52,10 +53,10 @@ public final class LaundryAction extends BaseAction {
      * @return True if there was a block, false otherwise
      */
     public boolean scanBlock() {
-        Color color = colorSensorBlocks.getMappedColor(colorMap, 10);
-        blocks.add(color);
-        System.out.println("Laundry block: " + color);
-        return color != Color.NONE_MATCHING && color != Color.NO_COLOR;
+        MultiColor color = colorSensorBlocks.multiColor(10);
+        blockScans.add(color);
+        System.out.println("Laundry block: " + color.getColor(colorMap));
+        return color.getColor(colorMap) != Color.NONE_MATCHING && color.getColor(colorMap) != Color.NO_COLOR;
     }
 
     /**
@@ -66,7 +67,7 @@ public final class LaundryAction extends BaseAction {
      */
     public int deliverBlocks() {
         setDrivingSpeed(100,200);
-
+        blocks = evaluateLaundryBlocks();
         System.out.println("Blocks stored: " + blocks);
 
         Color[] allColors = new Color[]{Color.YELLOW, Color.RED, Color.BLACK};
@@ -74,7 +75,7 @@ public final class LaundryAction extends BaseAction {
 
         // Scan baskets
         for (int i = 0; i < baskets.length - 1; i++) {
-            baskets[i] = colorSensorBaskets.getMappedColor(colorMap, 10);
+            baskets[i] = colorSensorBaskets.multiColor(10).getColor(colorMap);
             for (int j = 0; j < allColors.length; j++) {
                 if (baskets[i] == allColors[j]) {
                     allColors[j] = Color.NO_COLOR;
@@ -90,9 +91,9 @@ public final class LaundryAction extends BaseAction {
                 currentBasket = i + 1;
             }
         }
-        for (int j = 0; j < allColors.length; j++) {
-            if (allColors[j] != Color.NO_COLOR) {
-                baskets[baskets.length - 1] = allColors[j];
+        for (Color allColor : allColors) {
+            if (allColor != Color.NO_COLOR) {
+                baskets[baskets.length - 1] = allColor;
                 break;
             }
         }
@@ -124,7 +125,90 @@ public final class LaundryAction extends BaseAction {
         return 0;
     }
 
-    public void addBlock(Color color) {
-        blocks.add(color);
+
+    public Queue<Color> evaluateLaundryBlocks() {
+        Color[] allColors = new Color[]{Color.YELLOW, Color.RED, Color.BLACK};
+        List<Color> foundColors = new ArrayList<>();
+
+        for (MultiColor color : blockScans) {
+            Color c = color.getColor(colorMap);
+            if (c != Color.NONE_MATCHING && c != Color.NO_COLOR) {
+                foundColors.add(c);
+            }
+        }
+        if (validList(foundColors, allColors)) {
+            return new LinkedList<>(foundColors);
+        }
+
+        foundColors = new ArrayList<>();
+        for (MultiColor color : blockScans) {
+            foundColors.add(Color.NONE_MATCHING);
+        }
+
+        double[][] percentages = new double[allColors.length][blockScans.size()];
+        for (int i = 0; i < allColors.length; i++) {
+            for (int j = 0; j < blockScans.size(); j++) {
+                percentages[i][j] = blockScans.get(j).colorPercent(colorMap, allColors[i]);
+            }
+        }
+
+        System.out.println("here");
+        for (int i = 0; i < allColors.length; i++) {
+            double max = -1;
+            int maxIndex = -1;
+            do {
+                if (maxIndex != -1) {
+                    percentages[i][maxIndex] = -1;
+                }
+                maxIndex = -1;
+                max = -1;
+                for (int j = 0; j < blockScans.size(); j++) {
+                    if (percentages[i][j] > max) {
+                        max = percentages[i][j];
+                        maxIndex = j;
+                    }
+                }
+            } while (foundColors.get(maxIndex) != Color.NONE_MATCHING);
+
+            foundColors.set(maxIndex, allColors[i]);
+        }
+
+        List<Color> returnQ = new ArrayList<>();
+        for (Color c : foundColors) {
+            if (c != Color.NONE_MATCHING && c != Color.NO_COLOR) {
+                returnQ.add(c);
+            }
+        }
+        if (validList(returnQ, allColors)) {
+            return new LinkedList<>(returnQ);
+        }
+
+        returnQ.clear();
+
+        for (MultiColor c : blockScans) {
+            Color color = c.getColor(colorMap);
+            if (color != Color.NONE_MATCHING && color != Color.NO_COLOR) {
+                returnQ.add(color);
+            }
+        }
+        return new LinkedList<>(returnQ);
+    }
+
+    private boolean validList(List<Color> list, Color[] allColors) {
+        if (list.size() != allColors.length) {
+            return false;
+        }
+        boolean error = false;
+        for (Color color : allColors) {
+            if (!list.contains(color)) {
+                error = true;
+                break;
+            }
+        }
+        return !error;
+    }
+
+    public void addBlockScan(MultiColor color) {
+        blockScans.add(color);
     }
 }

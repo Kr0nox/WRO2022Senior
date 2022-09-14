@@ -81,7 +81,7 @@ public class Side extends BaseAction {
                 }
             }
 
-            this.roomColor = colorSensorBlocks.getMappedColor(new RoomBlockColorMap(), 10);
+            this.roomColor = colorSensorBlocks.multiColor(10).getColor(new RoomBlockColorMap());
 
             System.out.println("Room color: " + roomColor);
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
