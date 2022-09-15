@@ -1,10 +1,12 @@
 package team.brickfire.robot_parts;
 
+import lejos.hardware.Button;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
+import lejos.utility.Delay;
 import team.brickfire.robot_parts.arms.BlockArm;
 import team.brickfire.robot_parts.arms.RotateToArmMovement;
 import team.brickfire.robot_parts.arms.WaterBottleArm;
@@ -14,6 +16,8 @@ import team.brickfire.robot_parts.base.CompetitionFeatures;
 import team.brickfire.robot_parts.base.DrivingBase;
 import team.brickfire.robot_parts.custom_lejos.CustomMovePilot;
 import team.brickfire.robot_parts.sensors.ColorSensor;
+
+import java.util.Arrays;
 
 /**
  * <p>Represents the robot. <br>
@@ -110,7 +114,6 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
         return instance;
     }
-
 
 
     @Override

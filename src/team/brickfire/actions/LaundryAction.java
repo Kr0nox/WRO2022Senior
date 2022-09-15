@@ -3,7 +3,7 @@ package team.brickfire.actions;
 import team.brickfire.data.color.Color;
 import team.brickfire.data.color.ColorMap;
 import team.brickfire.data.color.LaundryBasketColorMap;
-import team.brickfire.data.color.MultiColor;
+import team.brickfire.data.color.AdvancedColor;
 import team.brickfire.robot_parts.arms.WaterBottleArm;
 
 import java.util.*;
@@ -20,7 +20,7 @@ public final class LaundryAction extends BaseAction {
     private static final double BASKET_DISTANCE = 10.5;
 
     private static LaundryAction instance;
-    private final List<MultiColor> blockScans;
+    private final List<AdvancedColor> blockScans;
     private final Color[] baskets;
     private final ColorMap colorMap;
 
@@ -52,11 +52,10 @@ public final class LaundryAction extends BaseAction {
      * <p>Scans the block under the sensor</p>
      * @return True if there was a block, false otherwise
      */
-    public boolean scanBlock() {
-        MultiColor color = colorSensorBlocks.multiColor(10);
-        blockScans.add(color);
-        System.out.println("Laundry block: " + color.getColor(colorMap));
-        return color.getColor(colorMap) != Color.NONE_MATCHING && color.getColor(colorMap) != Color.NO_COLOR;
+    public void enterScan(AdvancedColor prev) {
+        prev.getErrorValues(colorSensorBlocks, colorMap);
+        blockScans.add(prev);
+        System.out.println("Laundry block: " + prev.getErrorColor());
     }
 
     /**
@@ -75,7 +74,7 @@ public final class LaundryAction extends BaseAction {
 
         // Scan baskets
         for (int i = 0; i < baskets.length - 1; i++) {
-            baskets[i] = colorSensorBaskets.multiColor(10).getColor(colorMap);
+            baskets[i] = colorSensorBaskets.getColor(colorMap, 10);
             for (int j = 0; j < allColors.length; j++) {
                 if (baskets[i] == allColors[j]) {
                     allColors[j] = Color.NO_COLOR;
@@ -130,8 +129,8 @@ public final class LaundryAction extends BaseAction {
         Color[] allColors = new Color[]{Color.YELLOW, Color.RED, Color.BLACK};
         List<Color> foundColors = new ArrayList<>();
 
-        for (MultiColor color : blockScans) {
-            Color c = color.getColor(colorMap);
+        for (AdvancedColor color : blockScans) {
+            Color c = color.getErrorColor();
             if (c != Color.NONE_MATCHING && c != Color.NO_COLOR) {
                 foundColors.add(c);
             }
@@ -141,57 +140,35 @@ public final class LaundryAction extends BaseAction {
         }
 
         foundColors = new ArrayList<>();
-        for (MultiColor color : blockScans) {
-            foundColors.add(Color.NONE_MATCHING);
-        }
 
-        double[][] percentages = new double[allColors.length][blockScans.size()];
-        for (int i = 0; i < allColors.length; i++) {
-            for (int j = 0; j < blockScans.size(); j++) {
-                percentages[i][j] = blockScans.get(j).colorPercent(colorMap, allColors[i]);
+        double minError = Double.MAX_VALUE;
+        double minErrorIndex = -1;
+        for (int i = 0; i < blockScans.size(); i++) {
+            if (blockScans.get(i).error() < minError) {
+                minError = blockScans.get(i).error();
+                minErrorIndex = i;
             }
         }
 
-        System.out.println("here");
-        for (int i = 0; i < allColors.length; i++) {
-            double max = -1;
-            int maxIndex = -1;
-            do {
-                if (maxIndex != -1) {
-                    percentages[i][maxIndex] = -1;
-                }
-                maxIndex = -1;
-                max = -1;
-                for (int j = 0; j < blockScans.size(); j++) {
-                    if (percentages[i][j] > max) {
-                        max = percentages[i][j];
-                        maxIndex = j;
-                    }
-                }
-            } while (foundColors.get(maxIndex) != Color.NONE_MATCHING);
-
-            foundColors.set(maxIndex, allColors[i]);
-        }
-
-        List<Color> returnQ = new ArrayList<>();
-        for (Color c : foundColors) {
-            if (c != Color.NONE_MATCHING && c != Color.NO_COLOR) {
-                returnQ.add(c);
+        for (int i = 0; i < blockScans.size(); i++) {
+            if (i != minErrorIndex) {
+                foundColors.add(blockScans.get(i).getErrorColor());
             }
         }
-        if (validList(returnQ, allColors)) {
-            return new LinkedList<>(returnQ);
+
+        if (validList(foundColors, allColors)) {
+            return new LinkedList<>(foundColors);
         }
 
-        returnQ.clear();
+        foundColors = new ArrayList<>();
 
-        for (MultiColor c : blockScans) {
-            Color color = c.getColor(colorMap);
+        for (AdvancedColor c : blockScans) {
+            Color color = c.getErrorColor();
             if (color != Color.NONE_MATCHING && color != Color.NO_COLOR) {
-                returnQ.add(color);
+                foundColors.add(color);
             }
         }
-        return new LinkedList<>(returnQ);
+        return new LinkedList<>(foundColors);
     }
 
     private boolean validList(List<Color> list, Color[] allColors) {
@@ -208,7 +185,7 @@ public final class LaundryAction extends BaseAction {
         return !error;
     }
 
-    public void addBlockScan(MultiColor color) {
+    public void addBlockScan(AdvancedColor color) {
         blockScans.add(color);
     }
 }

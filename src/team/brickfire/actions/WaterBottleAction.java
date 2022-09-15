@@ -1,9 +1,12 @@
 package team.brickfire.actions;
 
+import lejos.utility.Delay;
+import team.brickfire.data.color.AdvancedColor;
+import team.brickfire.data.color.LaundryBlockColorMap;
 import team.brickfire.robot_parts.arms.BlockArm;
 import team.brickfire.robot_parts.arms.WaterBottleArm;
 
-import java.util.Arrays;
+import java.util.concurrent.Delayed;
 
 /**
  * <p>Action for everything to do with Water Bottles</p>
@@ -45,8 +48,10 @@ public final class WaterBottleAction extends BaseAction {
         drive(5.5);
         blockArm.move(BlockArm.NUDGE);
         drive(driveDeep ? 16 : 6);
-        LaundryAction.getInstance().scanBlock();
+        AdvancedColor c = new AdvancedColor(colorSensorBlocks, new LaundryBlockColorMap());
         blockArm.move(BlockArm.HIGHEST, true);
+        Delay.msDelay(200);
+        LaundryAction.getInstance().enterScan(c);
         turn(thingsOnLeft ? 91 : -90);
         blockArm.move(BlockArm.MIDDLE,true);
         setDrivingSpeed(100,200);

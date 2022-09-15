@@ -1,8 +1,8 @@
 package team.brickfire.actions;
 
-import lejos.hardware.Button;
-import lejos.utility.Delay;
+import team.brickfire.data.color.AdvancedColor;
 import team.brickfire.data.color.Color;
+import team.brickfire.data.color.LaundryBlockColorMap;
 import team.brickfire.data.color.RoomBlockColorMap;
 import team.brickfire.robot_parts.arms.BlockArm;
 
@@ -81,7 +81,7 @@ public class Side extends BaseAction {
                 }
             }
 
-            this.roomColor = colorSensorBlocks.multiColor(10).getColor(new RoomBlockColorMap());
+            this.roomColor = colorSensorBlocks.getColor(new RoomBlockColorMap(), 10);
 
             System.out.println("Room color: " + roomColor);
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
@@ -94,8 +94,9 @@ public class Side extends BaseAction {
                 blockArm.move(BlockArm.NUDGE);
                 setDrivingSpeed(80, 150);
                 drive(6.5);
-                laundryAction.scanBlock();
+                AdvancedColor c = new AdvancedColor(colorSensorBlocks, new LaundryBlockColorMap());
                 blockArm.move(BlockArm.HIGHEST);
+                laundryAction.enterScan(c);
                 playGame();
             }
         }
