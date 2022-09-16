@@ -1,12 +1,10 @@
 package team.brickfire.robot_parts;
 
-import lejos.hardware.Button;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
-import lejos.utility.Delay;
 import team.brickfire.robot_parts.arms.BlockArm;
 import team.brickfire.robot_parts.arms.RotateToArmMovement;
 import team.brickfire.robot_parts.arms.WaterBottleArm;
@@ -16,8 +14,6 @@ import team.brickfire.robot_parts.base.CompetitionFeatures;
 import team.brickfire.robot_parts.base.DrivingBase;
 import team.brickfire.robot_parts.custom_lejos.CustomMovePilot;
 import team.brickfire.robot_parts.sensors.ColorSensor;
-
-import java.util.Arrays;
 
 /**
  * <p>Represents the robot. <br>
@@ -227,18 +223,17 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
             if ((leftSeen || rightSeen) && firstSide == 0) {
                 setDrivingSpeed(Math.abs(speed) / 2);
                 resetDistance();
-                firstSide = leftSeen ? 1:2 ;
+                firstSide = leftSeen ? 1 : 2;
             }
         }
         double dist = getDistance();
         stop();
 
-        //System.out.println("Distance: " + dist);
+        System.out.println("Distance: " + dist);
 
-        if(dist >= 0.05) {
+        if (dist >= 0.05) {
             double angle = Math.toDegrees(Math.atan(dist / 10)) * (firstSide == 1 ? -1 : 1)
                     * (speed >= 0 ? 1 : -1);
-            //System.out.println("Angle: " + angle);
             turn(angle);
         }
 

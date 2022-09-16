@@ -4,7 +4,6 @@ import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3ColorSensor;
 import team.brickfire.data.color.Color;
 import team.brickfire.data.color.ColorMap;
-import team.brickfire.data.color.AdvancedColor;
 
 /**
  * <p>Implementation of an {@link lejos.hardware.sensor.EV3ColorSensor EV3ColorSensor}</p>
@@ -87,6 +86,11 @@ public class ColorSensor extends Sensor<EV3ColorSensor> {
         return colorMap.getPrioritisedValueBySum(colorMap.mappedValues(colorMap.repeatByPriority(colors)));
     }
 
+    /**
+     * <p>Scans the rgb values</p>
+     *
+     * @return RGB color, each value reaching from 0-1
+     */
     public float[] getRGB() {
         float[] value = {0, 0, 0};
         sensor.getRGBMode().fetchSample(value, 0);

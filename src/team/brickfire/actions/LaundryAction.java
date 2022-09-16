@@ -50,22 +50,22 @@ public final class LaundryAction extends BaseAction {
 
     /**
      * <p>Scans the block under the sensor</p>
-     * @return True if there was a block, false otherwise
+     *
+     * @param prev The before already entered scan
      */
     public void enterScan(AdvancedColor prev) {
-        prev.getErrorValues(colorSensorBlocks, colorMap);
+        prev.setErrorValues(colorSensorBlocks, colorMap);
         blockScans.add(prev);
         System.out.println("Laundry block: " + prev.getColor());
     }
 
     /**
      * <p>Puts the laundry blocks into the correct baskets</p>
-     * <p>Starting position is {@link team.brickfire.actions.circuit_drive.CircuitPosition South-West}
-     * facing {@link team.brickfire.actions.circuit_drive.CircuitOrientation South}</p>
+     * <p>Starting position is in front of the first east basket</p>
      * @return The laundry basket the robot finishes this method in front of (0 = west; 1 = center; 2 = east)
      */
     public int deliverBlocks() {
-        setDrivingSpeed(100,200);
+        setDrivingSpeed(100, 200);
         blocks = evaluateLaundryBlocks();
         System.out.println("Blocks stored: " + blocks);
 
@@ -97,6 +97,7 @@ public final class LaundryAction extends BaseAction {
             }
         }
         System.out.println("Baskets scanned : " + Arrays.toString(baskets));
+
         // deliver remaining blocks
         while (!blocks.isEmpty()) {
             int dist = getDistanceToCorrectBasket(currentBasket);
@@ -125,11 +126,12 @@ public final class LaundryAction extends BaseAction {
     }
 
 
-    public Queue<Color> evaluateLaundryBlocks() {
-        System.out.println("Pre eval: " + blockScans);
+    private Queue<Color> evaluateLaundryBlocks() {
+        System.out.println("\n Pre eval: " + blockScans);
         Color[] allColors = new Color[]{Color.YELLOW, Color.RED, Color.BLACK};
         List<Color> foundColors = new ArrayList<>();
 
+        // if by any chance we actually only scanned 3 blocks and the last was something different
         for (AdvancedColor color : blockScans) {
             Color c = color.getColor();
             if (c != Color.NONE_MATCHING && c != Color.NO_COLOR) {
@@ -140,22 +142,43 @@ public final class LaundryAction extends BaseAction {
             return new LinkedList<>(foundColors);
         }
 
+        // Throw out blocks with the smallest error, till only one block remains
+        // The Smallest error ==> Most likely to have seen the floor in both scans
+        ArrayList<AdvancedColor> nonErrorColors;
+        int blackCount, redCount, yellowCount;
+        do {
+            double minError = Double.MAX_VALUE;
+            double minErrorIndex = -1;
+            for (int i = 0; i < blockScans.size(); i++) {
+                if (blockScans.get(i).error() < minError) {
+                    minError = blockScans.get(i).error();
+                    minErrorIndex = i;
+                }
+            }
+
+            nonErrorColors = new ArrayList<>();
+            blackCount = 0;
+            redCount = 0;
+            yellowCount = 0;
+            for (int i = 0; i < blockScans.size(); i++) {
+                if (i != minErrorIndex) {
+                    nonErrorColors.add(blockScans.get(i));
+                    if (blockScans.get(i).getColor() == Color.BLACK) {
+                        blackCount++;
+                    }
+                    if (blockScans.get(i).getColor() == Color.RED) {
+                        redCount++;
+                    }
+                    if (blockScans.get(i).getColor() == Color.YELLOW) {
+                        yellowCount++;
+                    }
+                }
+            }
+        } while (blackCount > 1 || redCount > 1 || yellowCount > 1);
+
         foundColors = new ArrayList<>();
-
-        double minError = Double.MAX_VALUE;
-        double minErrorIndex = -1;
-        for (int i = 0; i < blockScans.size(); i++) {
-            System.out.println("Error: " + blockScans.get(i).error());
-            if (blockScans.get(i).error() < minError) {
-                minError = blockScans.get(i).error();
-                minErrorIndex = i;
-            }
-        }
-
-        for (int i = 0; i < blockScans.size(); i++) {
-            if (i != minErrorIndex) {
-                foundColors.add(blockScans.get(i).getColor());
-            }
+        for (AdvancedColor nonErrorColor : nonErrorColors) {
+            foundColors.add(nonErrorColor.getColor());
         }
 
         return new LinkedList<>(foundColors);
@@ -163,7 +186,7 @@ public final class LaundryAction extends BaseAction {
     }
 
     private boolean validList(List<Color> list, Color[] allColors) {
-        if (list.size() != allColors.length) {
+        if (list.size() <= allColors.length) {
             return false;
         }
         boolean error = false;
@@ -174,9 +197,5 @@ public final class LaundryAction extends BaseAction {
             }
         }
         return !error;
-    }
-
-    public void addBlockScan(AdvancedColor color) {
-        blockScans.add(color);
     }
 }

@@ -85,20 +85,13 @@ public class Side extends BaseAction {
 
             this.roomColor = colorSensorBlocks.getColor(new RoomBlockColorMap(), 10);
 
-            System.out.println("Room color: " + roomColor);
+            System.out.println("\n Room color: " + roomColor);
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
 
 
             if (roomColor == Color.WHITE) {
                 waterBottleAction.deliverBottle(thingsOnLeft);
             } else {
-                drive(5.5, 60);
-                blockArm.move(BlockArm.NUDGE);
-                setDrivingSpeed(80, 150);
-                drive(11.5);
-                AdvancedColor c = new AdvancedColor(colorSensorBlocks, new LaundryBlockColorMap());
-                blockArm.move(BlockArm.HIGHEST);
-                laundryAction.enterScan(c);
                 playGame();
             }
         }
@@ -107,11 +100,21 @@ public class Side extends BaseAction {
          * <p>Plays the game</p>
          */
         private void playGame() {
-            setDrivingSpeed(100, 200);
+            // Pick up ball
+            drive(5.5, 60);
+            blockArm.move(BlockArm.NUDGE);
+            setDrivingSpeed(80, 150);
+            drive(11.5);
+            AdvancedColor c = new AdvancedColor(colorSensorBlocks, new LaundryBlockColorMap());
+            blockArm.move(BlockArm.HIGHEST);
+            laundryAction.enterScan(c);
+
             // Collect Ball
+            setDrivingSpeed(100, 200);
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
             drive(9);
             blockArm.move(BlockArm.BASKET);
+
             // Drop ball off
             if (thingsOnLeft) {
                 turnLeftWheel(80);
@@ -121,10 +124,11 @@ public class Side extends BaseAction {
             drive(15);
             blockArm.move(BlockArm.DROP_BALL);
             blockArm.move(BlockArm.MIDDLE, true);
+
             //drive back
             drive(-10);
             setTurningSpeed(100, 150);
-            turn (thingsOnLeft ? -110 : 110);
+            turn(thingsOnLeft ? -110 : 110);
             setDrivingSpeed(100, 200);
             drive(41);
             turn(thingsOnLeft ? 20 : -18);
