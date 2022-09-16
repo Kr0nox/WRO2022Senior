@@ -235,7 +235,7 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
         //System.out.println("Distance: " + dist);
 
-        if(dist >= 0.1) {
+        if(dist >= 0.05) {
             double angle = Math.toDegrees(Math.atan(dist / 10)) * (firstSide == 1 ? -1 : 1)
                     * (speed >= 0 ? 1 : -1);
             //System.out.println("Angle: " + angle);

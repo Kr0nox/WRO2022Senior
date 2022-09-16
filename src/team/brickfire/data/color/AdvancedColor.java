@@ -2,8 +2,6 @@ package team.brickfire.data.color;
 
 import team.brickfire.robot_parts.sensors.ColorSensor;
 
-import java.util.Arrays;
-
 public class AdvancedColor {
 
     private final Color color;
@@ -26,8 +24,8 @@ public class AdvancedColor {
         errorRGB = sensor.getRGB();
     }
 
-    public Color getErrorColor() {
-        return errorColor;
+    public Color getColor() {
+        return color;
     }
 
     public double error() {
@@ -40,5 +38,10 @@ public class AdvancedColor {
             error += Math.abs(rgb[i] - errorRGB[i]);
         }
         return Math.abs(error);
+    }
+
+    @Override
+    public String toString() {
+        return color.name();
     }
 }

@@ -20,6 +20,8 @@ public class Side extends BaseAction {
 
     /**
      * <p>Creates a new Side object</p>
+     *
+     * @param east Whether the side is on the east side of the playing field
      */
     public Side(boolean east) {
         this.east = east;
@@ -69,15 +71,15 @@ public class Side extends BaseAction {
                     drive(12.8);
                 } else {
                     // red
-                    drive(11.8);
+                    drive(11.5);
                 }
             } else {
                 if (thingsOnLeft) {
                     // yellow
-                    drive(13);
+                    drive(12);
                 } else {
                     // blue
-                    drive(12.5);
+                    drive(12.8);
                 }
             }
 
@@ -90,10 +92,10 @@ public class Side extends BaseAction {
             if (roomColor == Color.WHITE) {
                 waterBottleAction.deliverBottle(thingsOnLeft);
             } else {
-                drive(9.5, 60, true);
+                drive(5.5, 60);
                 blockArm.move(BlockArm.NUDGE);
                 setDrivingSpeed(80, 150);
-                drive(6.5);
+                drive(11.5);
                 AdvancedColor c = new AdvancedColor(colorSensorBlocks, new LaundryBlockColorMap());
                 blockArm.move(BlockArm.HIGHEST);
                 laundryAction.enterScan(c);
@@ -108,7 +110,7 @@ public class Side extends BaseAction {
             setDrivingSpeed(100, 200);
             // Collect Ball
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
-            drive(10);
+            drive(9);
             blockArm.move(BlockArm.BASKET);
             // Drop ball off
             if (thingsOnLeft) {
@@ -120,14 +122,12 @@ public class Side extends BaseAction {
             blockArm.move(BlockArm.DROP_BALL);
             blockArm.move(BlockArm.MIDDLE, true);
             //drive back
-            drive(-32);
-            if (thingsOnLeft) {
-                turnLeftWheel(90);
-            } else {
-                turnRightWheel(92);
-            }
-            setDrivingSpeed(100,100);
-            drive(29);
+            drive(-10);
+            setTurningSpeed(100, 150);
+            turn (thingsOnLeft ? -110 : 110);
+            setDrivingSpeed(100, 200);
+            drive(41);
+            turn(thingsOnLeft ? 20 : -18);
         }
     }
 }

@@ -2,9 +2,7 @@ package team.brickfire;
 
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
-import team.brickfire.actions.AdjustArmAction;
 import team.brickfire.actions.Main;
-import team.brickfire.actions.TestingAction;
 import team.brickfire.robot_parts.Robot;
 
 /**
@@ -23,9 +21,7 @@ public final class RunWRO {
         Robot.create(6.24, 8.85);
 
         Sound.beep();
-        //new AdjustArmAction(Button.ENTER).run();
         Button.waitForAnyPress();
-        //new TestingAction().test();
         Main.getInstance().execute();
     }
 }

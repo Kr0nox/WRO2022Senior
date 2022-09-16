@@ -55,7 +55,7 @@ public final class LaundryAction extends BaseAction {
     public void enterScan(AdvancedColor prev) {
         prev.getErrorValues(colorSensorBlocks, colorMap);
         blockScans.add(prev);
-        System.out.println("Laundry block: " + prev.getErrorColor());
+        System.out.println("Laundry block: " + prev.getColor());
     }
 
     /**
@@ -126,11 +126,12 @@ public final class LaundryAction extends BaseAction {
 
 
     public Queue<Color> evaluateLaundryBlocks() {
+        System.out.println("Pre eval: " + blockScans);
         Color[] allColors = new Color[]{Color.YELLOW, Color.RED, Color.BLACK};
         List<Color> foundColors = new ArrayList<>();
 
         for (AdvancedColor color : blockScans) {
-            Color c = color.getErrorColor();
+            Color c = color.getColor();
             if (c != Color.NONE_MATCHING && c != Color.NO_COLOR) {
                 foundColors.add(c);
             }
@@ -144,6 +145,7 @@ public final class LaundryAction extends BaseAction {
         double minError = Double.MAX_VALUE;
         double minErrorIndex = -1;
         for (int i = 0; i < blockScans.size(); i++) {
+            System.out.println("Error: " + blockScans.get(i).error());
             if (blockScans.get(i).error() < minError) {
                 minError = blockScans.get(i).error();
                 minErrorIndex = i;
@@ -152,23 +154,12 @@ public final class LaundryAction extends BaseAction {
 
         for (int i = 0; i < blockScans.size(); i++) {
             if (i != minErrorIndex) {
-                foundColors.add(blockScans.get(i).getErrorColor());
+                foundColors.add(blockScans.get(i).getColor());
             }
         }
 
-        if (validList(foundColors, allColors)) {
-            return new LinkedList<>(foundColors);
-        }
-
-        foundColors = new ArrayList<>();
-
-        for (AdvancedColor c : blockScans) {
-            Color color = c.getErrorColor();
-            if (color != Color.NONE_MATCHING && color != Color.NO_COLOR) {
-                foundColors.add(color);
-            }
-        }
         return new LinkedList<>(foundColors);
+
     }
 
     private boolean validList(List<Color> list, Color[] allColors) {

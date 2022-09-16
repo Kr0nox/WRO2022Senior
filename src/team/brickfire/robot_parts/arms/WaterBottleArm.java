@@ -18,7 +18,7 @@ public class WaterBottleArm extends Arm implements ArmMovementCollection {
     public static final ArmMovement PICKUP = new RotateToArmMovement(-245, 100);
     public static final ArmMovement TABLE = new RotateToArmMovement(-165,10);
     public static final ArmMovement DROP_BLOCK = new RotateToArmMovement(-300,50)
-            .chain(new RotateToArmMovement(-50,100));
+            .chain(new RotateToArmMovement(-20,100));
 
     public static final ArmMovement OVER_TABLE = new RotateToArmMovement(-30, 100);
 

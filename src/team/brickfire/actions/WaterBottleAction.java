@@ -1,5 +1,6 @@
 package team.brickfire.actions;
 
+import lejos.hardware.Sound;
 import lejos.utility.Delay;
 import team.brickfire.data.color.AdvancedColor;
 import team.brickfire.data.color.LaundryBlockColorMap;
@@ -63,9 +64,11 @@ public final class WaterBottleAction extends BaseAction {
         waterBottleArm.move(WaterBottleArm.OVER_TABLE);
         // Leave room
         drive(12);
-        turn(thingsOnLeft ? 91 : -87);
+
+        setTurningSpeed(80, 150);
+        turn(thingsOnLeft ? 90 : -86);
         blockArm.move(BlockArm.MIDDLE, true);
         setDrivingSpeed(100,150);
-        drive(driveDeep ? 24 : 15);
+        drive(driveDeep ? 23.5 : 15);
     }
 }

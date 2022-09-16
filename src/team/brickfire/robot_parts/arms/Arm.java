@@ -32,7 +32,7 @@ public class Arm {
      */
     protected Arm(BaseRegulatedMotor motor, RotateToArmMovement startPosition, double speed, double accelerationFactor) {
         this.motor = motor;
-        this.startPosition = readPosition(startPosition);
+        this.startPosition = startPosition;//readPosition(startPosition);
         SpeedUtility.setMotorSpeed(motor, Math.abs(speed), Math.abs(speed) * accelerationFactor);
         this.accelerationFactor = accelerationFactor;
         this.standardSpeed = speed;

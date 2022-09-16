@@ -50,9 +50,9 @@ public class Main extends BaseAction {
         waterBottleArm.move(WaterBottleArm.OVER_TABLE);
 
         // drive to side
-        turnRightWheel(-63);
+        turnRightWheel(-64);
         setDrivingSpeed(100, 250);
-        drive(87);
+        drive(88);
         turnLeftWheel(-65);
 
 
@@ -65,20 +65,20 @@ public class Main extends BaseAction {
         setDrivingSpeed(100, 250);
         drive(17);
         alignTrigonometry(20);
-        turn(5);
+        turn(6.5);
         setDrivingSpeed(100, 200);
         drive(105);
         alignTrigonometry(20);
         setDrivingSpeed(80, 150);
-        drive(9);
+        drive(10);
         turnLeftWheel(-87);
 
 
         new Side(false).doSide();
 
         // drive to laundry baskets
-        alignTrigonometry(30);
         setDrivingSpeed(100,200);
+        drive(7);
         turn(88,100);
         drive(20);
         alignTrigonometry(20);
@@ -88,9 +88,9 @@ public class Main extends BaseAction {
         drive(27);
         alignTrigonometry(20);
         setDrivingSpeed(50, 120);
-        drive(-2.5);
-        turn(-88,30);
-        drive(-4);
+        drive(-3);
+        turn(-87,30);
+        drive(-4.5);
 
         LaundryAction.getInstance().deliverBlocks();
 
