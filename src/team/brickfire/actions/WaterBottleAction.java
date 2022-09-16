@@ -42,11 +42,11 @@ public final class WaterBottleAction extends BaseAction {
         boolean driveDeep = thingsOnLeft && !bottles[1] || !thingsOnLeft && !bottles[0];
         bottles[thingsOnLeft && bottles[1] || !thingsOnLeft && !bottles[0] ? 1 : 0] = false;
 
-        // Pick up ball
+        // drive into room
         setDrivingSpeed(80, 150);
         drive(5.5);
         blockArm.move(BlockArm.NUDGE);
-        drive(driveDeep ? 16 : 6);
+        drive(driveDeep ? 16 : 8);
         AdvancedColor c = new AdvancedColor(colorSensorBlocks, new LaundryBlockColorMap());
         blockArm.move(BlockArm.HIGHEST, true);
         Delay.msDelay(200);
@@ -62,14 +62,18 @@ public final class WaterBottleAction extends BaseAction {
         blockArm.move(BlockArm.LOWEST, true);
         waterBottleArm.move(WaterBottleArm.TABLE);
         drive(10);
-        waterBottleArm.move(WaterBottleArm.OVER_TABLE);
+        if (bottles[0] || bottles[1]) {
+            waterBottleArm.move(WaterBottleArm.OVER_TABLE);
+        } else {
+            waterBottleArm.move(WaterBottleArm.START, true);
+        }
 
         // Leave room
         drive(12);
         setTurningSpeed(80, 150);
-        turn(thingsOnLeft ? 90 : -86);
+        turn(thingsOnLeft ? 87 : -86);
         blockArm.move(BlockArm.MIDDLE, true);
         setDrivingSpeed(100, 150);
-        drive(driveDeep ? 23.5 : 15);
+        drive(driveDeep ? 23.5 : 17);
     }
 }

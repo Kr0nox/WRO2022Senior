@@ -18,6 +18,10 @@ public class Side extends BaseAction {
     private final WaterBottleAction waterBottleAction;
     private final boolean east;
 
+    private static int greenRooms = 0;
+
+    private static int whiteRooms = 0;
+
     /**
      * <p>Creates a new Side object</p>
      *
@@ -48,6 +52,7 @@ public class Side extends BaseAction {
         private Color roomColor;
         private final boolean thingsOnLeft;
 
+
         /**
          * <p>Creates a new Room object</p>
          * @param thingsOnLeft Side the table is on
@@ -68,7 +73,7 @@ public class Side extends BaseAction {
             if (east) {
                 if (thingsOnLeft) {
                     // green
-                    drive(12.8);
+                    drive(13.5);
                 } else {
                     // red
                     drive(11.5);
@@ -79,11 +84,22 @@ public class Side extends BaseAction {
                     drive(12);
                 } else {
                     // blue
-                    drive(12.8);
+                    drive(12.5);
                 }
             }
 
             this.roomColor = colorSensorBlocks.getColor(new RoomBlockColorMap(), 10);
+            if (whiteRooms >= 2) {
+                roomColor = Color.WHITE;
+            } else if (greenRooms >= 2) {
+                roomColor = Color.GREEN;
+            }
+
+            if(roomColor == Color.WHITE) {
+                whiteRooms++;
+            } else {
+                greenRooms++;
+            }
 
             System.out.println("\n Room color: " + roomColor);
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
@@ -130,8 +146,8 @@ public class Side extends BaseAction {
             setTurningSpeed(100, 150);
             turn(thingsOnLeft ? -110 : 110);
             setDrivingSpeed(100, 200);
-            drive(41);
-            turn(thingsOnLeft ? 20 : -18);
+            drive(42);
+            turn(thingsOnLeft ? 18 : -16);
         }
     }
 }

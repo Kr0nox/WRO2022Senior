@@ -43,7 +43,7 @@ public class Arm {
      */
     public void move(ArmMovement goal, boolean immediateReturn) {
         goal.execute(this, immediateReturn);
-        writePosition();
+       // writePosition();
     }
 
     /**
@@ -52,7 +52,7 @@ public class Arm {
      */
     public void move(ArmMovement goal) {
         goal.execute(this, false);
-        writePosition();
+       // writePosition();
     }
 
     /**

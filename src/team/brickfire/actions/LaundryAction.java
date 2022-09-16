@@ -20,7 +20,7 @@ public final class LaundryAction extends BaseAction {
     private static final double BASKET_DISTANCE = 10.5;
 
     private static LaundryAction instance;
-    private final List<AdvancedColor> blockScans;
+    private List<AdvancedColor> blockScans;
     private final Color[] baskets;
     private final ColorMap colorMap;
 
@@ -141,15 +141,16 @@ public final class LaundryAction extends BaseAction {
         if (validList(foundColors, allColors)) {
             return new LinkedList<>(foundColors);
         }
+        System.out.println("part 2");
 
         // Throw out blocks with the smallest error, till only one block remains
         // The Smallest error ==> Most likely to have seen the floor in both scans
         ArrayList<AdvancedColor> nonErrorColors;
         int blackCount, redCount, yellowCount;
         do {
-            double minError = Double.MAX_VALUE;
-            double minErrorIndex = -1;
-            for (int i = 0; i < blockScans.size(); i++) {
+            double minError = blockScans.get(0).error();
+            double minErrorIndex = 0;
+            for (int i = 1; i < blockScans.size(); i++) {
                 if (blockScans.get(i).error() < minError) {
                     minError = blockScans.get(i).error();
                     minErrorIndex = i;
@@ -174,9 +175,14 @@ public final class LaundryAction extends BaseAction {
                     }
                 }
             }
+            blockScans = new ArrayList<>(nonErrorColors);
+            System.out.println("nonErrorColors: " + nonErrorColors);
+            System.out.println("blocksacna: " + blockScans);
+            System.out.println(blackCount + " " + redCount + " " + yellowCount);
         } while (blackCount > 1 || redCount > 1 || yellowCount > 1);
 
         foundColors = new ArrayList<>();
+        System.out.println("adter loop: " + nonErrorColors);
         for (AdvancedColor nonErrorColor : nonErrorColors) {
             foundColors.add(nonErrorColor.getColor());
         }
@@ -186,7 +192,8 @@ public final class LaundryAction extends BaseAction {
     }
 
     private boolean validList(List<Color> list, Color[] allColors) {
-        if (list.size() <= allColors.length) {
+        System.out.println(list.size() + " " + allColors.length);
+        if (list.size() > allColors.length) {
             return false;
         }
         boolean error = false;
