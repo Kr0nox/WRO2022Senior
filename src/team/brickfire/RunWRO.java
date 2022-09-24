@@ -18,8 +18,8 @@ public final class RunWRO {
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
-        Robot.create(6.24, 8.85);
-
+        Robot r = Robot.create(6.24, 8.85);
+        r.drive(0.01);
         Sound.beep();
         Button.waitForAnyPress();
         Main.getInstance().execute();

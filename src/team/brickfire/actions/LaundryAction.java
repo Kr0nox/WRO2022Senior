@@ -56,7 +56,7 @@ public final class LaundryAction extends BaseAction {
     public void enterScan(AdvancedColor prev) {
         prev.setErrorValues(colorSensorBlocks, colorMap);
         blockScans.add(prev);
-        System.out.println("Laundry block: " + prev.getColor());
+        System.out.println("Laundry block: " + prev.getColor() + " " + prev.error());
     }
 
     /**
@@ -75,6 +75,9 @@ public final class LaundryAction extends BaseAction {
         // Scan baskets
         for (int i = 0; i < baskets.length - 1; i++) {
             baskets[i] = colorSensorBaskets.getColor(colorMap, 10);
+            if (baskets[i] == null) {
+                baskets[i] = Color.BLACK;
+            }
             for (int j = 0; j < allColors.length; j++) {
                 if (baskets[i] == allColors[j]) {
                     allColors[j] = Color.NO_COLOR;
@@ -96,6 +99,7 @@ public final class LaundryAction extends BaseAction {
                 break;
             }
         }
+
         System.out.println("Baskets scanned : " + Arrays.toString(baskets));
 
         // deliver remaining blocks
@@ -127,7 +131,7 @@ public final class LaundryAction extends BaseAction {
 
 
     private Queue<Color> evaluateLaundryBlocks() {
-        System.out.println("\n Pre eval: " + blockScans);
+
         Color[] allColors = new Color[]{Color.YELLOW, Color.RED, Color.BLACK};
         List<Color> foundColors = new ArrayList<>();
 
@@ -141,7 +145,6 @@ public final class LaundryAction extends BaseAction {
         if (validList(foundColors, allColors)) {
             return new LinkedList<>(foundColors);
         }
-        System.out.println("part 2");
 
         // Throw out blocks with the smallest error, till only one block remains
         // The Smallest error ==> Most likely to have seen the floor in both scans
@@ -176,13 +179,9 @@ public final class LaundryAction extends BaseAction {
                 }
             }
             blockScans = new ArrayList<>(nonErrorColors);
-            System.out.println("nonErrorColors: " + nonErrorColors);
-            System.out.println("blocksacna: " + blockScans);
-            System.out.println(blackCount + " " + redCount + " " + yellowCount);
         } while (blackCount > 1 || redCount > 1 || yellowCount > 1);
 
         foundColors = new ArrayList<>();
-        System.out.println("adter loop: " + nonErrorColors);
         for (AdvancedColor nonErrorColor : nonErrorColors) {
             foundColors.add(nonErrorColor.getColor());
         }

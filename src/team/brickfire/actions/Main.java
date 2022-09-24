@@ -1,7 +1,10 @@
 package team.brickfire.actions;
 
+import lejos.utility.Delay;
 import team.brickfire.robot_parts.arms.BlockArm;
 import team.brickfire.robot_parts.arms.WaterBottleArm;
+
+import java.util.concurrent.Delayed;
 
 /**
  * <p>Main Action</p>
@@ -41,31 +44,32 @@ public class Main extends BaseAction {
         setDrivingSpeed(50, 100);
         setTurningSpeed(50, 100);
         drive(-6.5);
-        turn(-42);
+        turn(-41.2);
         drive(-26.5);
         waterBottleArm.move(WaterBottleArm.OVER_TABLE);
 
         // drive to side
-        turnRightWheel(-66.5);
+        turnRightWheel(-65.5);
         setDrivingSpeed(100, 250);
-        drive(87.8);
+        drive(88);
         turnLeftWheel(-65);
+        Delay.msDelay(150);
 
         new Side(true).doSide();
 
         // Switch Sides
         alignTrigonometry(20);
-        turnRightWheel(85);
+        turnRightWheel(84);
         setDrivingSpeed(100, 250);
         drive(17);
         alignTrigonometry(20);
-        turn(5.5);
+        turn(4);
         setDrivingSpeed(100, 200);
         drive(105);
-        turn(-5.5);
+        turn(-3);
         alignTrigonometry(20);
         setDrivingSpeed(80, 150);
-        drive(10);
+        drive(9.5);
         turnLeftWheel(-87);
 
         new Side(false).doSide();
@@ -77,19 +81,19 @@ public class Main extends BaseAction {
         drive(20);
         alignTrigonometry(20);
         setDrivingSpeed(100, 200);
-        drive(33);
+        drive(34);
         turn(90);
         drive(27);
         alignTrigonometry(20);
         setDrivingSpeed(50, 120);
         drive(-3);
         turn(-87, 30);
-        drive(-4.3);
+        drive(-5);
 
         LaundryAction.getInstance().deliverBlocks();
 
         // drive to base
-        turnLeftWheel(122);
+        turnLeftWheel(123);
         waterBottleArm.move(WaterBottleArm.START, true);
         blockArm.move(BlockArm.HIGHEST, true);
         drive(24.5, 100);

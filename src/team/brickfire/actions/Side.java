@@ -73,26 +73,26 @@ public class Side extends BaseAction {
             if (east) {
                 if (thingsOnLeft) {
                     // green
-                    drive(13.5);
+                    drive(13.2);
                 } else {
                     // red
-                    drive(11.5);
+                    drive(12);
                 }
             } else {
                 if (thingsOnLeft) {
                     // yellow
-                    drive(12);
+                    drive(11.8);
                 } else {
                     // blue
-                    drive(12.5);
+                    drive(12.8);
                 }
             }
 
             this.roomColor = colorSensorBlocks.getColor(new RoomBlockColorMap(), 10);
             if (whiteRooms >= 2) {
-                roomColor = Color.WHITE;
-            } else if (greenRooms >= 2) {
                 roomColor = Color.GREEN;
+            } else if (greenRooms >= 2) {
+                roomColor = Color.WHITE;
             }
 
             if(roomColor == Color.WHITE) {
@@ -128,7 +128,7 @@ public class Side extends BaseAction {
             // Collect Ball
             setDrivingSpeed(100, 200);
             blockArm.move(BlockArm.LOWEST.add(BlockArm.OPEN));
-            drive(9);
+            drive(thingsOnLeft ? 9 : 9.8);
             blockArm.move(BlockArm.BASKET);
 
             // Drop ball off
@@ -146,7 +146,7 @@ public class Side extends BaseAction {
             setTurningSpeed(100, 150);
             turn(thingsOnLeft ? -110 : 110);
             setDrivingSpeed(100, 200);
-            drive(42);
+            drive(42.5);
             turn(thingsOnLeft ? 18 : -16);
         }
     }

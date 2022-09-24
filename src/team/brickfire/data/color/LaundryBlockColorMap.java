@@ -16,7 +16,7 @@ public class LaundryBlockColorMap extends ColorMap {
         valueMapping.put(Color.NONE_MATCHING, Color.NONE_MATCHING);
         valueMapping.put(Color.NO_COLOR, Color.NO_COLOR);
         valueMapping.put(Color.BLACK, Color.BLACK);
-        valueMapping.put(Color.WHITE, Color.NONE_MATCHING);
+        valueMapping.put(Color.WHITE, Color.BLACK);
         valueMapping.put(Color.RED, Color.RED);
         valueMapping.put(Color.GREEN, Color.NONE_MATCHING);
         valueMapping.put(Color.BLUE, Color.NONE_MATCHING);
@@ -26,7 +26,7 @@ public class LaundryBlockColorMap extends ColorMap {
         priorities.put(Color.NONE_MATCHING, 3);
         priorities.put(Color.NO_COLOR, 3);
         priorities.put(Color.BLACK, 5);
-        priorities.put(Color.WHITE, 0);
+        priorities.put(Color.WHITE, 5);
         priorities.put(Color.RED, 4);
         priorities.put(Color.GREEN, 0);
         priorities.put(Color.BLUE, 0);

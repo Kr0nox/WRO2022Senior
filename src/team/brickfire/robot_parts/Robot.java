@@ -70,6 +70,9 @@ public class Robot extends DrivingBase implements CompetitionFeatures {
 
         this.colorSensorLeft.getColor();
         this.colorSensorRight.getColor();
+
+        this.motorLeft.stop();
+        this.motorRight.stop();
     }
 
     /**

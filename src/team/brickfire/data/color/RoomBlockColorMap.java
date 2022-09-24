@@ -15,7 +15,7 @@ public class RoomBlockColorMap extends ColorMap {
         super();
         valueMapping.put(Color.NONE_MATCHING, Color.NONE_MATCHING);
         valueMapping.put(Color.NO_COLOR, Color.NO_COLOR);
-        valueMapping.put(Color.BLACK, Color.NONE_MATCHING);
+        valueMapping.put(Color.BLACK, Color.WHITE);
         valueMapping.put(Color.WHITE, Color.WHITE);
         valueMapping.put(Color.RED, Color.NONE_MATCHING);
         valueMapping.put(Color.GREEN, Color.GREEN);

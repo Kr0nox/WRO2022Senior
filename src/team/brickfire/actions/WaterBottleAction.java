@@ -46,7 +46,7 @@ public final class WaterBottleAction extends BaseAction {
         setDrivingSpeed(80, 150);
         drive(5.5);
         blockArm.move(BlockArm.NUDGE);
-        drive(driveDeep ? 16 : 8);
+        drive(driveDeep ? 16 : 7);
         AdvancedColor c = new AdvancedColor(colorSensorBlocks, new LaundryBlockColorMap());
         blockArm.move(BlockArm.HIGHEST, true);
         Delay.msDelay(200);
@@ -56,7 +56,7 @@ public final class WaterBottleAction extends BaseAction {
         turn(thingsOnLeft ? 91 : -90);
         blockArm.move(BlockArm.MIDDLE, true);
         setDrivingSpeed(100, 200);
-        drive(-21);
+        drive(-20);
 
         // Drop off bottle
         blockArm.move(BlockArm.LOWEST, true);
@@ -69,7 +69,7 @@ public final class WaterBottleAction extends BaseAction {
         }
 
         // Leave room
-        drive(12);
+        drive(11.8);
         setTurningSpeed(80, 150);
         turn(thingsOnLeft ? 87 : -86);
         blockArm.move(BlockArm.MIDDLE, true);
